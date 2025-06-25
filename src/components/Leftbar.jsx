@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import '../styles/components/Leftbar.css';
 
 function LeftBar() {
@@ -9,16 +10,16 @@ function LeftBar() {
       </div>
       <div className="leftbar-menu">
         <ul>
-          <li><a href="#dashboard" className="active">Dashboard</a></li>
-          <li><a href="#product-approval">Product Approval</a></li>
-          <li><a href="#product">Product</a></li>
-          <li><a href="#orders-overview">Orders Overview</a></li>
-          <li><a href="#companies">Companies</a></li>
-          <li><a href="#marketers">Marketers</a></li>
-          <li><a href="#admin-analytics">Admin Analytics</a></li>
-          <li><a href="#system-alerts">System Alerts</a></li>
-          <li><a href="#platform-settings">Platform Settings</a></li>
-          <li><a href="#logout">Logout</a></li>
+          <li><Link to="/dashboard" className="active">Dashboard</Link></li>
+          <li><Link to="#product-approval">Product Approval</Link></li>
+          <li><Link to="/product">Product</Link></li>
+          <li><Link to="#orders-overview">Orders Overview</Link></li>
+          <li><Link to="#companies">Companies</Link></li>
+          <li><Link to="#marketers">Marketers</Link></li>
+          <li><Link to="#admin-analytics">Admin Analytics</Link></li>
+          <li><Link to="#system-alerts">System Alerts</Link></li>
+          <li><Link to="#platform-settings">Platform Settings</Link></li>
+          <li><Link to="#logout">Logout</Link></li>
         </ul>
       </div>
     </div>

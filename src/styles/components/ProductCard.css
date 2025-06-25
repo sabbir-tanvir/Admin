@@ -1,0 +1,226 @@
+/* ProductCard Component Styles - Reusable */
+.product-card {
+    border-radius: 10px;
+    padding: 25px;
+    background: var(--bars, #FFF);
+    box-shadow: 4.551px 4.551px 4.551px 0px rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    width: 100%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 300px;
+    cursor: pointer;
+    border: none !important;
+    outline: none !important;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+    border: none !important;
+    outline: none !important;
+}
+
+.product-card:focus {
+    outline: none !important;
+    border: none !important;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+}
+
+.product-card:focus-visible {
+    outline: none !important;
+    border: none !important;
+}
+
+.product-card:active {
+    outline: none !important;
+    border: none !important;
+}
+
+.product-card * {
+    outline: none !important;
+    border: none !important;
+}
+
+.product-card.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.product-card.disabled:hover {
+    transform: none;
+    box-shadow: 2.55px 2.55px 2.55px 0px rgba(0, 0, 0, 0.25);
+}
+
+.product-card-large {
+    height: 350px;
+    justify-content: center;
+    gap: 10px;
+}
+
+.card-circle {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: white;
+    box-shadow: 2.55px 3.55px 4.55px 0px rgba(0, 0.35, 0, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.card-circle.has-background {
+    background: transparent;
+    border: 3px solid white;
+}
+
+.card-circle-large {
+    width: 150px;
+    height: 150px;
+}
+
+.card-number {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #2c3e50;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-number svg {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.red-dot {
+    position: absolute;
+    top: -5px;
+    right: -1px;
+    width: 20px;
+    height: 20px;
+    background: #e74c3c;
+    border-radius: 50%;
+}
+
+.product-card h2 {
+    font-size: 1.2rem;
+    color: #000000;
+    margin: 0;
+    margin-bottom: 15px;
+    font-weight: 500;
+}
+
+.large-text {
+    font-size: 2rem;
+    color: #000000;
+}
+
+.see-more {
+    color: #2c3e50;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: color 0.3s ease;
+    outline: none !important;
+    border: none !important;
+}
+
+.see-more:focus {
+    outline: none !important;
+    border: none !important;
+    color: #3498db;
+}
+
+.see-more:focus-visible {
+    outline: none !important;
+    border: none !important;
+}
+
+.see-more:active {
+    outline: none !important;
+    border: none !important;
+}
+
+.see-more-large {
+    font-size: 20px;
+}
+
+.see-more:hover {
+    color: #3498db;
+    outline: none !important;
+    border: none !important;
+}
+
+/* Container for cards */
+.card-container {
+    display: grid;
+    gap: 40px;
+    width: 100%;
+}
+
+/* 5 cards in a row */
+.card-container-5 {
+    grid-template-columns: repeat(5, 1fr);
+}
+
+/* 2 cards in a row (for large cards) */
+.card-container-2 {
+    grid-template-columns: 3fr 1fr;
+    gap: 70px;
+    height: 300px;
+}
+
+/* Responsive Design */
+@media (max-width: 1400px) {
+    .card-container-5 {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (max-width: 1200px) {
+    .card-container-5 {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 900px) {
+    .card-container-5 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .card-container-2 {
+        grid-template-columns: 1fr;
+        height: auto;
+    }
+}
+
+@media (max-width: 600px) {
+    .card-container-5 {
+        grid-template-columns: 1fr;
+    }
+
+    .product-card {
+        height: 250px;
+        padding: 20px;
+    }
+
+    .card-circle {
+        width: 80px;
+        height: 80px;
+    }
+
+    .card-circle-large {
+        width: 120px;
+        height: 120px;
+    }
+}

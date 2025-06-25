@@ -1,0 +1,66 @@
+/* GridDisplay Component Styles */
+.grid-display {
+  width: 100%;
+  height: auto; /* Allow natural height */
+  padding: 10px;
+  overflow: hidden;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, 140px); /* Fixed height for each row to create squares */
+  gap: 15px;
+  width: 100%;
+  height: auto; /* Remove fixed height */
+  padding: 10px 0;
+}
+
+.grid-item {
+  background: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 140px; /* Fixed square height */
+}
+
+.grid-item:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  border-color: #007bff;
+}
+
+.grid-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.grid-item:hover .grid-image {
+  transform: scale(1.1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .grid-container {
+    gap: 10px;
+    grid-template-rows: repeat(2, 60px); /* Smaller squares on mobile */
+  }
+  
+  .grid-item {
+    border-radius: 6px;
+    height: 60px;
+  }
+  
+  .grid-image {
+    border-radius: 4px;
+  }
+}

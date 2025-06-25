@@ -1,105 +1,177 @@
 import React from 'react';
+import ProductCard from '../Card/ProductCard';
+import { CustomerIcon, CartIcon, CompanyIcon, MarketingIcon } from '../Card/Icons';
+import UserList from '../UserList/UserList';
+import GridDisplay from '../Grid/GridDisplay';
 import '../../styles/components/Dashboard.css';
+import salesImage from '../../assets/img.png';
+import SeeMBtn from '../button/SeemoreBtn';
 
 function Dashboard() {
+    // Example click handlers for demonstration
+    const handleCardClick = (cardName) => {
+        console.log(`${cardName} card clicked!`);
+        // You can add navigation logic here
+    };
+
+    const handleViewAll = (section) => {
+        console.log(`View All clicked for ${section}`);
+        // Add navigation logic for each section
+    };
+
+    // Sample data for Top Customers (exactly 4 people)
+    const topCustomers = [
+        {
+            name: "Jack Jonson",
+            contact: "+880***********74",
+            orders: 60,
+            avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face"
+        },
+        {
+            name: "Jack Jonson",
+            contact: "+880***********74", 
+            orders: 60,
+            avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=face"
+        },
+        {
+            name: "Jack Jonson",
+            contact: "+880***********74",
+            orders: 60,
+            avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
+        },
+        {
+            name: "Jack Jonson", 
+            contact: "+880***********74",
+            orders: 60,
+            avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face"
+        }
+    ];
+
+    // Sample data for Top Marketers (exactly 4 people)
+    const topMarketers = [
+        {
+            name: "Sarah Wilson",
+            contact: "+880***********45",
+            sales: 85,
+            avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b5bc?w=150&h=150&fit=crop&crop=face"
+        },
+        {
+            name: "Mike Chen",
+            contact: "+880***********67", 
+            sales: 72,
+            avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face"
+        },
+        {
+            name: "Emily Davis",
+            contact: "+880***********89",
+            sales: 68,
+            avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop&crop=face"
+        },
+        {
+            name: "Alex Rodriguez",
+            contact: "+880***********12",
+            sales: 55,
+            avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&h=150&fit=crop&crop=face"
+        }
+    ];
+
+    // Sample data for Top Selling Products (8 items for 4x2 grid)
+    const topProducts = [
+        { name: "Smartphone", image: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=150&h=150&fit=crop" },
+        { name: "Laptop", image: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=150&h=150&fit=crop" },
+        { name: "Headphones", image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=150&h=150&fit=crop" },
+        { name: "Watch", image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=150&h=150&fit=crop" },
+        { name: "Camera", image: "https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=150&h=150&fit=crop" },
+        { name: "Tablet", image: "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=150&h=150&fit=crop" },
+        { name: "Speaker", image: "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=150&h=150&fit=crop" },
+        { name: "Gaming Console", image: "https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?w=150&h=150&fit=crop" }
+    ];
+
+    // Sample data for Most Popular Companies (8 items for 4x2 grid)
+    const topCompanies = [
+        { name: "Apple", image: "https://logo.clearbit.com/apple.com" },
+        { name: "Microsoft", image: "https://logo.clearbit.com/microsoft.com" },
+        { name: "Google", image: "https://logo.clearbit.com/google.com" },
+        { name: "Amazon", image: "https://logo.clearbit.com/amazon.com" },
+        { name: "Samsung", image: "https://logo.clearbit.com/samsung.com" },
+        { name: "Sony", image: "https://logo.clearbit.com/sony.com" },
+        { name: "Intel", image: "https://logo.clearbit.com/intel.com" },
+        { name: "NVIDIA", image: "https://logo.clearbit.com/nvidia.com" }
+    ];
+
     return (
         <div className="dashboard">
-
-
             <div className="dashboard-cards">
-                <div className="card-row">
-                    <div className="dashboard-card">
-                        <div className="card-circle">
-                            <span className="card-number">50</span>
-                            <div className="red-dot"></div>
-                        </div>
-                        <h2>Products</h2>
-                        <a href="#" className="see-more">see more →</a>
-                    </div>
-                    <div className="dashboard-card">
-                        <div className="card-circle">
-                            <span className="card-number"><svg xmlns="http://www.w3.org/2000/svg" width="29" height="30" viewBox="0 0 29 30" fill="none">
-                                <path d="M19.2176 15.1481C22.4972 15.1481 25.159 12.4864 25.159 9.20678C25.159 5.92716 22.4972 3.26543 19.2176 3.26543C15.938 3.26543 13.2762 5.92716 13.2762 9.20678C13.2762 12.4864 15.938 15.1481 19.2176 15.1481ZM25.6937 21.8025C25.2303 21.3272 24.648 21.0895 23.9707 21.0895H15.6528L13.1812 20.2221L13.5733 19.1051L15.6528 19.9012H18.9799C19.3958 19.9012 19.7286 19.7349 20.0019 19.4616C20.2752 19.1883 20.4059 18.8556 20.4059 18.4872C20.4059 17.8455 20.0969 17.4059 19.479 17.1563L10.8403 13.9599H8.52315V24.6543L16.8411 27.0309L26.3829 23.466C26.3948 22.8363 26.1571 22.2778 25.6937 21.8025ZM6.14661 13.9599H1.37451V27.0309H6.14661V13.9599Z" fill="#020202" />
-                            </svg></span>
-                            <div className="red-dot"></div>
-                        </div>
-                        <h2>Customer</h2>
-                        <a href="#" className="see-more">see more →</a>
-                    </div>
-                    <div className="dashboard-card">
-                        <div className="card-circle">
-                            <span className="card-number"><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 26 26" fill="none">
-                                <path d="M18.3248 19.1558C17.1752 19.1558 16.2535 20.0775 16.2535 21.2271C16.2535 21.7765 16.4717 22.3033 16.8602 22.6917C17.2486 23.0802 17.7755 23.2984 18.3248 23.2984C18.8742 23.2984 19.401 23.0802 19.7895 22.6917C20.1779 22.3033 20.3961 21.7765 20.3961 21.2271C20.3961 20.6778 20.1779 20.1509 19.7895 19.7625C19.401 19.374 18.8742 19.1558 18.3248 19.1558ZM1.75439 2.58539V4.65669H3.8257L7.55404 12.5173L6.14556 15.0546C5.99021 15.3446 5.897 15.6864 5.897 16.0489C5.897 16.5982 6.11523 17.125 6.50367 17.5135C6.89212 17.9019 7.41896 18.1202 7.9683 18.1202H20.3961V16.0489H8.40328C8.33461 16.0489 8.26875 16.0216 8.2202 15.973C8.17164 15.9245 8.14436 15.8586 8.14436 15.7899C8.14436 15.7382 8.15472 15.6967 8.17543 15.6657L9.10752 13.9776H16.8231C17.5999 13.9776 18.2834 13.5426 18.6355 12.9108L22.3431 6.21017C22.4156 6.04446 22.4674 5.8684 22.4674 5.69234C22.4674 5.41767 22.3583 5.15425 22.1641 4.96003C21.9699 4.7658 21.7064 4.65669 21.4318 4.65669H6.11449L5.14098 2.58539M7.9683 19.1558C6.81873 19.1558 5.897 20.0775 5.897 21.2271C5.897 21.7765 6.11523 22.3033 6.50367 22.6917C6.89212 23.0802 7.41896 23.2984 7.9683 23.2984C8.51765 23.2984 9.04449 23.0802 9.43294 22.6917C9.82138 22.3033 10.0396 21.7765 10.0396 21.2271C10.0396 20.6778 9.82138 20.1509 9.43294 19.7625C9.04449 19.374 8.51765 19.1558 7.9683 19.1558Z" fill="black" />
-                            </svg></span>
-                            <div className="red-dot"></div>
-                        </div>
-                        <h2>Orders Summary</h2>
-                        <a href="#" className="see-more">see more →</a>
-                    </div>
-                    <div className="dashboard-card">
-                        <div className="card-circle">
-                            <span className="card-number"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="29" viewBox="0 0 28 29" fill="none">
-                                <path fill-rule="evenodd" clip-rule="evenodd" d="M19.1162 15.8696C20.6806 16.9315 21.7768 18.3703 21.7768 20.2886V23.7142H25.2024C25.8304 23.7142 26.3443 23.2004 26.3443 22.5723V20.2886C26.3443 17.7993 22.2678 16.3263 19.1162 15.8696Z" fill="black" />
-                                <path d="M10.358 14.5792C12.8806 14.5792 14.9255 12.5343 14.9255 10.0118C14.9255 7.48921 12.8806 5.44427 10.358 5.44427C7.83546 5.44427 5.79053 7.48921 5.79053 10.0118C5.79053 12.5343 7.83546 14.5792 10.358 14.5792Z" fill="black" />
-                                <path fill-rule="evenodd" clip-rule="evenodd" d="M17.2089 14.5792C19.7324 14.5792 21.7764 12.5353 21.7764 10.0118C21.7764 7.48823 19.7324 5.44427 17.2089 5.44427C16.6722 5.44427 16.1698 5.55846 15.6902 5.71832C16.6728 6.93352 17.2088 8.449 17.2088 10.0118C17.2088 11.5745 16.6728 13.09 15.6902 14.3052C16.1698 14.4651 16.6722 14.5792 17.2089 14.5792ZM10.3576 15.7211C7.30883 15.7211 1.22266 17.2512 1.22266 20.2886V22.5723C1.22266 23.2004 1.7365 23.7142 2.36453 23.7142H18.3507C18.9788 23.7142 19.4926 23.2004 19.4926 22.5723V20.2886C19.4926 17.2512 13.4064 15.7211 10.3576 15.7211Z" fill="black" />
-                            </svg></span>
-                            <div className="red-dot"></div>
-                        </div>
-                        <h2>Company</h2>
-                        <a href="#" className="see-more">see more →</a>
-                    </div>
-                    <div className="dashboard-card">
-                        <div className="card-circle">
-                            <span className="card-number"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="29" viewBox="0 0 28 29" fill="none">
-                                <path fill-rule="evenodd" clip-rule="evenodd" d="M19.1162 15.8696C20.6806 16.9315 21.7768 18.3703 21.7768 20.2886V23.7142H25.2024C25.8304 23.7142 26.3443 23.2004 26.3443 22.5723V20.2886C26.3443 17.7993 22.2678 16.3263 19.1162 15.8696Z" fill="black" />
-                                <path d="M10.358 14.5792C12.8806 14.5792 14.9255 12.5343 14.9255 10.0118C14.9255 7.48921 12.8806 5.44427 10.358 5.44427C7.83546 5.44427 5.79053 7.48921 5.79053 10.0118C5.79053 12.5343 7.83546 14.5792 10.358 14.5792Z" fill="black" />
-                                <path fill-rule="evenodd" clip-rule="evenodd" d="M17.2089 14.5792C19.7324 14.5792 21.7764 12.5353 21.7764 10.0118C21.7764 7.48823 19.7324 5.44427 17.2089 5.44427C16.6722 5.44427 16.1698 5.55846 15.6902 5.71832C16.6728 6.93352 17.2088 8.449 17.2088 10.0118C17.2088 11.5745 16.6728 13.09 15.6902 14.3052C16.1698 14.4651 16.6722 14.5792 17.2089 14.5792ZM10.3576 15.7211C7.30883 15.7211 1.22266 17.2512 1.22266 20.2886V22.5723C1.22266 23.2004 1.7365 23.7142 2.36453 23.7142H18.3507C18.9788 23.7142 19.4926 23.2004 19.4926 22.5723V20.2886C19.4926 17.2512 13.4064 15.7211 10.3576 15.7211Z" fill="black" />
-                            </svg></span>
-                            <div className="red-dot"></div>
-                        </div>
-                        <h2>Marketers</h2>
-                        <a href="#" className="see-more">see more →</a>
-                    </div>
+                <div className="card-container card-container-5">
+                    <ProductCard
+                        number="50"
+                        title="Products"
+                        size="normal"
+                        showRedDot={true}
+                        onClick={() => handleCardClick('Products')}
+                    />
+                    <ProductCard
+                        icon={<CustomerIcon />}
+                        title="Customer"
+                        size="normal"
+                        showRedDot={true}
+                        onClick={() => handleCardClick('Customer')}
+                    />
+                    <ProductCard
+                        icon={<CartIcon />}
+                        title="Orders Summary"
+                        size="normal"
+                        showRedDot={true}
+                        onClick={() => handleCardClick('Orders')}
+                    />
+                    <ProductCard
+                        icon={<CompanyIcon />}
+                        title="Company"
+                        size="normal"
+                        showRedDot={true}
+                        onClick={() => handleCardClick('Company')}
+                    />
+                    <ProductCard
+                        icon={<MarketingIcon />}
+                        title="Marketers"
+                        size="normal"
+                        showRedDot={true}
+                        onClick={() => handleCardClick('Marketers')}
+                    />
                 </div>
 
-                <div className="card-row-bottom">
-                    <div className="dashboard-cardl large-card">
-                        <div className="card-circlel">
-
-
-
-                        </div>
-                        <h3 className='large-text'>Sales Overview</h3>
-                        <a href="#" className="see-moree">see more →</a>
-                    </div>
-                    <div className="dashboard-cardr">
-                        <div className="card-circle">
-                            <span className="card-number"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="29" viewBox="0 0 28 29" fill="none">
-                                <path fill-rule="evenodd" clip-rule="evenodd" d="M19.1162 15.8696C20.6806 16.9315 21.7768 18.3703 21.7768 20.2886V23.7142H25.2024C25.8304 23.7142 26.3443 23.2004 26.3443 22.5723V20.2886C26.3443 17.7993 22.2678 16.3263 19.1162 15.8696Z" fill="black" />
-                                <path d="M10.358 14.5792C12.8806 14.5792 14.9255 12.5343 14.9255 10.0118C14.9255 7.48921 12.8806 5.44427 10.358 5.44427C7.83546 5.44427 5.79053 7.48921 5.79053 10.0118C5.79053 12.5343 7.83546 14.5792 10.358 14.5792Z" fill="black" />
-                                <path fill-rule="evenodd" clip-rule="evenodd" d="M17.2089 14.5792C19.7324 14.5792 21.7764 12.5353 21.7764 10.0118C21.7764 7.48823 19.7324 5.44427 17.2089 5.44427C16.6722 5.44427 16.1698 5.55846 15.6902 5.71832C16.6728 6.93352 17.2088 8.449 17.2088 10.0118C17.2088 11.5745 16.6728 13.09 15.6902 14.3052C16.1698 14.4651 16.6722 14.5792 17.2089 14.5792ZM10.3576 15.7211C7.30883 15.7211 1.22266 17.2512 1.22266 20.2886V22.5723C1.22266 23.2004 1.7365 23.7142 2.36453 23.7142H18.3507C18.9788 23.7142 19.4926 23.2004 19.4926 22.5723V20.2886C19.4926 17.2512 13.4064 15.7211 10.3576 15.7211Z" fill="black" />
-                            </svg></span>
-                            <div className="red-dot"></div>
-                        </div>
-                        <h2>Company</h2>
-                        <a href="#" className="see-more">see more →</a>
-                    </div>
+                <div className="card-container card-container-2">
+                    <ProductCard
+                        title="Sales Overview"
+                        size="large"
+                        showRedDot={false}
+                        backgroundImage={salesImage}
+                        linkText="view details →"
+                        onClick={() => handleCardClick('Sales Overview')}
+                    />
+                    <ProductCard
+                        icon={<CompanyIcon />}
+                        title="Analytics"
+                        size="normal"
+                        showRedDot={false}
+                        linkText="view report →"
+                        onClick={() => handleCardClick('Analytics')}
+                    />
                 </div>
             </div>
 
-
             <div className="item-boxs">
-
                 <div className='item-box'>
                     <div className="item-box-header">
                         <h2>Top Selling Product</h2>
                     </div>
                     <div className="item-box-content">
-
+                        <GridDisplay items={topProducts} type="products" />
                     </div>
-                    <button className='submit-button'>
-                        View All
-                    </button>
+                    <SeeMBtn 
+                        text="See More -->"
+                        onClick={() => handleViewAll('Top Selling Product')}
+                    />
                 </div>
 
                 <div className='item-box'>
@@ -107,11 +179,12 @@ function Dashboard() {
                         <h2>Most Popular Company</h2>
                     </div>
                     <div className="item-box-content">
-
+                        <GridDisplay items={topCompanies} type="companies" />
                     </div>
-                    <button className='submit-button'>
-                        View All
-                    </button>
+                    <SeeMBtn 
+                        text="See More -->"
+                        onClick={() => handleViewAll('Most Popular Company')}
+                    />
                 </div>
 
                 <div className='item-box'>
@@ -119,11 +192,18 @@ function Dashboard() {
                         <h2>Top Customers</h2>
                     </div>
                     <div className="item-box-content">
+                        <UserList 
+                            users={topCustomers} 
+                            title="Top Customers"
+                            showContact={true}
+                            showOrders={true}
+                        />
 
                     </div>
-                    <button className='submit-button'>
-                        View All
-                    </button>
+                    <SeeMBtn 
+                        text="See More -->"
+                        onClick={() => handleViewAll('Top Customers')}
+                    />
                 </div>
 
                 <div className='item-box'>
@@ -131,13 +211,19 @@ function Dashboard() {
                         <h2>Top Marketers</h2>
                     </div>
                     <div className="item-box-content">
+                        <UserList 
+                            users={topMarketers} 
+                            title="Top Marketers"
+                            showContact={true}
+                            showOrders={false}
+                        />
 
                     </div>
-                    <button className='submit-button'>
-                        View All
-                    </button>
+                    <SeeMBtn 
+                        text="See More -->"
+                        onClick={() => handleViewAll('Top Marketers')}
+                    />
                 </div>
-
             </div>
         </div>
     );
