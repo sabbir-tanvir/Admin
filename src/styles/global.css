@@ -1,0 +1,45 @@
+/* Global Reset and Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  line-height: 1.6;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .nav-container {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .weather-form {
+    flex-direction: column;
+  }
+  
+  .container {
+    padding: 20px;
+  }
+  
+  h1 {
+    font-size: 2rem !important;
+  }
+  
+  .temp-value {
+    font-size: 3rem !important;
+  }
+  
+  .weather-details {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .weather-item {
+    justify-content: center;
+    text-align: center;
+  }
+}

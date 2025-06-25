@@ -1,0 +1,74 @@
+/* LeftBar Component Styles */
+.leftbar {
+  width: 220px;
+  height: 100vh;
+  background: #2c3e50;
+  position: fixed;
+  left: 0;
+  top: 80px; /* Account for navbar height */
+  overflow-y: auto;
+  box-shadow: 2px 0 4px rgba(0, 0, 0, 0.1);
+}
+
+.leftbar-header {
+  padding: 30px;
+  display: flex;
+  justify-content: left;
+  align-items: left;
+  border-bottom: 1px solid #34495e;
+}
+
+.leftbar-header h2 {
+  color: white;
+  font-size: 1.7rem;
+  font-weight: bold;
+  margin: 0;
+  text-align: left;
+}
+
+.leftbar-menu {
+  padding: 0;
+}
+
+.leftbar-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+
+
+.leftbar-menu a {
+  display: block;
+  padding: 20px 30px;
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.leftbar-menu a:hover {
+  background: #34495e;
+  color: white;
+  padding-left: 25px;
+}
+
+
+
+/* Scrollbar styling */
+.leftbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.leftbar::-webkit-scrollbar-track {
+  background: #2c3e50;
+}
+
+.leftbar::-webkit-scrollbar-thumb {
+  background: #34495e;
+  border-radius: 3px;
+}
+
+.leftbar::-webkit-scrollbar-thumb:hover {
+  background: #4a5f7a;
+}
