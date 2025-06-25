@@ -10,6 +10,7 @@ const Footer = () => {
       <div className="footer-container">
         <div className="footer-content">
           <p>&copy; {currentYear} Weather App.</p>
+          {/* hello */}
 
         </div>
       </div>
