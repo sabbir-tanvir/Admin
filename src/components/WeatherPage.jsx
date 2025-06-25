@@ -26,6 +26,8 @@ const WeatherPage = ({ weatherData, loading, error }) => {
           </div>
           <p className="description">{weatherData.description}</p>
           
+
+          {/* HEllo */}
           <div className="weather-details">
             <div className="weather-item">
               <span className="weather-icon">💧</span>
