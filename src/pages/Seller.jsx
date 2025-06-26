@@ -3,8 +3,9 @@ import Navbar from '../components/Navbar.jsx';
 import LeftBar from '../components/Leftbar.jsx';
 import ProductCard from '../components/Card/ProductCard.jsx';
 import { CustomerIcon, CartIcon, CompanyIcon } from '../components/Card/Icons.jsx';
-import '../styles/pages/ProductPage.css';
+import '../styles/pages/Seller.css';
 import SellerDetails from '../components/sellerDetails/SellerDetails.jsx';
+import TopSeller from '../components/sellerDetails/TopSeller.jsx';
 
 function Product() {
   // Sample data for calculations
@@ -36,7 +37,7 @@ function Product() {
           </div>
 
           <div>
-            <h1>Top Seller</h1>
+            <TopSeller />
             <div>
 
             </div>
