@@ -11,9 +11,10 @@ function LeftBar() {
       <div className="leftbar-menu">
         <ul>
           <li><Link to="/dashboard" className="active">Dashboard</Link></li>
-          <li><Link to="#product-approval">Product Approval</Link></li>
           <li><Link to="/product">Product</Link></li>
-          <li><Link to="#orders-overview">Orders Overview</Link></li>
+          <li><Link to="/seller">Seller</Link></li>
+
+          <li><Link to="/order">Orders Overview</Link></li>
           <li><Link to="#companies">Companies</Link></li>
           <li><Link to="#marketers">Marketers</Link></li>
           <li><Link to="#admin-analytics">Admin Analytics</Link></li>

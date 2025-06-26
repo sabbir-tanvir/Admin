@@ -1,153 +1,111 @@
 import React, { useState } from 'react';
 import Pagination from '../pagination/Pagination';
-import '../../styles/components/ProductDetails.css';
+import '../../styles/components/OrderDetails.css';
 
-function ProductDetails() {
+function OrderDetails() {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState('');
-  const itemsPerPage = 7;
+  const itemsPerPage = 6;
 
-  // Sample product data matching the table structure from the image
-  const [products] = useState([
+  // Sample order data matching the Order Overview structure from the image
+  const [orders] = useState([
     {
       id: 1,
-      productId: "100054",
+      orderId: "100054",
       date: "25 AUG 2025 17:40",
-      productName: "Monstor Tractor",
-      companyName: "Okla",
+      customerName: "Nikola",
+      customerPhone: "+880*********74",
+      marketer: "Okla",
+      itemQuantity: 4,
       price: "$60,000",
-      status: "Approved"
+      paymentStatus: "Paid",
+      orderStatus: "Delivered"
     },
     {
       id: 2,
-      productId: "100054",
+      orderId: "100054",
       date: "25 AUG 2025 17:40",
-      productName: "Lithography Machine",
-      companyName: "Mechtek",
-      price: "$1,000,000",
-      status: "Pending"
+      customerName: "Nikola",
+      customerPhone: "+880*********74",
+      marketer: "Okla",
+      itemQuantity: 4,
+      price: "$60,000",
+      paymentStatus: "Paid",
+      orderStatus: "Delivered"
     },
     {
       id: 3,
-      productId: "100054",
+      orderId: "100054",
       date: "25 AUG 2025 17:40",
-      productName: "Lithography Machine",
-      companyName: "Mechtek",
-      price: "$1,000,000",
-      status: "Pending"
+      customerName: "Nikola",
+      customerPhone: "+880*********74",
+      marketer: "Okla",
+      itemQuantity: 4,
+      price: "$60,000",
+      paymentStatus: "Paid",
+      orderStatus: "Delivered"
     },
     {
       id: 4,
-      productId: "100055",
-      date: "24 AUG 2025 14:20",
-      productName: "Industrial Robot",
-      companyName: "TechCorp",
-      price: "$250,000",
-      status: "Approved"
+      orderId: "100054",
+      date: "25 AUG 2025 17:40",
+      customerName: "Nikola",
+      customerPhone: "+880*********74",
+      marketer: "Okla",
+      itemQuantity: 4,
+      price: "$60,000",
+      paymentStatus: "Paid",
+      orderStatus: "Delivered"
     },
     {
       id: 5,
-      productId: "100056",
-      date: "23 AUG 2025 09:15",
-      productName: "3D Printer Pro",
-      companyName: "MakerSpace",
-      price: "$15,000",
-      status: "Rejected"
+      orderId: "100054",
+      date: "25 AUG 2025 17:40",
+      customerName: "Nikola",
+      customerPhone: "+880*********74",
+      marketer: "Okla",
+      itemQuantity: 4,
+      price: "$60,000",
+      paymentStatus: "Paid",
+      orderStatus: "Delivered"
     },
     {
       id: 6,
-      productId: "100057",
-      date: "22 AUG 2025 16:30",
-      productName: "Smart Warehouse System",
-      companyName: "LogiTech",
-      price: "$500,000",
-      status: "Pending"
+      orderId: "100054",
+      date: "25 AUG 2025 17:40",
+      customerName: "Nikola",
+      customerPhone: "+880*********74",
+      marketer: "Okla",
+      itemQuantity: 4,
+      price: "$60,000",
+      paymentStatus: "Paid",
+      orderStatus: "Delivered"
     },
     {
       id: 7,
-      productId: "100058",
-      date: "21 AUG 2025 11:45",
-      productName: "Automated Assembly Line",
-      companyName: "AutoMation Inc",
-      price: "$2,500,000",
-      status: "Approved"
-    },
-    {
-      id: 8,
-      productId: "100059",
-      date: "20 AUG 2025 13:20",
-      productName: "Quality Control Scanner",
-      companyName: "QualityFirst",
-      price: "$75,000",
-      status: "Pending"
-    },
-    {
-      id: 6,
-      productId: "100057",
-      date: "22 AUG 2025 16:30",
-      productName: "Smart Warehouse System",
-      companyName: "LogiTech",
-      price: "$500,000",
-      status: "Pending"
-    },
-    {
-      id: 7,
-      productId: "100058",
-      date: "21 AUG 2025 11:45",
-      productName: "Automated Assembly Line",
-      companyName: "AutoMation Inc",
-      price: "$2,500,000",
-      status: "Approved"
-    },
-    {
-      id: 8,
-      productId: "100059",
-      date: "20 AUG 2025 13:20",
-      productName: "Quality Control Scanner",
-      companyName: "QualityFirst",
-      price: "$75,000",
-      status: "Pending"
-    },
-    {
-      id: 6,
-      productId: "100057",
-      date: "22 AUG 2025 16:30",
-      productName: "Smart Warehouse System",
-      companyName: "LogiTech",
-      price: "$500,000",
-      status: "Pending"
-    },
-    {
-      id: 7,
-      productId: "100058",
-      date: "21 AUG 2025 11:45",
-      productName: "Automated Assembly Line",
-      companyName: "AutoMation Inc",
-      price: "$2,500,000",
-      status: "Approved"
-    },
-    {
-      id: 8,
-      productId: "100059",
-      date: "20 AUG 2025 13:20",
-      productName: "Quality Control Scanner",
-      companyName: "QualityFirst",
-      price: "$75,000",
-      status: "Pending"
+      orderId: "100054",
+      date: "25 AUG 2025 17:40",
+      customerName: "Nikola",
+      customerPhone: "+880*********74",
+      marketer: "Okla",
+      itemQuantity: 4,
+      price: "$60,000",
+      paymentStatus: "Paid",
+      orderStatus: "Delivered"
     }
   ]);
 
-  // Filter products based on search term
-  const filteredProducts = products.filter(product =>
-    product.productName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    product.companyName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    product.productId.includes(searchTerm)
+  // Filter orders based on search term
+  const filteredOrders = orders.filter(order =>
+    order.customerName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    order.marketer.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    order.orderId.includes(searchTerm)
   );
 
   // Calculate pagination
-  const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
+  const totalPages = Math.ceil(filteredOrders.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
-  const paginatedProducts = filteredProducts.slice(startIndex, startIndex + itemsPerPage);
+  const paginatedOrders = filteredOrders.slice(startIndex, startIndex + itemsPerPage);
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
@@ -155,9 +113,10 @@ function ProductDetails() {
 
   const getStatusClass = (status) => {
     switch (status.toLowerCase()) {
-      case 'approved': return 'status-approved';
+      case 'delivered': return 'status-delivered';
       case 'pending': return 'status-pending';
-      case 'rejected': return 'status-rejected';
+      case 'cancelled': return 'status-cancelled';
+      case 'paid': return 'status-paid';
       default: return '';
     }
   };
@@ -170,18 +129,22 @@ function ProductDetails() {
     console.log('Filter functionality to be implemented');
   };
 
-  const handleView = (productId) => {
-    console.log(`View product ${productId}`);
+  const handleView = (orderId) => {
+    console.log(`View order ${orderId}`);
   };
 
-  const handlePrint = (productId) => {
-    console.log(`Print product ${productId}`);
+  const handlePrint = (orderId) => {
+    console.log(`Print order ${orderId}`);
   };
 
   return (
-    <div className="product-details">
+    
+    <div className="order-details">
+      {/* Title */}
+
+
       {/* Header Controls */}
-      <div className="product-details-header">
+      <div className="order-details-header">
         <div className="search-section">
           <div className="search-input-container">
             <svg className="search-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -215,56 +178,67 @@ function ProductDetails() {
         </div>
       </div>
 
-      {/* Product Table */}
+      {/* Order Table */}
       <div className="table-container">
-        <table className="product-table">
+        <table className="order-table">
           <thead>
             <tr>
               <th>Sl</th>
-              <th>Product Id</th>
+              <th>Order Id</th>
               <th>Date</th>
-              <th>Product Name</th>
-              <th>Company Name</th>
+              <th>Customer</th>
+              <th>Marketer</th>
+              <th>Item Quantity</th>
               <th>Price</th>
+              <th>Order status</th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>
-            {paginatedProducts.map((product, index) => (
-              <tr key={product.id}>
+            {paginatedOrders.map((order, index) => (
+              <tr key={order.id}>
                 <td>{startIndex + index + 1}</td>
-                <td>{product.productId}</td>
-                <td>{product.date}</td>
-                <td>{product.productName}</td>
-                <td>{product.companyName}</td>
+                <td>{order.orderId}</td>
+                <td>{order.date}</td>
+                <td>
+                  <div className="customer-info">
+                    <div className="customer-name">{order.customerName}</div>
+                    <div className="customer-phone">{order.customerPhone}</div>
+                  </div>
+                </td>
+                <td>{order.marketer}</td>
+                <td>{order.itemQuantity}</td>
                 <td>
                   <div className="price-status">
-                    <span className="price">{product.price}</span>
-                    <span className={`status ${getStatusClass(product.status)}`}>
-                      {product.status}
-                    </span>
+                    <span className="price">{order.price}</span>
+                    <span className="payment-status">{order.paymentStatus}</span>
                   </div>
+                </td>
+                <td>
+                  <span className={`status ${getStatusClass(order.orderStatus)}`}>
+                    {order.orderStatus}
+                  </span>
                 </td>
                 <td>
                   <div className="action-icons">
                     <button
                       className="action-btn view-btn"
-                      onClick={() => handleView(product.productId)}
+                      onClick={() => handleView(order.orderId)}
                       title="View"
                     >
-                      <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
-                        <rect x="1" y="0.5" width="23" height="23" rx="4.5" stroke="#FFAF1A" />
-                        <path d="M12.5 9C11.7044 9 10.9413 9.31607 10.3787 9.87868C9.81607 10.4413 9.5 11.2044 9.5 12C9.5 12.7956 9.81607 13.5587 10.3787 14.1213C10.9413 14.6839 11.7044 15 12.5 15C13.2956 15 14.0587 14.6839 14.6213 14.1213C15.1839 13.5587 15.5 12.7956 15.5 12C15.5 11.2044 15.1839 10.4413 14.6213 9.87868C14.0587 9.31607 13.2956 9 12.5 9ZM12.5 17C11.1739 17 9.90215 16.4732 8.96447 15.5355C8.02678 14.5979 7.5 13.3261 7.5 12C7.5 10.6739 8.02678 9.40215 8.96447 8.46447C9.90215 7.52678 11.1739 7 12.5 7C13.8261 7 15.0979 7.52678 16.0355 8.46447C16.9732 9.40215 17.5 10.6739 17.5 12C17.5 13.3261 16.9732 14.5979 16.0355 15.5355C15.0979 16.4732 13.8261 17 12.5 17ZM12.5 4.5C7.5 4.5 3.23 7.61 1.5 12C3.23 16.39 7.5 19.5 12.5 19.5C17.5 19.5 21.77 16.39 23.5 12C21.77 7.61 17.5 4.5 12.5 4.5Z" fill="#FFAF1A" />
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
+                        <rect x="0.5" y="1" width="23" height="23" rx="4.5" stroke="#FFAF1A" />
+                        <path d="M12 9.5C11.2044 9.5 10.4413 9.81607 9.87868 10.3787C9.31607 10.9413 9 11.7044 9 12.5C9 13.2956 9.31607 14.0587 9.87868 14.6213C10.4413 15.1839 11.2044 15.5 12 15.5C12.7956 15.5 13.5587 15.1839 14.1213 14.6213C14.6839 14.0587 15 13.2956 15 12.5C15 11.7044 14.6839 10.9413 14.1213 10.3787C13.5587 9.81607 12.7956 9.5 12 9.5ZM12 17.5C10.6739 17.5 9.40215 16.9732 8.46447 16.0355C7.52678 15.0979 7 13.8261 7 12.5C7 11.1739 7.52678 9.90215 8.46447 8.96447C9.40215 8.02678 10.6739 7.5 12 7.5C13.3261 7.5 14.5979 8.02678 15.5355 8.96447C16.4732 9.90215 17 11.1739 17 12.5C17 13.8261 16.4732 15.0979 15.5355 16.0355C14.5979 16.9732 13.3261 17.5 12 17.5ZM12 5C7 5 2.73 8.11 1 12.5C2.73 16.89 7 20 12 20C17 20 21.27 16.89 23 12.5C21.27 8.11 17 5 12 5Z" fill="#FFAF1A" />
                       </svg>
                     </button>
                     <button
                       className="action-btn print-btn"
-                      onClick={() => handlePrint(product.productId)}
+                      onClick={() => handlePrint(order.orderId)}
                       title="Print"
                     >
-                      <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
-                        <rect x="1" y="0.5" width="23" height="23" rx="4.5" stroke="#31DA3D" />
-                        <path d="M18.5 7H6.5V3H18.5V7ZM18.5 12.5C18.7833 12.5 19.021 12.404 19.213 12.212C19.405 12.02 19.5007 11.7827 19.5 11.5C19.4993 11.2173 19.4033 10.98 19.212 10.788C19.0207 10.596 18.7833 10.5 18.5 10.5C18.2167 10.5 17.9793 10.596 17.788 10.788C17.5967 10.98 17.5007 11.2173 17.5 11.5C17.4993 11.7827 17.5953 12.0203 17.788 12.213C17.9807 12.4057 18.218 12.5013 18.5 12.5ZM16.5 19V15H8.5V19H16.5ZM18.5 21H6.5V17H2.5V11C2.5 10.15 2.79167 9.43767 3.375 8.863C3.95833 8.28833 4.66667 8.00067 5.5 8H19.5C20.35 8 21.0627 8.28767 21.638 8.863C22.2133 9.43833 22.5007 10.1507 22.5 11V17H18.5V21Z" fill="#31DA3D" />
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
+                        <rect x="0.5" y="1" width="23" height="23" rx="4.5" stroke="#319F43" />
+                        <path d="M18 7.5H6V3.5H18V7.5ZM18 13C18.2833 13 18.521 12.904 18.713 12.712C18.905 12.52 19.0007 12.2827 19 12C18.9993 11.7173 18.9033 11.48 18.712 11.288C18.5207 11.096 18.2833 11 18 11C17.7167 11 17.4793 11.096 17.288 11.288C17.0967 11.48 17.0007 11.7173 17 12C16.9993 12.2827 17.0953 12.5203 17.288 12.713C17.4807 12.9057 17.718 13.0013 18 13ZM16 19.5V15.5H8V19.5H16ZM18 21.5H6V17.5H2V11.5C2 10.65 2.29167 9.93767 2.875 9.363C3.45833 8.78833 4.16667 8.50067 5 8.5H19C19.85 8.5 20.5627 8.78767 21.138 9.363C21.7133 9.93833 22.0007 10.6507 22 11.5V17.5H18V21.5Z" fill="#319F43" />
                       </svg>
                     </button>
                   </div>
@@ -285,4 +259,4 @@ function ProductDetails() {
   );
 }
 
-export default ProductDetails;
+export default OrderDetails;

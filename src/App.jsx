@@ -4,6 +4,8 @@ import Home from './pages/Home.jsx';
 import Product from './pages/Product.jsx';
 
 import './styles/global.css';
+import Order from './pages/Order.jsx';
+import Seller from './pages/Seller.jsx';
 
 function App() {
   return (
@@ -12,6 +14,11 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/dashboard" element={<Home />} />
         <Route path="/product" element={<Product />} />
+        <Route path="/order" element={<Order />} />
+        <Route path="/seller" element={<Seller />} />
+
+        {/* Add more routes as needed */}
+        {/* Example: <Route path="/about" element={<About />} /> */}
       </Routes>
     </Router>
   );

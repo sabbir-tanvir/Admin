@@ -1,0 +1,53 @@
+/* Order Page Styles */
+.order-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: #ffffff;
+}
+
+.order-main-content {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.order-content {
+  flex: 1;
+  padding-right:30px;
+  margin: 0;
+
+  background: #ffffff;
+}
+
+.order-page-title {
+  margin: 20px 20px 0 300px; /* Account for sidebar width */
+  font-size: 28px;
+  font-weight: 700;
+  color: #333;
+  padding: 15px 0;
+}
+
+/* Adjust for sidebar */
+@media (min-width: 769px) {
+  .order-content {
+    margin-left: 0; /* Let OrderDetails handle its own margin */
+  }
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .order-main-content {
+    flex-direction: column;
+  }
+  
+  .order-content {
+    margin-left: 0;
+    padding: 10px;
+  }
+  
+  .order-page-title {
+    margin: 10px 20px 0 20px;
+    font-size: 24px;
+  }
+}
