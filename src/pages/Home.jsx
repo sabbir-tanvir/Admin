@@ -4,6 +4,7 @@ import Navbar from '../components/Navbar.jsx';
 import LeftBar from '../components/Leftbar.jsx';
 import Dashboard from '../components/dashbord/Dashbord.jsx';
 import '../styles/pages/Home.css';
+import SeeMore from '../components/Button/SeeMore.jsx';
 
 const Home = () => {
   return (
@@ -12,6 +13,9 @@ const Home = () => {
       <div className="main-layout">
         <LeftBar />
         <Dashboard />
+
+        {/* See more Button */}
+        <SeeMore />
       </div>
     </div>
   );
