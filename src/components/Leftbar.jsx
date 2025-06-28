@@ -15,7 +15,6 @@ function LeftBar() {
           <li><Link to="/seller">Seller</Link></li>
 
           <li><Link to="/order">Orders Overview</Link></li>
-          <li><Link to="#companies">Companies</Link></li>
           <li><Link to="/marketor">Marketers</Link></li>
           <li><Link to="#admin-analytics">Admin Analytics</Link></li>
           <li><Link to="#system-alerts">System Alerts</Link></li>

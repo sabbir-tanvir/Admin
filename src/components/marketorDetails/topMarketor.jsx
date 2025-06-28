@@ -78,7 +78,7 @@ function Topmarketor() {
 
   // Function to get only top 7 sellers
   const getTopSellers = () => {
-    return topSellers.slice(0, 7);
+    return topSellers.slice(0, 6);
   };
 
   return (

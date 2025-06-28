@@ -1,0 +1,151 @@
+/* PaymentCard Component Styles */
+.payment-card {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 4.551px 4.551px 4.551px 0px rgba(0, 0, 0, 0.25);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  min-height: 250px;
+  min-width: 280px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+  margin: 10px;
+}
+
+.payment-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.15);
+  border-color: #e0e0e0;
+}
+
+/* Header Styles */
+.payment-card-header {
+  margin-bottom: 20px;
+}
+
+.payment-card-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin: 0;
+  line-height: 1.3;
+}
+
+/* Content Styles */
+.payment-card-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 16px;
+}
+
+/* Payment Details (for payment status type) */
+.payment-details {
+  display: flex;
+  flex-direction: column;
+    align-items: center;
+  gap: 12px;
+}
+
+.payment-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: center;
+  padding: 8px 0;
+}
+
+.payment-label {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.payment-value {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #2c3e50;
+}
+
+/* Commission Amount (for commission type) */
+.payment-amount-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+}
+
+.payment-amount {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #2c3e50;
+  text-align: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .payment-card {
+    min-width: 240px;
+    min-height: 180px;
+    padding: 20px;
+  }
+  
+  .payment-card-title {
+    font-size: 1.2rem;
+  }
+  
+  .payment-label {
+    font-size: 1rem;
+  }
+  
+  .payment-value {
+    font-size: 1.1rem;
+  }
+  
+  .payment-amount {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .payment-card {
+    min-width: 200px;
+    min-height: 160px;
+    padding: 16px;
+  }
+  
+  .payment-card-title {
+    font-size: 1.1rem;
+  }
+  
+  .payment-label {
+    font-size: 0.9rem;
+  }
+  
+  .payment-value {
+    font-size: 1rem;
+  }
+  
+  .payment-amount {
+    font-size: 1.6rem;
+  }
+}
+
+/* Container for payment cards */
+.payment-cards-container {
+  display: grid;
+  gap: 20px;
+  width: 100%;
+}
+
+.payment-cards-row {
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.payment-cards-column {
+  grid-template-columns: 1fr;
+}

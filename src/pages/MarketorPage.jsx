@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import LeftBar from '../components/Leftbar';
 import '../styles/pages/Marketor.css';
@@ -7,11 +8,13 @@ import Topmarketor from '../components/marketorDetails/topMarketor';
 import MarketorDetails from '../components/marketorDetails/MarketorDetails';
 
 function Marketor() {
-    const totalProducts = 156;
-
+    const navigate = useNavigate();
+    const totalMarketors = 156;
 
     const handleCardClick = (action) => {
         console.log(`${action} clicked!`);
+        // Navigate to all marketors page
+        navigate('/marketor/all');
     };
 
     return (
@@ -24,18 +27,17 @@ function Marketor() {
                     <div className="product-cards-section">
                         <div className="card-container-3">
                             <ProductCard
-                                number={totalProducts}
-                                title="Total seller"
+                                number={totalMarketors}
+                                title="Total Marketors"
                                 size="normal"
                                 showRedDot={false}
-                                onClick={() => handleCardClick('Total Product')}
+                                onClick={() => handleCardClick('Total Marketors')}
                             />
 
                         </div>
                     </div>
 
                     <div>
-                        <top />
                         <div>
                             <Topmarketor />
                         </div>

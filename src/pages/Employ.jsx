@@ -1,11 +1,15 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import LeftBar from '../components/Leftbar';
 import UserCard from '../components/Card/UserCard';
 import '../styles/pages/Employ.css';
 import Pagination from '../components/pagination/Pagination';
+import BluePagination from '../components/pagination/BluePagination';
 
 function Employ() {
+    const navigate = useNavigate();
+    
     // Sample employee data
     const employees = [
         {
@@ -60,17 +64,24 @@ function Employ() {
 
     const handleEmployeeClick = (employee) => {
         console.log('Employee clicked:', employee);
+        // Navigate to seller details page with employee data
+        navigate(`/seller/user/${employee.id}`, { 
+            state: { 
+                employeeData: employee 
+            } 
+        });
     };
 
     return (
         <div className="app">
             <Navbar />
+              <LeftBar />
             <div className="main-layout">
-                <LeftBar />
+              
                 <div className="employ-page">
                     <div className="employ-header">
                         <h1 className="employ-page-title">All Employees</h1>
-                        <Pagination />
+                        <BluePagination />
                     </div>
                     
                     <div className="employees-grid">

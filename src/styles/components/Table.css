@@ -1,0 +1,280 @@
+/* Reusable Table Component Styles */
+.reusable-table {
+  background: white;
+  border-radius: 10px;
+  padding: 0;
+  margin: 20px;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+}
+
+.table-header-controls {
+  background: #ffffff;
+  padding: 15px 20px;
+  border-bottom: 1px solid #dee2e6;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.table-search-section {
+  min-width: 200px;
+}
+
+.table-search-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.table-search-icon {
+  position: absolute;
+  left: 16px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.table-search-input {
+  width: 100%;
+  max-width: 300px;
+  padding: 12px 16px 12px 45px;
+  border: none;
+  border-radius: 20px;
+  font-size: 14px;
+  background: #F5F5F5;
+  color: #333;
+  outline: none;
+  transition: all 0.3s ease;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.table-search-input::placeholder {
+  color: #999;
+  font-weight: 400;
+}
+
+.table-search-input:focus {
+  background: #EEEEEE;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.table-action-buttons {
+  display: flex;
+  gap: 10px;
+  color: black;
+}
+
+.table-export-btn {
+  padding: 10px 16px;
+  border: 1px solid #E0E0E0;
+  border-radius: 20px;
+  background: white;
+  color: #000000;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  min-width: 120px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.table-export-btn:hover {
+  background: #F8F8F8;
+  border-color: #CCCCCC;
+  transform: translateY(-1px);
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.table-filter-btn {
+  padding: 10px 16px;
+  border: 1px solid #E0E0E0;
+  border-radius: 20px;
+  background: white;
+  color: #000000;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  min-width: 90px;
+  height: 40px;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.table-filter-btn:hover {
+  background: #F8F8F8;
+  border-color: #CCCCCC;
+  transform: translateY(-1px);
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Table Styles */
+.reusable-table-container {
+  overflow-x: auto;
+  margin: 0;
+}
+
+.reusable-data-table {
+  width: 100%;
+  padding-left: 10px;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.reusable-data-table th {
+  background: #CFF9FF;
+  padding: 12px 8px;
+  text-align: center;
+  font-weight: 600;
+  color: #495057;
+  border-left: 1px solid #dee2e6;
+  border-right: 1px solid #dee2e6;
+  border-bottom: 2px solid #dee2e6;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.reusable-data-table td {
+  padding: 12px 8px;
+  border-left: 1px solid #dee2e6;
+  border-right: 1px solid #dee2e6;
+  vertical-align: center;
+  text-align: center;
+}
+
+/* Apply left-side shadow */
+.reusable-data-table tbody tr td {
+  box-shadow: -2px 0px 4px 0px rgba(0, 0, 0, 0.15);
+}
+
+.reusable-data-table tbody tr:hover {
+  background: #f8f9fa;
+}
+
+/* Common Table Cell Content Styles */
+.table-price-status {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.table-price {
+  font-weight: 600;
+  color: #000;
+  font-size: 14px;
+}
+
+.table-status {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  text-align: center;
+  min-width: 70px;
+}
+
+.table-status-approved {
+  background: #d4edda;
+  color: #155724;
+}
+
+.table-status-pending {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.table-status-rejected {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+/* Action Icons */
+.table-action-icons {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+
+.table-action-btn {
+  background: #f8f9fa;
+  border: none;
+  min-width: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 14px;
+}
+
+.table-action-btn:hover {
+  background: #e9ecef;
+  transform: translateY(-1px);
+}
+
+.table-view-btn:hover {
+  background: #cce5ff;
+  border-color: #007bff;
+}
+
+.table-print-btn:hover {
+  background: #d4edda;
+  border-color: #28a745;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .reusable-table {
+    margin: 10px;
+  }
+  
+  .table-header-controls {
+    flex-direction: column;
+    align-items: flex-end;
+  }
+  
+  .table-search-input {
+    max-width: 100%;
+  }
+  
+  .table-action-buttons {
+    justify-content: center;
+  }
+  
+  .reusable-data-table {
+    font-size: 12px;
+  }
+  
+  .reusable-data-table th,
+  .reusable-data-table td {
+    padding: 8px 4px;
+  }
+  
+  .table-price-status {
+    gap: 3px;
+  }
+  
+  .table-action-icons {
+    gap: 4px;
+  }
+  
+  .table-action-btn {
+    padding: 4px 6px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .reusable-data-table th:nth-child(3),
+  .reusable-data-table td:nth-child(3) {
+    display: none; /* Hide third column on very small screens */
+  }
+}

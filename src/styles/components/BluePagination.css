@@ -1,0 +1,133 @@
+/* Blue Circular Pagination Component Styles */
+.blue-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin: 20px 0;
+  padding: 20px;
+}
+
+.blue-pagination-btn {
+  border: none;
+  background: #B8E6FF;
+  color: #333;
+  padding: 0;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 18px;
+  font-weight: 600;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  outline: none;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.blue-pagination-btn:hover:not(:disabled):not(.blue-active) {
+  background: #A0D8F0;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.blue-pagination-btn:disabled {
+  background: #2C7A8C;
+  color: #fff;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+
+
+.blue-pagination-btn.blue-active {
+  background: #2C7A8C;
+  color: #fff;
+  font-weight: 700;
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(44, 122, 140, 0.3);
+}
+
+.blue-pagination-btn.blue-active:hover {
+  transform: scale(1.05);
+}
+
+.blue-pagination-arrow {
+  font-weight: 600;
+}
+
+.blue-pagination-arrow:hover:not(:disabled) {
+  background: #1F5A6B;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(44, 122, 140, 0.3);
+}
+
+.blue-pagination-arrow:disabled {
+  background: #B8E6FF;
+  color: #7A7A7A;
+  opacity: 0.5;
+}
+
+.blue-pagination-arrow:disabled svg {
+  color: #7A7A7A;
+}
+
+.blue-pagination-number {
+  position: relative;
+}
+
+.blue-pagination-number:active {
+  transform: scale(0.95);
+}
+
+.blue-pagination-arrow:active:not(:disabled) {
+  transform: scale(0.95);
+}
+
+/* Add ripple effect */
+.blue-pagination-btn::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.3s, height 0.3s;
+}
+
+.blue-pagination-btn:active::before {
+  width: 100%;
+  height: 100%;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .blue-pagination {
+    gap: 6px;
+    padding: 15px;
+  }
+  
+  .blue-pagination-btn {
+    width: 45px;
+    height: 45px;
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .blue-pagination {
+    gap: 4px;
+    padding: 10px;
+  }
+  
+  .blue-pagination-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 14px;
+  }
+}
