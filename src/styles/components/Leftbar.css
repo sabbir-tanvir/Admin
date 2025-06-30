@@ -2,7 +2,7 @@
 .leftbar {
   width: 220px;
   min-height: 100vh;
-  background: #2c3e50;
+  background: #FFF;
   position: fixed;
   left: 0;
   top: 80px; /* Account for navbar height */
@@ -15,11 +15,10 @@
   display: flex;
   justify-content: left;
   align-items: left;
-  border-bottom: 1px solid #34495e;
 }
 
 .leftbar-header h2 {
-  color: white;
+  color: black;
   font-size: 1.7rem;
   font-weight: bold;
   margin: 0;
@@ -39,18 +38,35 @@
 
 
 .leftbar-menu a {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
   padding: 12px 30px;
-  color: white;
+  color: black;
   text-decoration: none;
   font-size: 16px;
+  font-weight: 500;
   transition: all 0.3s ease;
+  border-radius: 12px;
+  margin: 4px 16px;
+}
+
+.leftbar-menu a svg {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
 }
 
 .leftbar-menu a:hover {
-  background: #34495e;
-  color: white;
-  padding-left: 25px;
+  background: rgba(169, 204, 255, 0.30);
+  transform: translateX(4px);
+}
+
+.leftbar-menu a.active {
+  background: rgba(169, 204, 255, 0.50);
+  border-radius: 12px;
+  font-weight: 600;
 }
 
 
