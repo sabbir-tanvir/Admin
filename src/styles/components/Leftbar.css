@@ -13,8 +13,8 @@
 .leftbar-header {
   padding: 12px 30px;
   display: flex;
-  justify-content: left;
-  align-items: left;
+  justify-content: center;
+  align-items: center;
 }
 
 .leftbar-header h2 {

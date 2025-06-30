@@ -11,6 +11,7 @@ import Employ from './pages/Employ.jsx';
 import SellerID from './components/sellerDetails/SellerId.jsx';
 import AllMarketors from './pages/AllMarketor.jsx';
 import MarketorProfile from './pages/MarketorProfile.jsx';
+import Customer from './pages/Customer.jsx';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         <Route path="/seller/user" element={<Employ />} />
         <Route path="/seller/user/:id" element={<SellerID />} />
         <Route path="/marketor/user/:id" element={<MarketorProfile />} />
+        <Route path="/customer" element={<Customer />} />
 
 
         {/* Add more routes as needed */}

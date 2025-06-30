@@ -6,6 +6,8 @@ import GridDisplay from '../Grid/GridDisplay';
 import '../../styles/components/Dashboard.css';
 import salesImage from '../../assets/img.png';
 import SeeMBtn from '../button/SeemoreBtn';
+import OrderStatCard from '../Card/OrderStatCard';
+import TotalOrderCard from '../Card/TotalOrderCard';
 
 function Dashboard() {
     // Example click handlers for demonstration
@@ -29,7 +31,7 @@ function Dashboard() {
         },
         {
             name: "Jack Jonson",
-            contact: "+880***********74", 
+            contact: "+880***********74",
             orders: 60,
             avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=face"
         },
@@ -40,7 +42,7 @@ function Dashboard() {
             avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
         },
         {
-            name: "Jack Jonson", 
+            name: "Jack Jonson",
             contact: "+880***********74",
             orders: 60,
             avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face"
@@ -57,7 +59,7 @@ function Dashboard() {
         },
         {
             name: "Mike Chen",
-            contact: "+880***********67", 
+            contact: "+880***********67",
             sales: 72,
             avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face"
         },
@@ -98,65 +100,42 @@ function Dashboard() {
         { name: "Intel", image: "https://logo.clearbit.com/intel.com" },
         { name: "NVIDIA", image: "https://logo.clearbit.com/nvidia.com" }
     ];
+    const orderData = {
+        total: 60,
+        newToday: 10
+    };
+
 
     return (
         <div className="dashboard">
             <div className="dashboard-cards">
-                <div className="card-container card-container-5">
-                    <ProductCard
-                        number="50"
-                        title="Products"
-                        size="normal"
-                        showRedDot={true}
-                        onClick={() => handleCardClick('Products')}
-                    />
-                    <ProductCard
-                        icon={<CustomerIcon />}
-                        title="Customer"
-                        size="normal"
-                        showRedDot={true}
-                        onClick={() => handleCardClick('Customer')}
-                    />
-                    <ProductCard
-                        icon={<CartIcon />}
-                        title="Orders Summary"
-                        size="normal"
-                        showRedDot={true}
-                        onClick={() => handleCardClick('Orders')}
-                    />
-                    <ProductCard
-                        icon={<CompanyIcon />}
-                        title="Company"
-                        size="normal"
-                        showRedDot={true}
-                        onClick={() => handleCardClick('Company')}
-                    />
-                    <ProductCard
-                        icon={<MarketingIcon />}
-                        title="Marketers"
-                        size="normal"
-                        showRedDot={true}
-                        onClick={() => handleCardClick('Marketers')}
-                    />
+                            <h2 className="dashboard-title">Dashboard</h2>
+
+                <div className="card-container-5">
+                    <TotalOrderCard orderData={orderData} />
+                    <TotalOrderCard orderData={orderData} />
+                    <TotalOrderCard orderData={orderData} />
                 </div>
 
-                <div className="card-container card-container-2">
-                    <ProductCard
+                <div className="card-container-2">
+                    <OrderStatCard
                         title="Sales Overview"
-                        size="large"
-                        showRedDot={false}
-                        backgroundImage={salesImage}
-                        linkText="view details →"
-                        onClick={() => handleCardClick('Sales Overview')}
+                        icon={
+                            <svg xmlns="http://www.w3.org/2000/svg" width="43" height="45" viewBox="0 0 43 45" fill="none">
+                                <path d="M6.6665 0.52002C5.0089 0.52002 3.41919 1.20905 2.24709 2.43554C1.07498 3.66203 0.416504 5.3255 0.416504 7.06002V44.12H35.8332C37.4908 44.12 39.0805 43.431 40.2526 42.2045C41.4247 40.978 42.0832 39.3145 42.0832 37.58V15.78C42.0832 14.0455 41.4247 12.382 40.2526 11.1555C39.0805 9.92905 37.4908 9.24002 35.8332 9.24002H6.6665C6.11397 9.24002 5.58407 9.01034 5.19337 8.60151C4.80266 8.19268 4.58317 7.63819 4.58317 7.06002C4.58317 6.48185 4.80266 5.92736 5.19337 5.51853C5.58407 5.1097 6.11397 4.88002 6.6665 4.88002H37.9165V0.52002H6.6665ZM33.7498 28.86H27.4998V24.5H33.7498V28.86Z" fill="#02A71A" />
+                            </svg>
+                        }
+                        number="$84,500"
+                        trendText="$10,500 since last Week"
+                        trendType="positive"
+                        chartData={[70000, 72000, 75000, 73000, 78000, 76000, 79000, 82000, 80000, 81000, 83000, 84500]}
+                        chartLineColor="#02A71A"
+                        chartFillColor="rgba(2, 167, 26, 0.1)"
                     />
-                    <ProductCard
-                        icon={<CompanyIcon />}
-                        title="Analytics"
-                        size="normal"
-                        showRedDot={false}
-                        linkText="view report →"
-                        onClick={() => handleCardClick('Analytics')}
-                    />
+                    <div>
+                        <TotalOrderCard orderData={orderData} />
+                        <TotalOrderCard orderData={orderData} />
+                    </div>
                 </div>
             </div>
 
@@ -168,7 +147,7 @@ function Dashboard() {
                     <div className="item-box-content">
                         <GridDisplay items={topProducts} type="products" />
                     </div>
-                    <SeeMBtn 
+                    <SeeMBtn
                         text="See More -->"
                         onClick={() => handleViewAll('Top Selling Product')}
                     />
@@ -181,7 +160,7 @@ function Dashboard() {
                     <div className="item-box-content">
                         <GridDisplay items={topCompanies} type="companies" />
                     </div>
-                    <SeeMBtn 
+                    <SeeMBtn
                         text="See More -->"
                         onClick={() => handleViewAll('Most Popular Company')}
                     />
@@ -192,15 +171,15 @@ function Dashboard() {
                         <h2>Top Customers</h2>
                     </div>
                     <div className="item-box-content">
-                        <UserList 
-                            users={topCustomers} 
+                        <UserList
+                            users={topCustomers}
                             title="Top Customers"
                             showContact={true}
                             showOrders={true}
                         />
 
                     </div>
-                    <SeeMBtn 
+                    <SeeMBtn
                         text="See More -->"
                         onClick={() => handleViewAll('Top Customers')}
                     />
@@ -211,15 +190,15 @@ function Dashboard() {
                         <h2>Top Marketers</h2>
                     </div>
                     <div className="item-box-content">
-                        <UserList 
-                            users={topMarketers} 
+                        <UserList
+                            users={topMarketers}
                             title="Top Marketers"
                             showContact={true}
                             showOrders={false}
                         />
 
                     </div>
-                    <SeeMBtn 
+                    <SeeMBtn
                         text="See More -->"
                         onClick={() => handleViewAll('Top Marketers')}
                     />

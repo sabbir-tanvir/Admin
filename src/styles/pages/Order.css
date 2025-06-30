@@ -3,51 +3,96 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background: #ffffff;
+  background-color: white;
 }
 
 .order-main-content {
   display: flex;
   flex: 1;
-  overflow: hidden;
 }
 
-.order-content {
+.order-dashboard {
   flex: 1;
-  padding-right:30px;
-  margin: 0;
-
-  background: #ffffff;
+  padding: 20px;
+  margin-left: 250px;
+  /* Adjust based on your sidebar width */
 }
 
 .order-page-title {
-  margin: 20px 20px 0 300px; /* Account for sidebar width */
-  font-size: 28px;
-  font-weight: 700;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  font-size: 24px;
+  font-weight: 600;
   color: #333;
-  padding: 15px 0;
 }
 
-/* Adjust for sidebar */
-@media (min-width: 769px) {
-  .order-content {
-    margin-left: 0; /* Let OrderDetails handle its own margin */
+/* New container for individual cards */
+.individual-cards-container {
+  display: grid;
+  grid-template-columns: 2fr 4fr;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.card-wrappers {
+  gap: 20px;
+
+}
+
+.card-wrapper {
+  display: flex;
+  padding: 10px;
+
+  min-width: 0;
+  /* Prevents flex children from expanding beyond their container */
+}
+
+/* Remove margins from the direct children of card-wrapper */
+.card-wrapper>div {
+  margin: 0 !important;
+}
+
+.order-details-container {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+  margin-bottom: 20px;
+  overflow: hidden;
+  /* Ensures border-radius applies to all children */
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .individual-cards-container {
+    flex-wrap: wrap;
+  }
+
+  .card-wrapper {
+    flex-basis: calc(50% - 10px);
   }
 }
 
-/* Mobile adjustments */
+@media (max-width: 1024px) {
+  .order-dashboard {
+    margin-left: 200px;
+  }
+}
+
 @media (max-width: 768px) {
-  .order-main-content {
+  .individual-cards-container {
     flex-direction: column;
   }
-  
-  .order-content {
-    margin-left: 0;
-    padding: 10px;
+
+  .card-wrapper {
+    flex-basis: 100%;
   }
-  
+
+  .order-dashboard {
+    margin-left: 0;
+    padding: 15px;
+  }
+
   .order-page-title {
-    margin: 10px 20px 0 20px;
-    font-size: 24px;
+    font-size: 20px;
   }
 }
