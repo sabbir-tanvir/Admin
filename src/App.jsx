@@ -12,6 +12,7 @@ import SellerID from './components/sellerDetails/SellerId.jsx';
 import AllMarketors from './pages/AllMarketor.jsx';
 import MarketorProfile from './pages/MarketorProfile.jsx';
 import Customer from './pages/Customer.jsx';
+import Profile from './pages/Profile.jsx';
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
         <Route path="/seller/user/:id" element={<SellerID />} />
         <Route path="/marketor/user/:id" element={<MarketorProfile />} />
         <Route path="/customer" element={<Customer />} />
+        <Route path="/profile" element={<Profile />} />
 
 
         {/* Add more routes as needed */}
