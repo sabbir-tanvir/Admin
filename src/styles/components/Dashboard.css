@@ -1,72 +1,78 @@
 /* Dashboard Component Styles */
 .dashboard {
-    margin-left: 250px; /* Fixed sidebar width */
+    margin-left: 250px;
     padding: 20px;
     background: #FFF;
-
     min-height: 100vh;
     width: calc(100vw - 250px);
-    /* Full width minus sidebar */
     overflow-x: auto;
-    /* Allow horizontal scroll if needed */
     overflow-y: auto;
-    /* Allow vertical scroll */
-    padding-top: 30px; /* Account for navbar height */
+    padding-top: 30px;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    gap: 60px; /* Space between main sections */
- /* Space between main sections */
-}
-
-.dashboard-header {
-    display: flex;
-    justify-content: flex-end;
-    margin-bottom: 5px;
-}
-
-.breadcrumb {
-    display: flex;
-    gap: 5px;
-    align-items: center;
-    background: #3498db;
-    padding: 8px 15px;
-    border-radius: 20px;
-    color: white;
-    font-size: 14px;
+    gap: 40px; /* This replaces individual margin-bottom */
 }
 
 .dashboard-cards {
     display: flex;
     flex-direction: column;
-    gap: 20px; /* Space between card rows */
-    padding: 10px;
+    gap: 20px; /* Auto-spacing between card rows */
     width: 100%;
+    margin-bottom: 100px; /* Margin for bottom spacing */
     background: var(--bars, #FFF);
+    /* Remove margin-bottom - gap handles spacing */
 }
 
-/* Container for the top 3 cards */
-.card-container-5 {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    width: 100%;
+.dashboard-title {
+    font-size: 28px;
+    font-weight: 600;
+    color: #333;
+    margin: 0 0 20px 0;
+    text-align: left;
 }
 
-/* Container for the bottom 2 cards with different heights */
-.card-container-2 {
+/* Main dashboard layout: left and right sections */
+.dashboard-main-layout {
     display: grid;
     grid-template-columns: 2fr 1fr;
-    gap: 25px;
+    gap: 20px; /* Grid gap handles spacing */
     width: 100%;
-    min-height: 300px; /* Minimum height instead of fixed */
+    height: 320px;
+    /* Remove margin-bottom */
 }
 
-/* Right column with stacked cards */
-.card-container-2 > div:last-child {
+.dashboard-left {
     display: flex;
     flex-direction: column;
+    gap: 20px; /* Flex gap for vertical spacing */
+    height: 100%;
+}
+
+/* Upper row in left section: 2 cards side by side */
+.dashboard-left-upper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: 20px;
+    height: 140px; /* Height for top cards */
+}
+
+/* Lower row in left section: OrderStatCard */
+.dashboard-left-lower {
+    height: 160px; /* Height for OrderStatCard */
+}
+
+/* Right Section: 3 cards stacked */
+.dashboard-right {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Auto-spacing between cards */
+    height: 100%;
+}
+
+.dashboard-right .total-card {
+    flex: 1; /* Each card takes equal height */
+    min-height: 0; /* Allow flex to control height */
 }
 
 /* Clean Item Box Layout */
@@ -77,7 +83,7 @@
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(2, 1fr);
     gap: 30px;
-    margin-top: 20px; /* Space from cards above */
+    margin-top: 20px;
 }
 
 .item-box {
@@ -88,7 +94,6 @@
     display: flex;
     flex-direction: column;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-
 }
 
 .item-box-header {
@@ -114,40 +119,24 @@
     overflow: hidden;
 }
 
-/* Remove unnecessary old styles */
-.dashboard-header,
-.breadcrumb,
-.card-row,
-.card-row-bottom,
-.dashboard-card,
-.dashboard-cardl,
-.dashboard-cardr,
-.card-circle,
-.card-circlel,
-.card-number,
-.red-dot,
-.large-text,
-.see-more,
-.see-moree,
-.large-card,
-.chart-container,
-.chart-placeholder {
-    /* Remove these unused styles */
-}
-
 /* Responsive Design */
 @media (max-width: 1200px) {
-    .card-container-5 {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    
-    .card-container-2 {
+    .dashboard-main-layout {
         grid-template-columns: 1fr;
-        min-height: auto;
+        height: auto;
     }
     
-    .card-container-2 > div:last-child {
+    .dashboard-left-upper {
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    .dashboard-right {
         flex-direction: row;
+        gap: 15px;
+    }
+    
+    .dashboard-right .total-card {
+        flex: 1;
     }
 }
 
@@ -159,16 +148,24 @@
         padding-top: 70px;
     }
 
-    .card-container-5 {
+    .dashboard-main-layout {
         grid-template-columns: 1fr;
+        height: auto;
+        gap: 15px;
     }
 
-    .card-container-2 {
+    .dashboard-left-upper {
         grid-template-columns: 1fr;
+        height: auto;
+    }
+
+    .dashboard-left-lower {
+        height: auto;
     }
     
-    .card-container-2 > div:last-child {
+    .dashboard-right {
         flex-direction: column;
+        gap: 15px;
     }
     
     .item-boxs {
@@ -191,9 +188,20 @@
         gap: 15px;
     }
     
-    .card-container-5,
-    .card-container-2 {
-        gap: 15px;
+    .dashboard-main-layout {
+        gap: 10px;
+    }
+    
+    .dashboard-left {
+        gap: 10px;
+    }
+    
+    .dashboard-left-upper {
+        gap: 10px;
+    }
+    
+    .dashboard-right {
+        gap: 10px;
     }
     
     .item-boxs {
