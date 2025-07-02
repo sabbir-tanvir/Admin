@@ -19,9 +19,10 @@
     flex-direction: column;
     gap: 20px; /* Auto-spacing between card rows */
     width: 100%;
-    margin-bottom: 100px; /* Margin for bottom spacing */
+    height: 100%;
     background: var(--bars, #FFF);
     /* Remove margin-bottom - gap handles spacing */
+    padding: 20px;
 }
 
 .dashboard-title {
@@ -38,7 +39,7 @@
     grid-template-columns: 2fr 1fr;
     gap: 20px; /* Grid gap handles spacing */
     width: 100%;
-    height: 320px;
+    min-height: 320px;
     /* Remove margin-bottom */
 }
 
@@ -54,12 +55,12 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 20px;
-    height: 140px; /* Height for top cards */
+    min-height: 140px; /* Height for top cards */
 }
 
 /* Lower row in left section: OrderStatCard */
 .dashboard-left-lower {
-    height: 160px; /* Height for OrderStatCard */
+    min-height: 160px; /* Height for OrderStatCard */
 }
 
 /* Right Section: 3 cards stacked */

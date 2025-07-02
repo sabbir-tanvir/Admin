@@ -15,6 +15,7 @@
     cursor: pointer;
     margin: 0;
     position: relative;
+    
 }
 
 .total-card:hover {
@@ -35,8 +36,8 @@
 }
 
 .total-card-icon svg {
-    width: 65px;
-    height: 65px;
+    width: 75px;
+    height: 75px;
 }
 
 .total-card-body {
@@ -46,7 +47,7 @@
 }
 
 .total-card-title h3 {
-    font-size: 16px;
+    font-size: 20px;
     font-weight: 600;
     margin: 0;
     color: #333;
@@ -56,14 +57,13 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 15px;
+    gap: 6px;
 }
 
 .total-card-number {
-    font-size: 28px;
+    font-size: 35px;
     font-weight: 700;
     color: #333;
-    line-height: 1;
 }
 
 .total-card-trend {
