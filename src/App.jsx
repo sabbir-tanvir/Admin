@@ -13,6 +13,8 @@ import AllMarketors from './pages/AllMarketor.jsx';
 import MarketorProfile from './pages/MarketorProfile.jsx';
 import Customer from './pages/Customer.jsx';
 import Profile from './pages/Profile.jsx';
+import ProductsList from './pages/TotalProduct.jsx';
+import ProductUpdate from './components/productDetails/ProductUpdate.jsx';
 
 function App() {
   return (
@@ -31,6 +33,8 @@ function App() {
         <Route path="/marketor/user/:id" element={<MarketorProfile />} />
         <Route path="/customer" element={<Customer />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/productlist" element={<ProductsList />} />
+        <Route path="/product/update/:productId" element={<ProductUpdate />} />
 
 
         {/* Add more routes as needed */}

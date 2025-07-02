@@ -168,7 +168,7 @@ function Dashboard() {
         <div className="dashboard">
             <div className="dashboard-cards">
                 <h2 className="dashboard-title">Dashboard</h2>
-                
+
                 <div className="dashboard-main-layout">
                     {/* Left Section */}
                     <div className="dashboard-left">
@@ -236,7 +236,7 @@ function Dashboard() {
                             icon={productIcon}
                             number="5000"
                             showTrend={false}
-                            onSeeMoreClick={() => handleViewAll('Total Products')}
+                            onSeeMoreClick={() => window.location.href = "/productlist"}
                         />
                     </div>
                 </div>

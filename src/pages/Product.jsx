@@ -46,14 +46,14 @@ function Product() {
                   icon={productIcon}
                   number="5000"
                   showTrend={false}
-                  onSeeMoreClick={() => handleViewAll('Total Products')}
+                  onSeeMoreClick={() => window.location.href = "/productlist"}
                 />
                 <TotalCard
                   title="Approval Pending"
                   icon={productIcon}
                   number="5000"
                   showTrend={false}
-                  onSeeMoreClick={() => handleViewAll('Approval Pending')}
+                  onSeeMoreClick={() => window.location.href = "/productlist"}
                 />
               </div>
               
