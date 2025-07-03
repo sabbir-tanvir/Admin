@@ -1,0 +1,275 @@
+/* Add Employee Page Styles */
+.app {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.main-layout {
+    display: flex;
+    flex: 1;
+}
+
+.add-employee-page {
+    margin-left: 220px;
+    padding: 40px;
+    background: #ffffff;
+    min-height: 100vh;
+    width: calc(100vw - 220px);
+    overflow-x: auto;
+    overflow-y: auto;
+    padding-top: 70px;
+    box-sizing: border-box;
+}
+
+.add-employee-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    border-radius: 16px;
+    padding: 32px;
+    border: 0.1px solid #CCC;
+    background: #FFF;
+    box-shadow: 1px 1px 2px 0px rgba(53, 134, 255, 0.25);
+}
+
+.page-title {
+    font-size: 28px;
+    font-weight: 600;
+    color: #2d3748;
+    margin: 0 0 32px 15px;
+    text-align: left;
+}
+
+.form-content {
+    display: grid;
+    grid-template-columns: 360px 1fr;
+    gap: 48px;
+}
+
+/* Left Section - Image Upload */
+.form-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.image-upload-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.image-previeww {
+    width: 300px;
+    height: 380px;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 2px solid #e2e8f0;
+    background: #f7fafc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.preview-image,
+.default-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.placeholder-image {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f7fafc;
+}
+
+.upload-button {
+    border-radius: 12px;
+    background: #D9D9D9;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 12px 24px;
+    font-size: 14px;
+    font-weight: 500;
+    min-width: 180px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.upload-button:hover {
+    background: #cbd5e0;
+    color: #2d3748;
+}
+
+/* Right Section - Form Fields */
+.form-right {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+.form-left {
+    align-items: center;
+    justify-content: center;
+}
+
+.form-section {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.section-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #2d3748;
+    margin: 0 0 8px 0;
+}
+
+.input-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #2d3748;
+    background: white;
+    transition: border-color 0.2s ease;
+    box-sizing: border-box;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: #3182ce;
+    box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.1);
+}
+
+.form-input::placeholder {
+    color: #74869e;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* Form Actions */
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid #e2e8f0;
+}
+
+.btn {
+    padding: 12px 32px;
+    border-radius: 11px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s ease;
+    min-width: 100px;
+    box-shadow: 2px 2px 11.8px 0px rgba(0, 0, 0, 0.25);
+}
+
+.btn-primary {
+    background: rgba(61, 168, 255, 0.41);
+    color: #1a365d;
+}
+
+.btn-primary:hover {
+    background: rgba(61, 168, 255, 0.6);
+    transform: translateY(-1px);
+}
+
+.btn-secondary {
+    background: #FFB2B2;
+    color: #742a2a;
+}
+
+.btn-secondary:hover {
+    background: #ff9999;
+    color: #5a1f1f;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .form-content {
+        grid-template-columns: 1fr;
+        gap: 32px;
+    }
+
+    .form-left {
+        order: 2;
+    }
+
+    .form-right {
+        order: 1;
+    }
+}
+
+@media (max-width: 768px) {
+    .add-employee-page {
+        margin-left: 0;
+        width: 100vw;
+        padding: 20px 10px;
+        padding-top: 80px;
+    }
+
+    .add-employee-container {
+        padding: 24px;
+    }
+
+    .input-row {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .page-title {
+        font-size: 24px;
+        text-align: center;
+    }
+
+    .form-actions {
+        flex-direction: column-reverse;
+    }
+
+    .btn {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .add-employee-page {
+        padding: 15px 5px;
+        padding-top: 70px;
+    }
+
+    .add-employee-container {
+        padding: 20px;
+    }
+
+    .image-preview {
+        width: 150px;
+        height: 180px;
+    }
+}

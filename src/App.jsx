@@ -15,6 +15,10 @@ import Customer from './pages/Customer.jsx';
 import Profile from './pages/Profile.jsx';
 import ProductsList from './pages/TotalProduct.jsx';
 import ProductUpdate from './components/productDetails/ProductUpdate.jsx';
+import AddMarketor from './components/marketorDetails/AddaMarketor.jsx';
+import AddEmployee from './components/employDetails/AddEmployee.jsx';
+import EmployeeDetails from './components/employDetails/EmployeeDetails.jsx';
+import AddSeller from './components/sellerDetails/AddSeller.jsx';
 
 function App() {
   return (
@@ -35,7 +39,10 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/productlist" element={<ProductsList />} />
         <Route path="/product/update/:productId" element={<ProductUpdate />} />
-
+        <Route path="/addmarketor" element={<AddMarketor />} />
+        <Route path="/add-employee" element={<AddEmployee />} />
+        <Route path="/employee/:id" element={<EmployeeDetails />} />
+        <Route path="/seller/add-seller" element={<AddSeller />} />
 
         {/* Add more routes as needed */}
         {/* Example: <Route path="/about" element={<About />} /> */}

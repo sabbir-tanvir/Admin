@@ -25,6 +25,16 @@
 /* Product Cards Section - Only 3 cards */
 .product-cards-section {
     margin-bottom: 40px;
+    width: 100%;
+}
+.top-seller-section {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    align-items: stretch;
+    justify-content: center;
+    gap: 70px;
+    padding: 20px;
+    margin-bottom: 20px;
 }
 
 .card-container-2 {

@@ -1,6 +1,6 @@
 /* LeftBar Component Styles */
 .leftbar {
-  width: 220px;
+  width: 240px;
   min-height: 100vh;
   background: #FFF;
   position: fixed;
@@ -26,7 +26,7 @@
 }
 
 .leftbar-menu {
-  padding: 0;
+  padding: 0 10px 0 10px;
 }
 
 .leftbar-menu ul {
@@ -35,27 +35,150 @@
   margin: 0;
 }
 
+/* Dropdown container */
+.dropdown-container {
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
+  width: 100%;
+  margin: 0;
+}
 
-
-.leftbar-menu a {
+/* Menu item (clickable part with icon) */
+.menu-item {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
-  gap: 12px;
-  padding: 12px 30px;
+  justify-content: space-between;
   color: black;
   text-decoration: none;
   font-size: 16px;
   font-weight: 500;
   transition: all 0.3s ease;
   border-radius: 12px;
-  margin: 4px 16px;
+  margin: 4px 10px;
+  padding: 0;
+  cursor: pointer;
 }
 
-.leftbar-menu a svg {
+
+.menu-item:hover {
+  background: rgba(169, 204, 255, 0.30);
+  transform: translateX(4px);
+}
+
+.menu-item.active {
+  background: rgba(169, 204, 255, 0.50);
+  border-radius: 12px;
+  font-weight: 600;
+}
+
+.menu-item.active .menu-link {
+  font-weight: 600;
+}
+
+.leftbar-menu a.active {
+  background: rgba(169, 204, 255, 0.50);
+  border-radius: 12px;
+  font-weight: 600;
+}
+
+.menu-link {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0 12px 10px;
+}
+
+.menu-item span {
+  flex-grow: 1;
+}
+
+/* Dropdown trigger area */
+.dropdown-trigger {
+  cursor: pointer;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Dropdown icon */
+.dropdown-icon {
+  width: 12px;
+  height: 12px;
+  transition: transform 0.3s ease;
+}
+
+.dropdown-icon.rotate {
+  transform: rotate(180deg);
+}
+
+/* Dropdown menu */
+.dropdown-menu {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, background-color 0.3s ease;
+  padding: 0;
+  margin: 0;
+}
+
+.dropdown-menu.show {
+  max-height: 500px; /* Large enough to fit dropdown content */
+  background-color: rgba(240, 245, 255, 0.5); /* Light blue background for dropdown */
+  border-radius: 0 0 12px 12px;
+  margin: 0 10px 8px 10px;
+  padding: 8px 0;
+}
+
+.dropdown-menu li {
+  margin: 4px 4px;
+  padding-left: 15px;
+}
+
+.dropdown-menu a {
+  display: block;
+  padding: 8px 10px;
+  margin-left: 30px; /* Indent to align with text of parent menu */
+  color: black;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  border-radius: 8px;
+}
+
+.dropdown-menu a:hover {
+  background: rgba(169, 204, 255, 0.20);
+  transform: translateX(4px);
+}
+
+.dropdown-menu a.active {
+  background: rgba(169, 204, 255, 0.40);
+  font-weight: 600;
+}
+
+.leftbar-menu a {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+  padding: 12px 10px;
+  color: black;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  border-radius: 12px;
+  margin: 4px 10px;
+}
+
+.leftbar-menu a svg,
+.menu-link svg {
   flex-shrink: 0;
   width: 20px;
   height: 20px;
+  margin-right: 5px;
 }
 
 .leftbar-menu a:hover {
@@ -68,8 +191,6 @@
   border-radius: 12px;
   font-weight: 600;
 }
-
-
 
 /* Scrollbar styling */
 .leftbar::-webkit-scrollbar {

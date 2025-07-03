@@ -1,7 +1,7 @@
 import React from 'react';
 import '../../styles/components/Topseller.css'
 
-function Topmarketor() {
+function TopMarketor() {
   // Sample top seller data
   const topSellers = [
     {
@@ -122,4 +122,4 @@ function Topmarketor() {
   );
 };
 
-export default Topmarketor;
+export default TopMarketor;

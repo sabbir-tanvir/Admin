@@ -8,6 +8,7 @@ import SellerDetails from '../components/sellerDetails/SellerDetails.jsx';
 import TopSeller from '../components/sellerDetails/TopSeller.jsx';
 import TotalCard from '../components/Card/TotalCard.jsx';
 import TotalCostCard from '../components/Card/TotalCostCard.jsx';
+import BroughtSoldCard from '../components/Card/BroughtSoldCard.jsx';
 
 function Product() {
   const navigate = useNavigate();
@@ -72,11 +73,14 @@ function Product() {
             </div>
           </div>
 
-          <div>
+          <div className="top-seller-section">
             <TopSeller />
-            <div>
-
-            </div>
+            <BroughtSoldCard 
+              title="Total Items Sold"
+              number="5000"
+              onSeeMoreClick={handleCardClick}
+            />  
+            
           </div>
 
           {/* Seller details table  */}

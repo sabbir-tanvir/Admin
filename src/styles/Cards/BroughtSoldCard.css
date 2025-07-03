@@ -1,0 +1,181 @@
+.brought-sold-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 32px 24px;
+    transition: all 0.3s ease;
+    width: 100%;
+    min-width: 180px;
+    height: 100%;
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    box-sizing: border-box;
+
+    border: 0.2px solid #E3E3E3;
+    background: var(--bars, #FFF);
+    box-shadow: 1px 1px 2px 0px rgba(53, 134, 255, 0.25);
+}
+
+.brought-sold-card:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    transform: translateY(-4px);
+}
+
+.brought-sold-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    height: 100%;
+    justify-content: space-between;
+}
+
+.brought-sold-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: #2d3748;
+    margin: 0 0 24px 0;
+    line-height: 1.4;
+}
+
+.brought-sold-icon {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0;
+    min-height: 120px;
+}
+
+.brought-sold-icon svg {
+    width: 80px;
+    height: 80px;
+    transition: transform 0.3s ease;
+}
+
+.brought-sold-card:hover .brought-sold-icon svg {
+    transform: scale(1.1);
+}
+
+.brought-sold-number {
+    font-size: 48px;
+    font-weight: 700;
+    color: #1a202c;
+    margin: 24px 0 20px 0;
+    line-height: 1;
+}
+
+.see-more-link {
+    font-size: 16px;
+    font-weight: 500;
+    color: #4a5568;
+    cursor: pointer;
+    transition: color 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: auto;
+    padding: 8px 0;
+}
+
+.see-more-link:hover {
+    color: #2d3748;
+}
+
+.see-more-link::after {
+    content: '';
+    width: 0;
+    height: 0;
+    border-left: 4px solid currentColor;
+    border-top: 3px solid transparent;
+    border-bottom: 3px solid transparent;
+    margin-left: 4px;
+    transition: transform 0.2s ease;
+}
+
+.see-more-link:hover::after {
+    transform: translateX(2px);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .brought-sold-card {
+        width: 100%;
+        max-width: 300px;
+        min-height: 280px;
+        padding: 24px 20px;
+    }
+
+    .brought-sold-title {
+        font-size: 18px;
+        margin-bottom: 20px;
+    }
+
+    .brought-sold-icon {
+        min-height: 100px;
+        margin: 16px 0;
+    }
+
+    .brought-sold-icon svg {
+        width: 70px;
+        height: 70px;
+    }
+
+    .brought-sold-number {
+        font-size: 40px;
+        margin: 20px 0 16px 0;
+    }
+
+    .see-more-link {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .brought-sold-card {
+        min-height: 240px;
+        padding: 20px 16px;
+    }
+
+    .brought-sold-title {
+        font-size: 16px;
+    }
+
+    .brought-sold-icon svg {
+        width: 60px;
+        height: 60px;
+    }
+
+    .brought-sold-number {
+        font-size: 36px;
+    }
+}
+
+/* Custom variants */
+.brought-sold-card.variant-blue {
+    background: linear-gradient(135deg, #ebf8ff 0%, #bee3f8 100%);
+    border: 2px solid #90cdf4;
+}
+
+.brought-sold-card.variant-blue .brought-sold-number {
+    color: #2b6cb0;
+}
+
+.brought-sold-card.variant-green {
+    background: linear-gradient(135deg, #f0fff4 0%, #c6f6d5 100%);
+    border: 2px solid #9ae6b4;
+}
+
+.brought-sold-card.variant-green .brought-sold-number {
+    color: #2f855a;
+}
+
+.brought-sold-card.variant-purple {
+    background: linear-gradient(135deg, #faf5ff 0%, #e9d8fd 100%);
+    border: 2px solid #d6bcfa;
+}
+
+.brought-sold-card.variant-purple .brought-sold-number {
+    color: #6b46c1;
+}
