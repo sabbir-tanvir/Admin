@@ -2,8 +2,8 @@ import React from 'react';
 import '../../styles/components/TopCustomer.css'
 
 function TopCustomer() {
-  // Sample top customer data
-  const topCustomers = [
+  // Sample top seller data
+  const topSellers = [
     {
       id: 1,
       name: "John Smith",
@@ -76,35 +76,35 @@ function TopCustomer() {
     }
   ];
 
-  // Function to get only top 7 customers
-  const getTopCustomers = () => {
-    return topCustomers.slice(0, 6);
+  // Function to get only top 7 sellers
+  const getTopSellers = () => {
+    return topSellers.slice(0, 6);
   };
 
   return (
-    <div className="top-customer-container">
-      <div className="top-customer-header">
+    <div className="top-seller-container">
+      <div className="top-seller-header">
         <h2>Top Customer</h2>
       </div>
-
-      <div className="customers-grid">
-        {getTopCustomers().map((customer) => (
-
-          <div key={customer.id} className="customer-card">
-            <div className="customer-image-container">
-              <img
-                src={customer.image}
-                alt={customer.name}
-                className="customer-image"
+      
+      <div className="sellers-grid">
+        {getTopSellers().map((seller) => (
+        
+          <div key={seller.id} className="seller-card">
+            <div className="seller-image-container">
+              <img 
+                src={seller.image} 
+                alt={seller.name}
+                className="seller-image"
                 onError={(e) => {
                   e.target.src = "https://via.placeholder.com/100x100/cccccc/666666?text=User";
                 }}
               />
             </div>
-            <div className="customer-info">
-              <h4 className="customer-name">{customer.name}</h4>
-              <p className="customer-company">{customer.company}</p>
-              <p className="customer-sales">{customer.sales}</p>
+            <div className="seller-info">
+              <h4 className="seller-name">{seller.name}</h4>
+              <p className="seller-company">{seller.company}</p>
+              <p className="seller-sales">{seller.sales}</p>
             </div>
 
           </div>

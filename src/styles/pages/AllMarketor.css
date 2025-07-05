@@ -16,6 +16,66 @@
     box-sizing: border-box;
 }
 
+.add-customer-btn {
+  padding: 0;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  overflow: visible;
+  height: 45px;
+  min-width: 180px;
+  position: relative;
+  border: 1px solid #007bff;
+  background: rgba(0, 123, 255, 0.1);
+}
+
+.add-customer-btn .btn-text {
+  padding: 12px 55px 12px 25px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #333;
+  flex-grow: 1;
+  text-align: left;
+  line-height: 1;
+}
+
+.add-customer-btn .btn-icon {
+  width: 55px;
+  height: 55px;
+  background: #007bff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+  flex-shrink: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  border: 5px solid white;
+  box-sizing: border-box;
+  right: -6px;
+  top: -6px;
+  bottom: -5px;
+}
+
+.add-customer-btn:hover {
+  transform: translateY(-1px);
+}
+
+.add-customer-btn:hover .btn-icon {
+  background: #0056b3;
+}
+
+
 /* Header Styles */
 .employ-header {
     display: flex;
@@ -26,6 +86,19 @@
     margin-bottom: 20px;
     padding: 0 90px;
     width: 100%;
+}
+
+.employ-header-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex: 1;
+}
+
+.employ-header-right {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
 }
 
 .employ-page-title {
@@ -68,6 +141,10 @@
   .employ-page-title {
     font-size: 28px;
   }
+
+  .employ-header-left {
+    gap: 12px;
+  }
 }
 
 @media (max-width: 768px) {
@@ -85,16 +162,25 @@
   .employ-header {
     margin-bottom: 20px;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: stretch;
     gap: 15px;
+  }
+  
+  .employ-header-left {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .employ-header-right {
+    width: 100%;
+    justify-content: center;
   }
   
   .employ-page-title {
     font-size: 24px;
-  }
-  
-  .employ-subtitle {
-    font-size: 14px;
+    text-align: center;
   }
 }
 
@@ -107,16 +193,23 @@
   .employ-header {
     margin-bottom: 16px;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: stretch;
     gap: 12px;
+  }
+
+  .employ-header-left {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .employ-header-right {
+    justify-content: center;
   }
   
   .employ-page-title {
     font-size: 20px;
-  }
-  
-  .employ-subtitle {
-    font-size: 13px;
+    text-align: center;
   }
   
   .employees-grid {

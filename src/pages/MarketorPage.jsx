@@ -2,12 +2,13 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import LeftBar from '../components/Leftbar';
-import '../styles/pages/Marketor.css';
 import MarketorDetails from '../components/marketorDetails/MarketorDetails';
 import TopMarketor from '../components/marketorDetails/topMarketor';
 import TotalCard from '../components/Card/TotalCard';
 import BroughtSoldCard from '../components/Card/BroughtSoldCard';
 import TotalCommissionCard from '../components/Card/TotalCommisionCard';
+
+import '../styles/marketorDetails/Marketor.css';
 
 function Marketor() {
     const navigate = useNavigate();
@@ -54,7 +55,7 @@ function Marketor() {
                     <div className="product-cards-section">
                         <div className="card-container-2">
                             <TotalCard
-                                title="Sellers"
+                                title="Total Marketors"
                                 icon={customerIcon}
                                 number="50"
                                 showTrend={false}

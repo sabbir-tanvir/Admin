@@ -8,10 +8,17 @@ function UserCard({
     company,
     image,
     onClick,
+    status,
     type = "user" // user, seller, employee, marketer
 }) {
     return (
         <div className="user-card" onClick={onClick}>
+            {status && (
+                <div className={`status-badge ${status.toLowerCase()}`}>
+                    {status}
+                </div>
+            )}
+            
             <div className="user-image-container">
                 <img
                     src={image}

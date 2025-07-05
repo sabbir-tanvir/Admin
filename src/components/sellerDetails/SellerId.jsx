@@ -103,7 +103,7 @@ const SellerID = () => {
             <LeftBar />
             <div className="seller-id-page">
                 <div className="seller-id-header">
-                    <h2>Customer Dashbord {displayData.id}</h2>
+                    <h2>Seller Dashbord {displayData.id}</h2>
                     <BluePagination />
                 </div>
 

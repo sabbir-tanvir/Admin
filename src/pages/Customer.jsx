@@ -2,23 +2,20 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import LeftBar from '../components/Leftbar';
-import SellerDetails from '../components/sellerDetails/SellerDetails';
-import TopCustomer from '../components/CustomerDetails/TopCustomer';
+import CustomerDetails from '../components/CustomerDetails/CustomerDetails';
 import TotalCard from '../components/Card/TotalCard';
 import TotalCostCard from '../components/Card/TotalCostCard';
 import BroughtSoldCard from '../components/Card/BroughtSoldCard';
-import '../styles/pages/Seller.css';
+import '../styles/pages/Customer.css';
+import TopCustomer from '../components/CustomerDetails/TopCustomer';
 
 const Customer = () => {
   const navigate = useNavigate();
 
-  // Sample data for calculations
-  const totalProducts = 156;
-
   const handleCardClick = (action) => {
     console.log(`${action} clicked!`);
-    // Navigate to seller/user route
-    navigate('/seller/user');
+    // Navigate to customer/user route
+    navigate('/customer/user');
   };
 
   const customerIcon = (
@@ -52,12 +49,12 @@ const Customer = () => {
       <Navbar />
       <div className="main-layout">
         <LeftBar />
-        <div className="product-page">
-          {/* Product Stats Cards - Only 3 cards */}
-          <div className="product-cards-section">
-            <div className="card-container-2">
+        <div className="customer-main-page">
+          {/* Customer Stats Cards - Only 2 cards */}
+          <div className="customer-cards-section">
+            <div className="customer-card-container-2">
               <TotalCard
-                title="Sellers"
+                title="Total Customers"
                 icon={customerIcon}
                 number="50"
                 showTrend={false}
@@ -74,8 +71,9 @@ const Customer = () => {
             </div>
           </div>
 
-          <div className="top-seller-section">
+          <div className="customer-top-section">
             <TopCustomer />
+            
             <BroughtSoldCard
               title="Total Items Sold"
               number="5000"
@@ -84,8 +82,8 @@ const Customer = () => {
 
           </div>
 
-          {/* Seller details table  */}
-          <SellerDetails />
+          {/* Customer details table  */}
+          <CustomerDetails />
         </div>
       </div>
     </div>

@@ -8,9 +8,10 @@ import BluePagination from '../components/pagination/BluePagination';
 
 function AllMarketors() {
     const navigate = useNavigate();
+    
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 6;
-    
+
     // Sample marketor data
     const marketors = [
         {
@@ -114,12 +115,19 @@ function AllMarketors() {
     const handleMarketorClick = (marketor) => {
         console.log('Marketor clicked:', marketor);
         // Navigate to seller details page with marketor data
-        navigate(`/marketor/user/${marketor.id}`, { 
-            state: { 
-                employeeData: marketor 
-            } 
+        navigate(`/marketor/user/${marketor.id}`, {
+            state: {
+                employeeData: marketor
+            }
         });
     };
+
+
+    const handleAddMarketorClick = () => {
+        navigate('/add-marketor');
+    };
+
+
 
     // Calculate pagination
     const totalPages = Math.ceil(marketors.length / itemsPerPage);
@@ -138,14 +146,29 @@ function AllMarketors() {
             <div className="main-layout">
                 <div className="employ-page">
                     <div className="employ-header">
-                        <h1 className="employ-page-title">All Marketors</h1>
-                        <BluePagination 
-                            currentPage={currentPage}
-                            totalPages={totalPages}
-                            onPageChange={handlePageChange}
-                        />
+                        <div className="employ-header-left">
+                            <h1 className="employ-page-title">All Marketors</h1>
+
+                            <button
+                                className="add-customer-btn"
+                                onClick={handleAddMarketorClick}
+                            >
+                                <span className="btn-text">Add a marketor</span>
+                                <span className="btn-icon">+</span>
+                            </button>
+                        </div>
+
+                        <div className="employ-header-right">
+                            {marketors.length > 0 && (
+                                <BluePagination
+                                    currentPage={currentPage}
+                                    totalPages={totalPages}
+                                    onPageChange={handlePageChange}
+                                />
+                            )}
+                        </div>
                     </div>
-                    
+
                     <div className="employees-grid">
                         {currentMarketors.map((marketor) => (
                             <UserCard

@@ -130,8 +130,7 @@ function LeftBar() {
             </div>
             <ul className={`dropdown-menu ${dropdownStates.seller ? 'show' : ''}`}>
               <li><Link to="/seller/add-seller" className={isActive('/seller/add-seller') ? "active" : ""}>Add a Seller</Link></li>
-              <li><Link to="/seller/user" className={isActive('/seller/user') ? "active" : ""}>Employees</Link></li>
-              <li><Link to="/seller" className={isActive('/seller') && location.pathname === '/seller' ? "active" : ""}>All Sellers</Link></li>
+              <li><Link to="/seller/user" className={isActive('/seller/user') ? "active" : ""}>All Sellers</Link></li>
             </ul>
           </li>
 
@@ -188,9 +187,8 @@ function LeftBar() {
               </div>
             </div>
             <ul className={`dropdown-menu ${dropdownStates.marketor ? 'show' : ''}`}>
-              <li><Link to="/addmarketor" className={isActive('/addmarketor') ? "active" : ""}>Add a Marketer</Link></li>
+              <li><Link to="/add-marketor" className={isActive('/add-marketor') ? "active" : ""}>Add a Marketer</Link></li>
               <li><Link to="/marketor/all" className={isActive('/marketor/all') ? "active" : ""}>All Marketers</Link></li>
-              <li><Link to="/marketor" className={isActive('/marketor') && location.pathname === '/marketor' ? "active" : ""}>Marketers Dashboard</Link></li>
             </ul>
           </li>
 
@@ -219,7 +217,7 @@ function LeftBar() {
             </div>
             <ul className={`dropdown-menu ${dropdownStates.customer ? 'show' : ''}`}>
               <li><Link to="/customer/add" className={isActive('/customer/add') ? "active" : ""}>Add Customer</Link></li>
-              <li><Link to="/customer" className={isActive('/customer') && location.pathname === '/customer' ? "active" : ""}>All Customers</Link></li>
+              <li><Link to="/customer/user" className={isActive('/customer/user') && location.pathname === '/customer/user' ? "active" : ""}>All Customers</Link></li>
             </ul>
           </li>
 

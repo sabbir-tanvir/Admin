@@ -1,0 +1,222 @@
+/* Customer Page Styles */
+.app {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.main-layout {
+    display: flex;
+    flex: 1;
+}
+
+.customer-main-page {
+    margin-left: 230px;
+    padding: 40px;
+    background: var(--bars, rgba(255, 255, 255, 1));
+    min-height: 100vh;
+    width: calc(100vw - 230px);
+    overflow-x: auto;
+    overflow-y: auto;
+    padding-top: 70px;
+    box-sizing: border-box;
+}
+
+/* Customer Cards Section - Only 2 cards */
+.customer-cards-section {
+    margin-bottom: 40px;
+    width: 100%;
+}
+
+.customer-top-section {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    align-items: stretch;
+    justify-content: center;
+    gap: 70px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.customer-card-container-2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+    width: 100%;
+    max-height: 220px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Customer Details Section */
+.customer-details-section {
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+
+
+
+
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .customer-card-container-2 {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 800px;
+  }
+
+  .customers-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    max-width: 800px;
+  }
+  
+  .customer-page, .customer-main-page {
+    margin-left: 15px;
+    padding: 15px;
+  }
+  
+  .customer-header {
+    margin-bottom: 25px;
+    flex-direction: row;
+    align-items: center;
+  }
+  
+  .customer-page-title {
+    font-size: 28px;
+  }
+
+  .customer-header-left {
+    gap: 12px;
+  }
+}
+
+@media (max-width: 768px) {
+  .customer-main-page, .customer-page {
+    margin-left: 0;
+    width: 100vw;
+    padding: 20px 10px;
+    padding-top: 80px;
+  }
+  
+  .customer-card-container-2 {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 10px;
+    max-width: 100%;
+  }
+  
+  .customer-cards-section {
+    margin-bottom: 20px;
+  }
+
+  .customer-top-section {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .customers-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    max-width: 400px;
+  }
+  
+  .customer-header {
+    margin-bottom: 20px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 15px;
+  }
+  
+  .customer-header-left {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .customer-header-right {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .customer-filter-buttons {
+    justify-content: center;
+    width: 100%;
+  }
+  
+  .customer-page-title {
+    font-size: 24px;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .customer-main-page, .customer-page {
+    padding: 15px 5px;
+    padding-top: 70px;
+  }
+  
+  .customer-card-container-2 {
+    gap: 15px;
+    padding: 5px;
+  }
+
+  .customer-header {
+    margin-bottom: 16px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .customer-header-left {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .customer-header-right {
+    justify-content: center;
+  }
+  
+  .customer-page-title {
+    font-size: 20px;
+    text-align: center;
+  }
+  
+  .customers-grid {
+    gap: 12px;
+  }
+
+  .customer-top-section {
+    grid-template-columns: 1fr;
+    gap: 15px;
+    padding: 10px;
+  }
+}
+
+/* Animation for grid items */
+.customers-grid > * {
+  animation: fadeInUp 0.6s ease-out;
+  animation-fill-mode: both;
+}
+
+.customers-grid > *:nth-child(1) { animation-delay: 0.1s; }
+.customers-grid > *:nth-child(2) { animation-delay: 0.2s; }
+.customers-grid > *:nth-child(3) { animation-delay: 0.3s; }
+.customers-grid > *:nth-child(4) { animation-delay: 0.4s; }
+.customers-grid > *:nth-child(5) { animation-delay: 0.5s; }
+.customers-grid > *:nth-child(6) { animation-delay: 0.6s; }
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

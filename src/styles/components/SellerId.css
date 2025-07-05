@@ -1,10 +1,10 @@
 .seller-id-page {
-    margin-left: 220px;
+    margin-left: 250px;
     padding: 20px;
     background: var(--bars, rgba(255, 255, 255, 1));
     min-height: calc(100vh - 80px);
-    width: calc(100% - 220px);
-    max-width: calc(100vw - 220px);
+    width: calc(100% - 250px);
+    max-width: calc(100vw - 250px);
     overflow-x: hidden;
     overflow-y: auto;
     box-sizing: border-box;

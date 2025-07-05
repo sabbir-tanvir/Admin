@@ -5,7 +5,7 @@
 }
 
 
-.employ-page {
+.customer-page {
     margin-left: 220px;
     padding: 20px;
     background: white;
@@ -18,7 +18,7 @@
 }
 
 /* Header Styles */
-.employ-header {
+.customer-header {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -32,21 +32,21 @@
     margin-right: auto;
 }
 
-.employ-header-left {
+.customer-header-left {
     display: flex;
     align-items: center;
     gap: 16px;
     flex: 1;
 }
 
-.employ-header-right {
+.customer-header-right {
     display: flex;
     align-items: center;
     justify-content: flex-end;
 }
 
 
-.employ-page-title {
+.customer-page-title {
   font-size: 32px;
   font-weight: 700;
   color: #333;
@@ -55,13 +55,13 @@
   flex-shrink: 0;
 }
 
-.add-employee-btn {
+.add-customer-btn {
   padding: 0;
   color: white;
   border: none;
   border-radius: 25px;
   font-weight: 600;
-  cursor: pointer;  align-items: center;
+  cursor: pointer;
   transition: all 0.2s ease;
   display: flex;
   align-items: center;
@@ -70,13 +70,11 @@
   height: 45px;
   min-width: 180px;
   position: relative;
-
-
-border: 1px solid #1BA300;
-background: rgba(178, 255, 163, 0.50);
+  border: 1px solid #007bff;
+  background: rgba(0, 123, 255, 0.1);
 }
 
-.add-employee-btn .btn-text {
+.add-customer-btn .btn-text {
   padding: 12px 55px 12px 25px;
   font-size: 16px;
   font-weight: 500;
@@ -86,45 +84,46 @@ background: rgba(178, 255, 163, 0.50);
   line-height: 1;
 }
 
-.add-employee-btn .btn-icon {
+.add-customer-btn .btn-icon {
   width: 55px;
   height: 55px;
-  background: #b61515;
+  background: #007bff;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 20px;
   font-weight: bold;
+  color: white;
   flex-shrink: 0;
   position: absolute;
   right: 0;
   top: 0;
-  border: 6px solid white;
+  border: 5px solid white;
   box-sizing: border-box;
   right: -6px;
   top: -6px;
+  bottom: -5px;
 }
 
-.add-employee-btn:hover {
-  
+.add-customer-btn:hover {
   transform: translateY(-1px);
 }
 
-.add-employee-btn:hover .btn-icon {
-  background: #138a6b;
+.add-customer-btn:hover .btn-icon {
+  background: #0056b3;
 }
 
 /* Filter Buttons */
-.filter-buttons {
+.customer-filter-buttons {
   display: flex;
   gap: 8px;
   align-items: center;
 }
 
-.filter-btn {
+.customer-filter-btn {
   padding: 8px 16px;
-  border: 1px solid #ddd;
+  border: 1px solid #c7b2b2;
   background: white;
   color: #666;
   border-radius: 20px;
@@ -134,24 +133,28 @@ background: rgba(178, 255, 163, 0.50);
   font-size: 14px;
 }
 
-.filter-btn:hover {
+.customer-filter-btn:hover {
   border-color: #999;
   color: #333;
+
+  transform: translateY(-1px);
 }
 
-.filter-btn.active {
-  background: #20C997;
+.customer-filter-btn.active {
+  background: #007bff;
   color: white;
-  border-color: #20C997;
+  border-color: #007bff;
 }
 
-.filter-btn.active:hover {
-  background: #1ba085;
-  border-color: #1ba085;
+.customer-filter-btn.active:hover {
+  background: #0056b3;
+  border-color: #0056b3;
 }
 
-/* Employees Grid */
-.employees-grid {
+
+
+/* Customers Grid */
+.customers-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   gap: 24px;
@@ -161,7 +164,7 @@ background: rgba(178, 255, 163, 0.50);
   width: 100%;
 }
 
-.pagination-container {
+.customer-pagination-container {
   display: flex;
   justify-content: center;
   margin-top: 40px;
@@ -169,7 +172,7 @@ background: rgba(178, 255, 163, 0.50);
 }
 
 /* Empty state styles */
-.empty-state {
+.customer-empty-state {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -178,7 +181,7 @@ background: rgba(178, 255, 163, 0.50);
   text-align: center;
 }
 
-.empty-state p {
+.customer-empty-state p {
   font-size: 16px;
   color: #6b7280;
   margin: 0;
@@ -187,127 +190,127 @@ background: rgba(178, 255, 163, 0.50);
 
 /* Responsive Design */
 @media (max-width: 1200px) {
-  .employees-grid {
+  .customers-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
     max-width: 800px;
   }
   
-  .employ-page {
+  .customer-page {
     margin-left: 15px;
     padding: 15px;
   }
   
-  .employ-header {
+  .customer-header {
     margin-bottom: 25px;
     flex-direction: row;
     align-items: center;
   }
   
-  .employ-page-title {
+  .customer-page-title {
     font-size: 28px;
   }
 
-  .employ-header-left {
+  .customer-header-left {
     gap: 12px;
   }
 }
 
 @media (max-width: 768px) {
-  .employees-grid {
+  .customers-grid {
     grid-template-columns: 1fr;
     gap: 16px;
     max-width: 400px;
   }
   
-  .employ-page {
+  .customer-page {
     margin-left: 10px;
     padding: 10px;
   }
   
-  .employ-header {
+  .customer-header {
     margin-bottom: 20px;
     flex-direction: column;
     align-items: stretch;
     gap: 15px;
   }
   
-  .employ-header-left {
+  .customer-header-left {
     width: 100%;
     flex-direction: column;
     align-items: stretch;
     gap: 12px;
   }
 
-  .employ-header-right {
+  .customer-header-right {
     width: 100%;
     justify-content: center;
   }
   
-  .filter-buttons {
+  .customer-filter-buttons {
     justify-content: center;
     width: 100%;
   }
   
-  .employ-page-title {
+  .customer-page-title {
     font-size: 24px;
     text-align: center;
   }
   
-  .employ-subtitle {
+  .customer-subtitle {
     font-size: 14px;
   }
 }
 
 @media (max-width: 480px) {
-  .employ-page {
+  .customer-page {
     margin-left: 5px;
     padding: 8px;
   }
   
-  .employ-header {
+  .customer-header {
     margin-bottom: 16px;
     flex-direction: column;
     align-items: stretch;
     gap: 12px;
   }
 
-  .employ-header-left {
+  .customer-header-left {
     flex-direction: column;
     align-items: stretch;
     gap: 10px;
   }
 
-  .employ-header-right {
+  .customer-header-right {
     justify-content: center;
   }
   
-  .employ-page-title {
+  .customer-page-title {
     font-size: 20px;
     text-align: center;
   }
   
-  .employ-subtitle {
+  .customer-subtitle {
     font-size: 13px;
   }
   
-  .employees-grid {
+  .customers-grid {
     gap: 12px;
   }
 }
 
 /* Animation for grid items */
-.employees-grid > * {
+.customers-grid > * {
   animation: fadeInUp 0.6s ease-out;
   animation-fill-mode: both;
 }
 
-.employees-grid > *:nth-child(1) { animation-delay: 0.1s; }
-.employees-grid > *:nth-child(2) { animation-delay: 0.2s; }
-.employees-grid > *:nth-child(3) { animation-delay: 0.3s; }
-.employees-grid > *:nth-child(4) { animation-delay: 0.4s; }
-.employees-grid > *:nth-child(5) { animation-delay: 0.5s; }
-.employees-grid > *:nth-child(6) { animation-delay: 0.6s; }
+.customers-grid > *:nth-child(1) { animation-delay: 0.1s; }
+.customers-grid > *:nth-child(2) { animation-delay: 0.2s; }
+.customers-grid > *:nth-child(3) { animation-delay: 0.3s; }
+.customers-grid > *:nth-child(4) { animation-delay: 0.4s; }
+.customers-grid > *:nth-child(5) { animation-delay: 0.5s; }
+.customers-grid > *:nth-child(6) { animation-delay: 0.6s; }
 
 @keyframes fadeInUp {
   from {
