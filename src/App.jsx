@@ -20,6 +20,7 @@ import EmployeeDetails from './components/employDetails/EmployeeDetails.jsx';
 import AddSeller from './components/sellerDetails/AddSeller.jsx';
 import Employ from './components/sellerDetails/AllSeller.jsx';
 import AllCustomer from './components/CustomerDetails/AllCustomer.jsx';
+import SellerDashboard from './SellerPanel/sellerDashbord.jsx';
 
 function App() {
   return (
@@ -45,6 +46,7 @@ function App() {
         <Route path="/add-employee" element={<AddEmployee />} />
         <Route path="/employee/:id" element={<EmployeeDetails />} />
         <Route path="/seller/add-seller" element={<AddSeller />} />
+        <Route path="/sellerpanel" element={<SellerDashboard />} />
 
         {/* Add more routes as needed */}
         {/* Example: <Route path="/about" element={<About />} /> */}
