@@ -21,6 +21,10 @@ import AddSeller from './components/sellerDetails/AddSeller.jsx';
 import Employ from './components/sellerDetails/AllSeller.jsx';
 import AllCustomer from './components/CustomerDetails/AllCustomer.jsx';
 import SellerDashboard from './SellerPanel/sellerDashbord.jsx';
+import SellerProduct from './SellerPanel/SellerProduct.jsx';
+import SellerOrder from './SellerPanel/SellerOrder.jsx';
+import SellerAddaOrder from './SellerPanel/sellerAddaOrder.jsx';
+import SellerOrderApprove from './SellerPanel/sellerOrderAprove.jsx';
 
 function App() {
   return (
@@ -47,7 +51,10 @@ function App() {
         <Route path="/employee/:id" element={<EmployeeDetails />} />
         <Route path="/seller/add-seller" element={<AddSeller />} />
         <Route path="/sellerpanel" element={<SellerDashboard />} />
-
+        <Route path="/seller-product" element={<SellerProduct />} />
+        <Route path="/seller-order" element={<SellerOrder />} />
+        <Route path="/seller-order/add" element={<SellerAddaOrder />} />
+        <Route path="/seller-order/approve" element={<SellerOrderApprove />} />
         {/* Add more routes as needed */}
         {/* Example: <Route path="/about" element={<About />} /> */}
       </Routes>

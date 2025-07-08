@@ -1,0 +1,93 @@
+.seller-order-page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+.seller-content-container {
+  display: flex;
+  height: calc(100vh - 60px); /* Assuming navbar is 60px high */
+  width: 100%;
+}
+
+.seller-order-dashboard {
+  flex: 1;
+  padding: 40px;
+  margin-left: 250px; /* Width of the sidebar */
+  overflow-y: auto;
+
+
+}
+.seller-order-page-title {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 50px;
+}
+
+.seller-order-layout {
+  display: flex;
+  gap: 40px;
+  height: auto;
+  max-height: 450px; /* Adjusted max height */
+}
+
+.seller-order-left-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.seller-order-right-column {
+  flex: 2; /* Changed from 3 to 2 to make it more balanced */
+  display: flex;
+  height: 100%;
+}
+
+
+
+.seller-card-wrapper {
+  flex: 1;
+  margin: 0;
+  height: calc(50% - 15px);
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.seller-stat-card-wrapper {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+/* Make the card components take full space of their wrappers */
+.seller-card-wrapper > *, 
+.seller-stat-card-wrapper > * {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  flex: 1;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+  .seller-order-layout {
+    flex-direction: column;
+  }
+
+  .seller-order-dashboard {
+    margin-left: 0;
+    padding: 15px;
+  }
+}

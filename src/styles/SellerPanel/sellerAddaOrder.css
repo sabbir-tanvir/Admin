@@ -1,0 +1,151 @@
+.seller-add-order-page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+  background-color: #f8f9fa;
+}
+
+.seller-add-order-content {
+  display: flex;
+  height: calc(100vh - 60px); /* Assuming navbar is 60px high */
+  width: 100%;
+}
+
+.seller-add-order-container {
+  flex: 1;
+  padding: 80px  40px 40px 40px;
+  margin-left: 250px; /* Width of the sidebar */
+  overflow-y: auto;
+}
+
+.seller-add-order-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.seller-add-order-header h2 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+}
+
+.seller-add-order-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.order-submit-button, 
+.order-cancel-button {
+  padding: 10px 24px;
+  border: none;
+  border-radius: 5px;
+  font-weight: 500;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.2s ease;
+}
+
+.order-submit-button {
+  background-color: #00c853;
+  color: white;
+}
+
+.order-submit-button:hover {
+  background-color: #00a348;
+}
+
+.order-cancel-button {
+  background-color: #ff5252;
+  color: white;
+}
+
+.order-cancel-button:hover {
+  background-color: #e04141;
+}
+
+.seller-add-order-table-container {
+  padding: 60px 0 20px 0;
+  margin-bottom: 40px;
+  min-height: 400px;
+  border-radius: 12px;
+border: 0.2px solid #C4C4C4;
+background: var(--bars, #FFF);
+box-shadow: 1px 1px 2px 0px rgba(53, 134, 255, 0.25);
+}
+
+.seller-order-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.seller-order-table th {
+  background-color: #e6f5ff;
+  padding: 12px 16px;
+  text-align: left;
+  font-weight: 600;
+  color: #444;
+  border: 1px solid #ddd;
+}
+
+.seller-order-table td {
+  padding: 12px 16px;
+  border: 1px solid #ddd;
+}
+
+.seller-order-table input {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  font-size: 14px;
+  transition: border 0.2s ease;
+}
+
+.seller-order-table input:focus {
+  border-color: #2196f3;
+  outline: none;
+}
+
+.seller-add-order-controls {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.add-item-button {
+  background-color: #e6f5ff;
+  color: #0077cc;
+  border: none;
+  border-radius: 20px;
+  padding: 10px 20px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.add-item-button:hover {
+  background-color: #d0ebff;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+  .seller-add-order-container {
+    margin-left: 0;
+    padding: 15px;
+  }
+  
+  .seller-add-order-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+  
+  .seller-order-table {
+    display: block;
+    overflow-x: auto;
+  }
+}

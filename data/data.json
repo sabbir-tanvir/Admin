@@ -1,0 +1,150 @@
+{
+  "sellerOrders": [
+    {
+      "id": 1,
+      "orderId": "100054",
+      "date": "25 AUG 2025 17:40",
+      "customer": "Nikola",
+      "itemQuantity": 4,
+      "price": "$60,000",
+      "status": "Approved"
+    },
+    {
+      "id": 2,
+      "orderId": "100055",
+      "date": "24 AUG 2025 14:20",
+      "customer": "Tesla",
+      "itemQuantity": 6,
+      "price": "$85,000",
+      "status": "Pending"
+    },
+    {
+      "id": 3,
+      "orderId": "100056",
+      "date": "23 AUG 2025 11:15",
+      "customer": "Edison",
+      "itemQuantity": 3,
+      "price": "$42,000",
+      "status": "Rejected"
+    },
+    {
+      "id": 4,
+      "orderId": "100057",
+      "date": "22 AUG 2025 09:30",
+      "customer": "Maxwell",
+      "itemQuantity": 5,
+      "price": "$70,000",
+      "status": "Approved"
+    },
+    {
+      "id": 5,
+      "orderId": "100058",
+      "date": "21 AUG 2025 16:45",
+      "customer": "Curie",
+      "itemQuantity": 2,
+      "price": "$35,000",
+      "status": "Pending"
+    },
+    {
+      "id": 6,
+      "orderId": "100059",
+      "date": "20 AUG 2025 13:10",
+      "customer": "Einstein",
+      "itemQuantity": 8,
+      "price": "$120,000",
+      "status": "Approved"
+    },
+    {
+      "id": 7,
+      "orderId": "100060",
+      "date": "19 AUG 2025 10:30",
+      "customer": "Newton",
+      "itemQuantity": 1,
+      "price": "$15,000",
+      "status": "Rejected"
+    },
+    {
+      "id": 8,
+      "orderId": "100061",
+      "date": "18 AUG 2025 09:15",
+      "customer": "Faraday",
+      "itemQuantity": 7,
+      "price": "$95,000",
+      "status": "Pending"
+    }
+  ],
+  "sellerProducts": [
+    { 
+      "id": 1, 
+      "title": "Gasket", 
+      "cost": 60000, 
+      "sell": 80000, 
+      "min": 70000,
+      "status": "Approved", 
+      "imageUrl": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face"
+    },
+    { 
+      "id": 2, 
+      "title": "Blue Valve", 
+      "cost": 60000, 
+      "sell": 80000, 
+      "min": 70000,
+      "status": "Pending", 
+      "imageUrl": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face"
+    },
+    { 
+      "id": 3, 
+      "title": "PVC Pressure Valve", 
+      "cost": 60000, 
+      "sell": 80000, 
+      "min": 70000,
+      "status": "Approved", 
+      "imageUrl": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face"
+    },
+    { 
+      "id": 4, 
+      "title": "Industrial Valve", 
+      "cost": 60000, 
+      "sell": 80000, 
+      "min": 70000,
+      "status": "Cancelled", 
+      "imageUrl": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face"
+    },
+    { 
+      "id": 5, 
+      "title": "Gasket Type B", 
+      "cost": 60000, 
+      "sell": 80000, 
+      "min": 70000,
+      "status": "Approved", 
+      "imageUrl": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face"
+    },
+    { 
+      "id": 6, 
+      "title": "Red Valve", 
+      "cost": 60000, 
+      "sell": 80000, 
+      "min": 70000,
+      "status": "Pending", 
+      "imageUrl": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face"
+    },
+    { 
+      "id": 7, 
+      "title": "CPVC Pressure Valve", 
+      "cost": 60000, 
+      "sell": 80000, 
+      "min": 70000,
+      "status": "Cancelled", 
+      "imageUrl": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face"
+    },
+    { 
+      "id": 8, 
+      "title": "Commercial Valve", 
+      "cost": 60000, 
+      "sell": 80000, 
+      "min": 70000,
+      "status": "Approved", 
+      "imageUrl": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face"
+    }
+  ]
+}
