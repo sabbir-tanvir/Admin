@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import '../../styles/CustomerDetails/AllCustomer.css';
-import Navbar from '../Navbar';
-import LeftBar from '../Leftbar';
 import BluePagination from '../pagination/BluePagination';
 import UserCard from '../Card/UserCard';
 import Pagination from '../pagination/Pagination';
@@ -138,8 +136,8 @@ function AllCustomer() {
 
     return (
         <div className="app">
-            <Navbar />
-            <LeftBar />
+  
+
             <div className="main-layout">
 
                 <div className="customer-page">

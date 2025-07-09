@@ -11,11 +11,10 @@
 }
 
 .add-employee-page {
-    margin-left: 220px;
     padding: 40px;
     background: #ffffff;
     min-height: 100vh;
-    width: calc(100vw - 220px);
+    width: 100%;
     overflow-x: auto;
     overflow-y: auto;
     padding-top: 70px;

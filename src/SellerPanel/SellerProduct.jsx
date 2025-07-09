@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Navbar from '../components/Navbar';
-import LeftBar from '../components/Leftbar';
 import SellerProductCard from './sellerProductCard';
 
 function SellerProduct() {
@@ -68,23 +66,19 @@ function SellerProduct() {
     };
 
     return (
-        <div className="app">
-            <Navbar />
-            <div className="main-layout">
-                <LeftBar userRole="seller" />
-                <div className="product-page">
-                    {/* Header Section */}
-                    <div className="product-header">
-                        <h1>Total Product {loading ? '...' : products.length}</h1>
-                    </div>
+        <div className="product-page">
+            {/* Header Section */}
+            <div className="product-header">
+                <h1>Total Product {loading ? '...' : products.length}</h1>
+            </div>
 
-                    {/* Filter Section */}
-                    <div className="filter-section">
-                        <div className="status-filters">
-                            <button
-                                className={`status-btn ${activeFilter === 'All' ? 'status-all active' : ''}`}
-                                onClick={() => handleFilterChange('All')}
-                            >
+            {/* Filter Section */}
+            <div className="filter-section">
+                <div className="status-filters">
+                    <button
+                        className={`status-btn ${activeFilter === 'All' ? 'status-all active' : ''}`}
+                        onClick={() => handleFilterChange('All')}
+                    >
                                 All
                             </button>
                             <button
@@ -188,8 +182,6 @@ function SellerProduct() {
                             )}
                         </div>
                     )}
-                </div>
-            </div>
         </div>
     );
 }

@@ -13,7 +13,6 @@
 .order-dashboard {
     flex: 1;
     padding: 20px;
-    margin-left: 250px; /* Sidebar width */
 }
 
 .order-page-title {
@@ -121,7 +120,6 @@
 
 @media screen and (max-width: 768px) {
     .order-dashboard {
-        margin-left: 0;
         padding: 15px;
     }
     

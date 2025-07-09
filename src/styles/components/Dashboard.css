@@ -1,13 +1,8 @@
 /* Dashboard Component Styles */
-.dashboard {
-    margin-left: 250px;
-    padding: 20px;
-    background: #FFF;
+.dashboard {    background: #FFF;
     min-height: 100vh;
-    width: calc(100vw - 250px);
     overflow-x: auto;
     overflow-y: auto;
-    padding-top: 30px;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;

@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import '../../styles/sellerDetails/AddSeller.css';
-import Navbar from '../Navbar';
-import LeftBar from '../Leftbar';
 
 function AddSeller() {
   const [formData, setFormData] = useState({
@@ -54,12 +52,8 @@ function AddSeller() {
   };
 
   return (
-    <div className="app">
-      <Navbar />
-      <div className="main-layout">
-        <LeftBar />
-        <div className="add-seller-page">
-          <div className="add-seller-container">
+    <div className="add-seller-page">
+      <div className="add-seller-container">
             <h1 className="page-title">Add a Seller</h1>
             
             <div className="form-content">
@@ -230,8 +224,6 @@ function AddSeller() {
             </div>
           </div>
         </div>
-      </div>
-    </div>
   );
 }
 

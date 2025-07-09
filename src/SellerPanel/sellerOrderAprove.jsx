@@ -1,6 +1,4 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import Navbar from '../components/Navbar';
-import LeftBar from '../components/Leftbar';
 import '../styles/SellerPanel/sellerOrderApprove.css';
 import Pagination from '../components/pagination/Pagination';
 
@@ -153,11 +151,7 @@ function SellerOrderApprove() {
     };
 
     return (
-        <div className="seller-order-approve-page">
-            <Navbar />
-            <div className="seller-content-container">
-                <LeftBar userRole="seller" />
-                <div className="seller-order-approve-container">
+        <div className="seller-order-approve-container">
                     <div className="order-status-title">
                         <h2>Order Status</h2>
                     </div>
@@ -293,38 +287,7 @@ function SellerOrderApprove() {
                         </div>
 
                         <div className="pagination">
-                            {/* <button
-                                className="pagination-arrow"
-                                onClick={() => handlePageChange(currentPage - 1)}
-                                disabled={currentPage === 1}
-                            >
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M15 18L9 12L15 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                                </svg>
-                            </button>
-
-                            {Array.from({ length: totalPages }, (_, index) => index + 1).map(page => (
-                                <button
-                                    key={page}
-                                    className={`pagination-number ${currentPage === page ? 'active' : ''}`}
-                                    onClick={() => handlePageChange(page)}
-                                >
-                                    {page}
-                                </button>
-                            ))}
-
-                            <button
-                                className="pagination-arrow"
-                                onClick={() => handlePageChange(currentPage + 1)}
-                                disabled={currentPage === totalPages}
-                            >
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M9 6L15 12L9 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                                </svg>
-                            </button> */}
-
-
-
+                            {/* Pagination controls are now handled by the Pagination component */}
                         </div>
                         {!loading && !error && (
                             <Pagination 
@@ -335,9 +298,7 @@ function SellerOrderApprove() {
                         )}
                     </div>
                 </div>
-            </div>
-        </div>
-    );
-};
+        );
+    };
 
-export default SellerOrderApprove;
+    export default SellerOrderApprove;

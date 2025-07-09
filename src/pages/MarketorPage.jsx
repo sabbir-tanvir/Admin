@@ -1,7 +1,5 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import Navbar from '../components/Navbar';
-import LeftBar from '../components/Leftbar';
 import MarketorDetails from '../components/marketorDetails/MarketorDetails';
 import TopMarketor from '../components/marketorDetails/topMarketor';
 import TotalCard from '../components/Card/TotalCard';
@@ -46,46 +44,40 @@ function Marketor() {
     );
 
     return (
-        <div className="app">
-            <Navbar />
-            <div className="main-layout">
-                <LeftBar />
-                <div className="product-page">
-                    {/* Product Stats Cards - Only 3 cards */}
-                    <div className="product-cards-section">
-                        <div className="card-container-2">
-                            <TotalCard
-                                title="Total Marketors"
-                                icon={customerIcon}
-                                number="50"
-                                showTrend={false}
-                                onSeeMoreClick={handleCardClick}
-                            />
-                            <TotalCommissionCard
-                                title="Total sells"
-                                totalAmount="$100,000"
-                                paidAmount="$70,000"
-                                dueAmount="$30,000"
-                                onSeeMoreClick={handleCardClick}
-                            />
+        <div className="product-page">
+            {/* Product Stats Cards - Only 3 cards */}
+            <div className="product-cards-section">
+                <div className="card-container-2">
+                    <TotalCard
+                        title="Total Marketors"
+                        icon={customerIcon}
+                        number="50"
+                        showTrend={false}
+                        onSeeMoreClick={handleCardClick}
+                    />
+                    <TotalCommissionCard
+                        title="Total sells"
+                        totalAmount="$100,000"
+                        paidAmount="$70,000"
+                        dueAmount="$30,000"
+                        onSeeMoreClick={handleCardClick}
+                    />
 
-                        </div>
-                    </div>
-
-                    <div className="top-seller-section">
-                        <TopMarketor />
-                        <BroughtSoldCard
-                            title="Total Items Sold"
-                            number="5000"
-                            onSeeMoreClick={handleCardClick}
-                        />
-
-                    </div>
-
-                    {/* Seller details table  */}
-                    <MarketorDetails />
                 </div>
             </div>
+
+            <div className="top-seller-section">
+                <TopMarketor />
+                <BroughtSoldCard
+                    title="Total Items Sold"
+                    number="5000"
+                    onSeeMoreClick={handleCardClick}
+                />
+
+            </div>
+
+            {/* Seller details table  */}
+            <MarketorDetails />
         </div>
     );
 }

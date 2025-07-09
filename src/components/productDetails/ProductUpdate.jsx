@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import '../../styles/components/ProductUpdate.css';
-import Navbar from '../Navbar';
-import LeftBar from '../Leftbar';
 
 const ProductUpdate = () => {
     const { productId } = useParams();
@@ -46,30 +44,26 @@ const ProductUpdate = () => {
     };
 
     return (
-        <div className="app">
-            <Navbar />
-            <div className="main-layout">
-                <LeftBar />
-                <div className="product-update-page">
-                    <div className="product-update-wrapper">
-                        <div className="product-update-header">
-                            <h1>Product Update</h1>
-                            <div className="action-buttons">
-                                <button type="button" className="update-btn" onClick={handleSubmit}>Update</button>
-                                <button type="button" className="cancel-btn" onClick={handleCancel}>cancel</button>
-                            </div>
-                        </div>
+        <div className="product-update-page">
+            <div className="product-update-wrapper">
+                <div className="product-update-header">
+                    <h1>Product Update</h1>
+                    <div className="action-buttons">
+                        <button type="button" className="update-btn" onClick={handleSubmit}>Update</button>
+                        <button type="button" className="cancel-btn" onClick={handleCancel}>cancel</button>
+                    </div>
+                </div>
 
-                        <form className="product-update-content">
-                            <div className="product-image-column">
-                                <img
-                                    src={product.imageUrl}
-                                    alt={product.name}
-                                    className="product-image"
-                                />
-                            </div>
+                <form className="product-update-content">
+                    <div className="product-image-column">
+                        <img
+                            src={product.imageUrl}
+                            alt={product.name}
+                            className="product-image"
+                        />
+                    </div>
 
-                            <div className="product-form-column">
+                    <div className="product-form-column">
                                 <div className="form-row">
                                     <div className="form-field">
                                         <label className="name-label">Name</label>
@@ -163,10 +157,8 @@ const ProductUpdate = () => {
 
 
 
-                            </div>
-                        </form>
-                    </div>
-                </div>
+                        </div>
+                    </form>
             </div>
         </div>
     );

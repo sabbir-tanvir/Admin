@@ -1,7 +1,5 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import Navbar from '../components/Navbar';
-import LeftBar from '../components/Leftbar';
 import CustomerDetails from '../components/CustomerDetails/CustomerDetails';
 import TotalCard from '../components/Card/TotalCard';
 import TotalCostCard from '../components/Card/TotalCostCard';
@@ -45,47 +43,41 @@ const Customer = () => {
   );
 
   return (
-    <div className="app">
-      <Navbar />
-      <div className="main-layout">
-        <LeftBar />
-        <div className="customer-main-page">
-          {/* Customer Stats Cards - Only 2 cards */}
-          <div className="customer-cards-section">
-            <div className="customer-card-container-2">
-              <TotalCard
-                title="Total Customers"
-                icon={customerIcon}
-                number="50"
-                showTrend={false}
-                onSeeMoreClick={handleCardClick}
-              />
-              <TotalCostCard
-                title="Total Sell"
-                totalAmount="$100,000"
-                paidAmount="$70,000"
-                dueAmount="$30,000"
-                onSeeMoreClick={handleCardClick}
-              />
+    <div className="customer-main-page">
+      {/* Customer Stats Cards - Only 2 cards */}
+      <div className="customer-cards-section">
+        <div className="customer-card-container-2">
+          <TotalCard
+            title="Total Customers"
+            icon={customerIcon}
+            number="50"
+            showTrend={false}
+            onSeeMoreClick={handleCardClick}
+          />
+          <TotalCostCard
+            title="Total Sell"
+            totalAmount="$100,000"
+            paidAmount="$70,000"
+            dueAmount="$30,000"
+            onSeeMoreClick={handleCardClick}
+          />
 
-            </div>
-          </div>
-
-          <div className="customer-top-section">
-            <TopCustomer />
-            
-            <BroughtSoldCard
-              title="Total Items Sold"
-              number="5000"
-              onSeeMoreClick={handleCardClick}
-            />
-
-          </div>
-
-          {/* Customer details table  */}
-          <CustomerDetails />
         </div>
       </div>
+
+      <div className="customer-top-section">
+        <TopCustomer />
+        
+        <BroughtSoldCard
+          title="Total Items Sold"
+          number="5000"
+          onSeeMoreClick={handleCardClick}
+        />
+
+      </div>
+
+      {/* Customer details table  */}
+      <CustomerDetails />
     </div>
   );
 }

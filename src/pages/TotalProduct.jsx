@@ -1,8 +1,6 @@
 // Example usage of the reusable ProductImgCard component
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Navbar from '../components/Navbar';
-import LeftBar from '../components/Leftbar';
 import '../styles/pages/TotalProduct.css';
 import ProductImgCard from '../components/Card/ProductImgCard';
 
@@ -68,11 +66,7 @@ function ProductsList() {
     };
 
     return (
-        <div className="app">
-            <Navbar />
-            <div className="main-layout">
-                <LeftBar />
-                <div className="product-page">
+        <div className="product-page">
                     {/* Header Section */}
                     <div className="product-header">
                         <h1>Total Product 50</h1>
@@ -152,8 +146,6 @@ function ProductsList() {
                             />
                         ))}
                     </div>
-                </div>
-            </div>
         </div>
     );
 }

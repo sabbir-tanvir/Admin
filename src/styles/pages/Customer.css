@@ -11,11 +11,10 @@
 }
 
 .customer-main-page {
-    margin-left: 230px;
     padding: 40px;
     background: var(--bars, rgba(255, 255, 255, 1));
     min-height: 100vh;
-    width: calc(100vw - 230px);
+    width: 100%;
     overflow-x: auto;
     overflow-y: auto;
     padding-top: 70px;

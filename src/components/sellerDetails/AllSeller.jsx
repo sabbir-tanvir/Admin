@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import '../../styles/pages/Employ.css'
-import Navbar from '../Navbar';
-import LeftBar from '../Leftbar';
 import BluePagination from '../pagination/BluePagination';
 import UserCard from '../Card/UserCard';
 import Pagination from '../pagination/Pagination';
@@ -137,90 +135,83 @@ function Employ() {
 
 
     return (
-        <div className="app">
-            <Navbar />
-            <LeftBar />
-            <div className="main-layout">
+        <div className="employ-page">
+            <div className="employ-header">
+                <div className="employ-header-left">
+                    <h1 className="employ-page-title">All Sellers</h1>
 
-                <div className="employ-page">
-                    <div className="employ-header">
-                        <div className="employ-header-left">
-                            <h1 className="employ-page-title">All Sellers</h1>
+                    <button
+                        className="add-employee-btn"
+                        onClick={handleAddEmployeeClick}
+                    >
+                        <span className="btn-text">Add a seller</span>
+                        <span className="btn-icon">+</span>
+                    </button>
 
-                            <button
-                                className="add-employee-btn"
-                                onClick={handleAddEmployeeClick}
-                            >
-                                <span className="btn-text">Add a seller</span>
-                                <span className="btn-icon">+</span>
-                            </button>
-
-                            <div className="filter-buttons">
-                                <button
-                                    className={`filter-btn ${activeFilter === 'All' ? 'active' : ''}`}
-                                    onClick={() => handleFilterChange('All')}
-                                >
-                                    All
-                                </button>
-                                <button
-                                    className={`filter-btn ${activeFilter === 'Paid' ? 'active' : ''}`}
-                                    onClick={() => handleFilterChange('Paid')}
-                                >
-                                    Paid
-                                </button>
-                                <button
-                                    className={`filter-btn ${activeFilter === 'Due' ? 'active' : ''}`}
-                                    onClick={() => handleFilterChange('Due')}
-                                >
-                                    Due
-                                </button>
-                            </div>
-                        </div>
-
-                        <div className="employ-header-right">
-                            {filteredEmployees.length > 0 && (
-                                <BluePagination
-                                    currentPage={currentPage}
-                                    totalPages={totalPages}
-                                    onPageChange={handlePageChange}
-                                />
-                            )}
-                        </div>
+                    <div className="filter-buttons">
+                        <button
+                            className={`filter-btn ${activeFilter === 'All' ? 'active' : ''}`}
+                            onClick={() => handleFilterChange('All')}
+                        >
+                            All
+                        </button>
+                        <button
+                            className={`filter-btn ${activeFilter === 'Paid' ? 'active' : ''}`}
+                            onClick={() => handleFilterChange('Paid')}
+                        >
+                            Paid
+                        </button>
+                        <button
+                            className={`filter-btn ${activeFilter === 'Due' ? 'active' : ''}`}
+                            onClick={() => handleFilterChange('Due')}
+                        >
+                            Due
+                        </button>
                     </div>
+                </div>
 
-                    <div className="employees-grid">
-                        {currentEmployees.length > 0 ? (
-                            currentEmployees.map((employee, index) => (
-                                <UserCard
-                                    key={`${employee.id}-${index}`}
-                                    id={employee.id}
-                                    name={employee.name}
-                                    contact={employee.contact}
-                                    company={employee.company}
-                                    image={employee.image}
-                                    type={employee.type}
-                                    status={employee.status}
-                                    onClick={() => handleEmployeeClick(employee)}
-                                />
-                            ))
-                        ) : (
-                            <div className="empty-state">
-                                <p>No sellers found for "{activeFilter}" status.</p>
-                            </div>
-                        )}
-                    </div>
-
+                <div className="employ-header-right">
                     {filteredEmployees.length > 0 && (
-                        <div className="pagination-container">
-                            <Pagination
-                                currentPage={currentPage}
-                                totalPages={totalPages}
-                                onPageChange={handlePageChange}
-                            />
-                        </div>
+                        <BluePagination
+                            currentPage={currentPage}
+                            totalPages={totalPages}
+                            onPageChange={handlePageChange}
+                        />
                     )}
                 </div>
             </div>
+
+            <div className="employees-grid">
+                {currentEmployees.length > 0 ? (
+                    currentEmployees.map((employee, index) => (
+                        <UserCard
+                            key={`${employee.id}-${index}`}
+                            id={employee.id}
+                            name={employee.name}
+                            contact={employee.contact}
+                            company={employee.company}
+                            image={employee.image}
+                            type={employee.type}
+                            status={employee.status}
+                            onClick={() => handleEmployeeClick(employee)}
+                        />
+                    ))
+                ) : (
+                    <div className="empty-state">
+                        <p>No sellers found for "{activeFilter}" status.</p>
+                    </div>
+                )}
+            </div>
+
+            {filteredEmployees.length > 0 && (
+                <div className="pagination-container">
+                    <Pagination
+                        currentPage={currentPage}
+                        totalPages={totalPages}
+                        onPageChange={handlePageChange}
+                    />
+                </div>
+            )}
         </div>
     );
 }

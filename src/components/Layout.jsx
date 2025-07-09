@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import Navbar from '../components/Navbar.jsx';
-import LeftBar from '../components/Leftbar.jsx';
+import { Outlet } from 'react-router-dom';
+import Navbar from './Navbar.jsx';
+import LeftBar from './Leftbar.jsx';
+import '../styles/components/Layout.css';
 
-const Layout = ({ children, userRole = 'admin' }) => {
+const Layout = ({ userRole = 'admin' }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const toggleMobileMenu = () => {
@@ -25,7 +27,9 @@ const Layout = ({ children, userRole = 'admin' }) => {
           isMobileMenuOpen={isMobileMenuOpen}
           onMobileMenuClose={closeMobileMenu}
         />
-        {children}
+        <main className="main-content">
+          <Outlet />
+        </main>
       </div>
     </div>
   );

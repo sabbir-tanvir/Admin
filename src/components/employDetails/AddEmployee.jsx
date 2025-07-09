@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import '../../styles/employDetails/AddEmployee.css';
-import Navbar from '../Navbar';
-import LeftBar from '../Leftbar';
 
 function AddEmployee() {
   const [formData, setFormData] = useState({
@@ -54,12 +52,8 @@ function AddEmployee() {
   };
 
   return (
-    <div className="app">
-      <Navbar />
-      <div className="main-layout">
-        <LeftBar />
-        <div className="add-employee-page">
-          <div className="add-employee-container">
+    <div className="add-employee-page">
+      <div className="add-employee-container">
             <h1 className="page-title">Add an Employee</h1>
             
             <div className="form-content">
@@ -218,8 +212,6 @@ function AddEmployee() {
             </div>
           </div>
         </div>
-      </div>
-    </div>
   );
 }
 

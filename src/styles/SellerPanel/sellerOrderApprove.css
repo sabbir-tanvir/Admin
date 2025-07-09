@@ -16,7 +16,6 @@
 .seller-order-approve-container {
   flex: 1;
   padding: 20px 40px;
-  margin-left: 250px; /* Width of the sidebar */
   overflow-y: auto;
 }
 
@@ -307,7 +306,6 @@
 
 @media (max-width: 768px) {
   .seller-order-approve-container {
-    margin-left: 0;
     padding: 15px;
   }
   

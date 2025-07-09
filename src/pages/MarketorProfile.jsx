@@ -1,8 +1,6 @@
 import React from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import '../styles/components/SellerId.css'
-import Navbar from '../components/Navbar';
-import LeftBar from '../components/Leftbar';
 import UserCardVertical from '../components/Card/UserCardVertical';
 import SalesCard from '../components/Card/SalesCard';
 import PaymentCard from '../components/Card/PayemntCard';
@@ -97,29 +95,26 @@ const MarketorProfile = () => {
     ];
 
     return (
-        <div className="app">
-            <Navbar />
-            <LeftBar />
-            <div className="seller-id-page">
-                <div className="seller-id-header">
-                    <h2>Marketor Dashboard {displayData.id}</h2>
-                    <BluePagination />
-                </div>
+        <div className="seller-id-page">
+            <div className="seller-id-header">
+                <h2>Marketor Dashboard {displayData.id}</h2>
+                <BluePagination />
+            </div>
 
-                <div className="seller-details-container">
+            <div className="seller-details-container">
+                <div className="seller-card-section">
+                    <UserCardVertical
+                        id={displayData.id}
+                        name={displayData.name}
+                        contact={displayData.contact}
+                        company={displayData.company}
+                        image={displayData.image}
+                        type={displayData.type}
+                    />
+                </div>
+                <div className="seller-card-sections">
                     <div className="seller-card-section">
-                        <UserCardVertical
-                            id={displayData.id}
-                            name={displayData.name}
-                            contact={displayData.contact}
-                            company={displayData.company}
-                            image={displayData.image}
-                            type={displayData.type}
-                        />
-                    </div>
-                    <div className="seller-card-sections">
-                        <div className="seller-card-section">
-                            <SalesCard
+                        <SalesCard
                                 number="50"
                                 title="Campaign Revenue"
                                 value="$350,000"
@@ -189,7 +184,6 @@ const MarketorProfile = () => {
                 />
 
 
-            </div>
         </div>
     );
 };

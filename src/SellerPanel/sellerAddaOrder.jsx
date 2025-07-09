@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import Navbar from '../components/Navbar';
-import LeftBar from '../components/Leftbar';
 import '../styles/SellerPanel/sellerAddaOrder.css';
 
 function SellerAddaOrder() {
@@ -34,20 +32,16 @@ function SellerAddaOrder() {
   };
 
   return (
-    <div className="seller-add-order-page">
-      <Navbar />
-      <div className="seller-add-order-content">
-        <LeftBar userRole="seller" />
-        <div className="seller-add-order-container">
-          <div className="seller-add-order-header">
-            <h2>Add an Order</h2>
-            <div className="seller-add-order-actions">
-              <button className="order-submit-button" onClick={handleOrderSubmit}>Order</button>
-              <button className="order-cancel-button" onClick={handleCancel}>Cancel</button>
-            </div>
-          </div>
-          
-          <div className="seller-add-order-table-container">
+    <div className="seller-add-order-container">
+      <div className="seller-add-order-header">
+        <h2>Add an Order</h2>
+        <div className="seller-add-order-actions">
+          <button className="order-submit-button" onClick={handleOrderSubmit}>Order</button>
+          <button className="order-cancel-button" onClick={handleCancel}>Cancel</button>
+        </div>
+      </div>
+      
+      <div className="seller-add-order-table-container">
             <table className="seller-order-table">
               <thead>
                 <tr>
@@ -128,10 +122,8 @@ function SellerAddaOrder() {
               </tbody>
             </table>
             
-            <div className="seller-add-order-controls">
-              <button className="add-item-button" onClick={handleAddItem}>Add another item</button>
-            </div>
-          </div>
+        <div className="seller-add-order-controls">
+          <button className="add-item-button" onClick={handleAddItem}>Add another item</button>
         </div>
       </div>
     </div>

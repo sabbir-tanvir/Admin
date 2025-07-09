@@ -1,9 +1,8 @@
 .profile-page {
-  margin-left: 250px;
   padding: 20px;
   background: #ffffff;
   min-height: 100vh;
-  width: calc(100vw - 250px);
+  width: 100%;
   padding-top: 80px;
   box-sizing: border-box;
   display: flex;
@@ -378,10 +377,6 @@
 
 .profile-main-content::-webkit-scrollbar-thumb:hover {
   background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
-}
-    padding: 14px 35px;
-    font-size: 14px;
-  }
 }
 
 @media (max-width: 480px) {

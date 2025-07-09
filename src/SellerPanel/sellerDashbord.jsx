@@ -1,5 +1,4 @@
 import React from 'react';
-import Layout from '../components/Layout';
 import OrderStatCard from '../components/Card/OrderStatCard';
 import TotalOrderCard from '../components/Card/TotalOrderCard';
 import TotalDelivery from '../components/Card/TotalDelevary';
@@ -20,37 +19,35 @@ function SellerDashboard() {
     };
 
     return (
-        <Layout userRole="seller">
-            <div className="order-dashboard">
-                <h2 className="order-page-title">Order Overview</h2>
+        <div className="order-dashboard">
+            <h2 className="order-page-title">Order Overview</h2>
 
-                <div className="individual-cards-container">
-                    <div className="card-wrappers">
-                        <div className="card-wrapper">
-                            <TotalOrderCard orderData={orderData} />
-                        </div>
-                        <div className="card-wrapper">
-                            <TotalDelivery deliveryData={deliveryData} />
-                        </div>
+            <div className="individual-cards-container">
+                <div className="card-wrappers">
+                    <div className="card-wrapper">
+                        <TotalOrderCard orderData={orderData} />
                     </div>
-                    
-                    <div className="card-wrappers chart-row">
-                        <div className="card-wrapper top-category-wrapper">
-                            <TopCategoryCard />
-                        </div>
-                        <div className="card-wrapper order-stats-wrapper">
-                            <OrderStatCard
-                                title="Order stats"
-                                number={60}
-                                trendText="5 orders since last Week"
-                                    trendType="positive"
-                                    chartData={[40, 42, 45, 42, 48, 46, 49, 53, 50, 52, 55, 60]}
-                                />
-                            </div>
+                    <div className="card-wrapper">
+                        <TotalDelivery deliveryData={deliveryData} />
+                    </div>
+                </div>
+                
+                <div className="card-wrappers chart-row">
+                    <div className="card-wrapper top-category-wrapper">
+                        <TopCategoryCard />
+                    </div>
+                    <div className="card-wrapper order-stats-wrapper">
+                        <OrderStatCard
+                            title="Order stats"
+                            number={60}
+                            trendText="5 orders since last Week"
+                                trendType="positive"
+                                chartData={[40, 42, 45, 42, 48, 46, 49, 53, 50, 52, 55, 60]}
+                            />
                         </div>
                     </div>
                 </div>
-        </Layout>
+            </div>
     );
 }
 

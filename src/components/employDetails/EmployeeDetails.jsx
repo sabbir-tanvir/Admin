@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
-import Navbar from '../Navbar';
-import LeftBar from '../Leftbar';
 import '../../styles/employDetails/EmployeeDetails.css';
 
 function EmployeeDetails() {
@@ -42,12 +40,8 @@ function EmployeeDetails() {
   };
 
   return (
-    <div className="app">
-      <Navbar />
-      <div className="main-layout">
-        <LeftBar />
-        <div className="employee-details-page">
-          <div className="employee-details-container">
+    <div className="employee-details-page">
+      <div className="employee-details-container">
             <div className="employee-header">
               <h1 className="employee-name">{employee.name}</h1>
               <button className="edit-employee-btn" onClick={handleEditEmployee}>
@@ -179,8 +173,6 @@ function EmployeeDetails() {
             </div>
           </div>
         </div>
-      </div>
-    </div>
   );
 }
 

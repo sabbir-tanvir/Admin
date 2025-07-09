@@ -13,7 +13,6 @@
 .product-page {
     flex: 1;
     padding: 25px;
-    margin-left: 250px; /* Sidebar width */
 }
 
 .product-header {
@@ -219,7 +218,6 @@
 /* Responsive styles */
 @media (max-width: 768px) {
     .product-page {
-        margin-left: 0;
         padding: 15px;
     }
     

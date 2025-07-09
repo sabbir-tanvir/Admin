@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import '../../styles/marketorDetails/AddaMarketor.css';
-import Navbar from '../Navbar';
-import LeftBar from '../Leftbar';
 
 function AddMarketor() {
   const [formData, setFormData] = useState({
@@ -50,12 +48,8 @@ function AddMarketor() {
   };
 
   return (
-    <div className="app">
-      <Navbar />
-      <div className="main-layout">
-        <LeftBar />
-        <div className="add-marketer-page">
-          <div className="add-marketer-container">
+    <div className="add-marketer-page">
+      <div className="add-marketer-container">
             <h1 className="page-title">Add a Marketer</h1>
             
             <div className="form-content">
@@ -189,8 +183,6 @@ function AddMarketor() {
             </div>
           </div>
         </div>
-      </div>
-    </div>
   );
 }
 

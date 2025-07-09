@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Navbar from '../components/Navbar';
-import LeftBar from '../components/Leftbar';
 import UserCard from '../components/Card/UserCard';
 import '../styles/pages/AllMarketor.css';
 import BluePagination from '../components/pagination/BluePagination';
@@ -140,50 +138,44 @@ function AllMarketors() {
     };
 
     return (
-        <div className="app">
-            <Navbar />
-            <LeftBar />
-            <div className="main-layout">
-                <div className="employ-page">
-                    <div className="employ-header">
-                        <div className="employ-header-left">
-                            <h1 className="employ-page-title">All Marketors</h1>
+        <div className="employ-page">
+            <div className="employ-header">
+                <div className="employ-header-left">
+                    <h1 className="employ-page-title">All Marketors</h1>
 
-                            <button
-                                className="add-customer-btn"
-                                onClick={handleAddMarketorClick}
-                            >
-                                <span className="btn-text">Add a marketor</span>
-                                <span className="btn-icon">+</span>
-                            </button>
-                        </div>
-
-                        <div className="employ-header-right">
-                            {marketors.length > 0 && (
-                                <BluePagination
-                                    currentPage={currentPage}
-                                    totalPages={totalPages}
-                                    onPageChange={handlePageChange}
-                                />
-                            )}
-                        </div>
-                    </div>
-
-                    <div className="employees-grid">
-                        {currentMarketors.map((marketor) => (
-                            <UserCard
-                                key={marketor.id}
-                                id={marketor.id}
-                                name={marketor.name}
-                                contact={marketor.contact}
-                                company={marketor.company}
-                                image={marketor.image}
-                                type={marketor.type}
-                                onClick={() => handleMarketorClick(marketor)}
-                            />
-                        ))}
-                    </div>
+                    <button
+                        className="add-customer-btn"
+                        onClick={handleAddMarketorClick}
+                    >
+                        <span className="btn-text">Add a marketor</span>
+                        <span className="btn-icon">+</span>
+                    </button>
                 </div>
+
+                <div className="employ-header-right">
+                    {marketors.length > 0 && (
+                        <BluePagination
+                            currentPage={currentPage}
+                            totalPages={totalPages}
+                            onPageChange={handlePageChange}
+                        />
+                    )}
+                </div>
+            </div>
+
+            <div className="employees-grid">
+                {currentMarketors.map((marketor) => (
+                    <UserCard
+                        key={marketor.id}
+                        id={marketor.id}
+                        name={marketor.name}
+                        contact={marketor.contact}
+                        company={marketor.company}
+                        image={marketor.image}
+                        type={marketor.type}
+                        onClick={() => handleMarketorClick(marketor)}
+                    />
+                ))}
             </div>
         </div>
     );

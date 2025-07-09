@@ -14,7 +14,6 @@
 .seller-analytics {
     flex: 1;
     padding: 25px;
-    margin-left: 250px; /* Sidebar width */
 }
 
 .analytics-header {
@@ -159,7 +158,6 @@
 
 @media screen and (max-width: 768px) {
     .seller-analytics {
-        margin-left: 0;
         padding: 15px;
     }
     

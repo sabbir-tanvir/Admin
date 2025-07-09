@@ -1,8 +1,6 @@
 import React from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import '../../styles/components/SellerId.css'
-import Navbar from '../Navbar';
-import LeftBar from '../Leftbar';
 import UserCardVertical from '../Card/UserCardVertical';
 
 import SalesCard from '../Card/SalesCard';
@@ -98,28 +96,25 @@ const SellerID = () => {
     ];
 
     return (
-        <div className="app">
-            <Navbar />
-            <LeftBar />
-            <div className="seller-id-page">
-                <div className="seller-id-header">
-                    <h2>Seller Dashbord {displayData.id}</h2>
-                    <BluePagination />
-                </div>
+        <div className="seller-id-page">
+            <div className="seller-id-header">
+                <h2>Seller Dashbord {displayData.id}</h2>
+                <BluePagination />
+            </div>
 
-                <div className="seller-details-container">
+            <div className="seller-details-container">
+                <div className="seller-card-section">
+                    <UserCardVertical
+                        id={displayData.id}
+                        name={displayData.name}
+                        contact={displayData.contact}
+                        company={displayData.company}
+                        image={displayData.image}
+                        type={displayData.type}
+                    />
+                </div>
+                <div className="seller-card-sections">
                     <div className="seller-card-section">
-                        <UserCardVertical
-                            id={displayData.id}
-                            name={displayData.name}
-                            contact={displayData.contact}
-                            company={displayData.company}
-                            image={displayData.image}
-                            type={displayData.type}
-                        />
-                    </div>
-                    <div className="seller-card-sections">
-                        <div className="seller-card-section">
                             <SalesCard
                                 number="50"
                                 title="Sales  amount"
@@ -191,7 +186,6 @@ const SellerID = () => {
                 />
 
 
-            </div>
         </div>
     );
 };

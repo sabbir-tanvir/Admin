@@ -1,6 +1,4 @@
 import React from 'react';
-import Navbar from '../components/Navbar.jsx';
-import LeftBar from '../components/Leftbar.jsx';
 import ProductCard from '../components/Card/ProductCard.jsx';
 import { CustomerIcon, CartIcon, CompanyIcon } from '../components/Card/Icons.jsx';
 import '../styles/pages/ProductPage.css';
@@ -32,19 +30,15 @@ function Product() {
   );
 
   return (
-    <div className="app">
-      <Navbar />
-      <div className="main-layout">
-        <LeftBar />
-        <div className="product-page">
-          {/* Product Stats Cards - 2+1 layout */}
-          <div className="product-cards-section">
-            <div className="card-container-split">
-              <div className="left-cards">
-                <TotalCard
-                  title="Total Products"
-                  icon={productIcon}
-                  number="5000"
+    <div className="product-page">
+      {/* Product Stats Cards - 2+1 layout */}
+      <div className="product-cards-section">
+        <div className="card-container-split">
+          <div className="left-cards">
+            <TotalCard
+              title="Total Products"
+              icon={productIcon}
+              number="5000"
                   showTrend={false}
                   onSeeMoreClick={() => window.location.href = "/productlist"}
                 />
@@ -67,8 +61,6 @@ function Product() {
           <div className="product-details-section">
             <ProductDetails />
           </div>
-        </div>
-      </div>
     </div>
   );
 }

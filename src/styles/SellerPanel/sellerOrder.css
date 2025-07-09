@@ -15,7 +15,6 @@
 .seller-order-dashboard {
   flex: 1;
   padding: 40px;
-  margin-left: 250px; /* Width of the sidebar */
   overflow-y: auto;
 
 
@@ -87,7 +86,6 @@
   }
 
   .seller-order-dashboard {
-    margin-left: 0;
     padding: 15px;
   }
 }

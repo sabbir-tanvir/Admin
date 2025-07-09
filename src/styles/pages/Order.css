@@ -14,8 +14,6 @@
 .order-dashboard {
   flex: 1;
   padding: 20px;
-  margin-left: 250px;
-  /* Adjust based on your sidebar width */
 }
 
 .order-page-title {
@@ -74,7 +72,7 @@
 
 @media (max-width: 1024px) {
   .order-dashboard {
-    margin-left: 200px;
+    padding: 15px;
   }
 }
 

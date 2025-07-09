@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import '../styles/pages/Profile.css';
-import Navbar from '../components/Navbar';
-import LeftBar from '../components/Leftbar';
 
 const Profile = () => {
   const [formData, setFormData] = useState({
@@ -42,12 +40,8 @@ const Profile = () => {
   };
 
   return (
-    <div className="app">
-      <Navbar />
-      <div className="main-layout">
-        <LeftBar />
-        <div className="profile-page">
-          <div className="profile-container">
+    <div className="profile-page">
+      <div className="profile-container">
             {/* Top Section - Avatar */}
             <div className="profile-top-section">
               <div className="profile-avatar-section">
@@ -165,8 +159,6 @@ const Profile = () => {
                   Save
                 </button>
               </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>

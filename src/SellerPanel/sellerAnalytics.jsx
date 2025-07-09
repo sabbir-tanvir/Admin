@@ -1,6 +1,4 @@
 import React from 'react';
-import Navbar from '../components/Navbar';
-import LeftBar from '../components/Leftbar';
 import StatCard from '../components/Card/StatCard';
 import TopCategoryCard from '../components/Card/TopCatagoryCard';
 import SalesCard from '../components/Card/SalesCard';
@@ -13,11 +11,7 @@ function SellerAnalytics() {
   const weeklyData = [35, 38, 42, 39, 43, 45, 48];
 
   return (
-    <div className="analytics-page">
-        <Navbar />
-        <div className="analytics-layout">
-            <LeftBar userRole='seller' />
-            <div className="seller-analytics">
+    <div className="seller-analytics">
                 <h2 className="analytics-header">Seller Analytics Dashboard</h2>
                 
                 {/* Stats Overview Row */}
@@ -110,8 +104,6 @@ function SellerAnalytics() {
                 </div>
 
             </div>
-        </div>
-    </div>
   );
 };
 
