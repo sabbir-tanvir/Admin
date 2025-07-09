@@ -25,6 +25,7 @@ import SellerProduct from './SellerPanel/SellerProduct.jsx';
 import SellerOrder from './SellerPanel/SellerOrder.jsx';
 import SellerAddaOrder from './SellerPanel/sellerAddaOrder.jsx';
 import SellerOrderApprove from './SellerPanel/sellerOrderAprove.jsx';
+import SellerAnalytics from './SellerPanel/sellerAnalytics.jsx';
 
 function App() {
   return (
@@ -55,6 +56,7 @@ function App() {
         <Route path="/seller-order" element={<SellerOrder />} />
         <Route path="/seller-order/add" element={<SellerAddaOrder />} />
         <Route path="/seller-order/approve" element={<SellerOrderApprove />} />
+        <Route path="/seller-analytics" element={<SellerAnalytics />} />
         {/* Add more routes as needed */}
         {/* Example: <Route path="/about" element={<About />} /> */}
       </Routes>

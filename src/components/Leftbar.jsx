@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import '../styles/components/Leftbar.css';
 
-function LeftBar({ userRole = 'admin' }) {
+function LeftBar({ userRole = 'admin', isMobileMenuOpen = false, onMobileMenuClose }) {
   const location = useLocation();
 
   // Role management - can be passed as prop or defaults to 'admin'
@@ -49,10 +49,31 @@ function LeftBar({ userRole = 'admin' }) {
   };
 
   return (
-    <div className="leftbar">
-      <div className="leftbar-header">
-        <h2>{userRole === 'seller' ? 'Seller' : 'Admin'} <br /> Panel</h2>
-      </div>
+    <>
+      {/* Mobile overlay */}
+      {isMobileMenuOpen && (
+        <div 
+          className="leftbar-mobile-overlay" 
+          onClick={onMobileMenuClose}
+          aria-hidden="true"
+        />
+      )}
+      
+      <div className={`leftbar ${isMobileMenuOpen ? 'leftbar-mobile-open' : ''}`}>
+        <div className="leftbar-header">
+          <h2>{userRole === 'seller' ? 'Seller' : 'Admin'} <br /> Panel</h2>
+          {/* Mobile close button */}
+          <button 
+            className="leftbar-mobile-close"
+            onClick={onMobileMenuClose}
+            aria-label="Close menu"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
       <div className="leftbar-menu">
         <ul>
           {/* Dashboard - Only for Admin */}
@@ -253,7 +274,7 @@ function LeftBar({ userRole = 'admin' }) {
           )}
 
           {userRole === 'seller' && (
-            <li><Link to="/admin-analytics" className={isActive('/admin-analytics') ? "active" : ""}>
+            <li><Link to="/seller-analytics" className={isActive('/admin-analytics') ? "active" : ""}>
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="17" viewBox="0 0 16 17" fill="none">
                 <path d="M4 5.5H8V6.5H4V5.5ZM4 3.5H10V4.5H4V3.5ZM4 1.5H10V2.5H4V1.5Z" fill="#FF2626" />
                 <path d="M2.3555 14.5L5.171 9.502L8.888 12.747C9.00036 12.847 9.13383 12.9203 9.27846 12.9616C9.4231 13.0028 9.57518 13.0109 9.72337 12.9853C9.87157 12.9596 10.0121 12.9009 10.1344 12.8134C10.2568 12.7259 10.3578 12.6119 10.43 12.48L13.915 7.2785L13.0845 6.7215L9.5845 11.9455L9.5495 11.997L5.832 8.752C5.71967 8.65259 5.58645 8.57968 5.44217 8.53865C5.29789 8.49762 5.14624 8.48953 4.99841 8.51497C4.85058 8.5404 4.71036 8.59872 4.58809 8.68562C4.46582 8.77251 4.36463 8.88576 4.292 9.017L2 13.0915V1.5H1V14.5C1 14.7652 1.10536 15.0196 1.29289 15.2071C1.48043 15.3946 1.73478 15.5 2 15.5H15V14.5H2.3555Z" fill="#3752FF" />
@@ -333,6 +354,7 @@ function LeftBar({ userRole = 'admin' }) {
         </ul>
       </div>
     </div>
+    </>
   );
 }
 

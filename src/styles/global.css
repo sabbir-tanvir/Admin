@@ -43,3 +43,23 @@ body {
     text-align: center;
   }
 }
+
+/* Main layout adjustments for mobile */
+@media (max-width: 768px) {
+  .main-layout {
+    margin-left: 0;
+    width: 100%;
+  }
+  
+  .app {
+    width: 100%;
+  }
+}
+
+/* Ensure content doesn't get hidden behind mobile leftbar */
+@media (max-width: 768px) {
+  .main-layout > *:not(.leftbar) {
+    margin-left: 0;
+    width: 100%;
+  }
+}

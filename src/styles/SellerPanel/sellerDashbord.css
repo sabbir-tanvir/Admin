@@ -1,0 +1,136 @@
+/* Seller Dashboard Page Styles */
+.order-page {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.order-main-content {
+    display: flex;
+    flex: 1;
+}
+
+.order-dashboard {
+    flex: 1;
+    padding: 20px;
+    margin-left: 250px; /* Sidebar width */
+}
+
+.order-page-title {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Cards Layout */
+.individual-cards-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.card-wrappers {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    width: 100%;
+}
+
+.card-wrapper {
+    flex: 1;
+    min-width: 250px;
+    margin-bottom: 5px;
+
+    border-radius: 12px;
+    overflow: hidden;
+    min-height: 200px; /* Control the height of cards */
+}
+
+/* Chart row layout */
+.chart-row {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    margin-top: 0;
+    height: 400px; /* Set the height for the entire row */
+}
+
+.top-category-wrapper {
+    width: 60%;
+    max-width: 60%;
+    height: 400px;
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    max-height: none; /* Override the max-height from card-wrapper */
+}
+
+.top-category-wrapper > .top-category-card {
+    height: 100%;
+    width: 100%;
+}
+
+.order-stats-wrapper {
+    width: 40%;
+    max-width: 40%;
+    height: 400px;
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    max-height: none; /* Override the max-height from card-wrapper */
+}
+
+/* Ensure OrderStatCard takes full height */
+.order-stats-wrapper > .stat-card {
+    height: 100%;
+    width: 100%;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 1200px) {
+    .card-wrappers {
+        flex-direction: column;
+    }
+    
+    .card-wrapper {
+        width: 100%;
+        max-width: 100%;
+    }
+    
+    .chart-row {
+        flex-direction: column;
+        height: auto; /* Allow it to expand based on content */
+        gap: 15px;
+    }
+    
+    .top-category-wrapper,
+    .order-stats-wrapper {
+        width: 100%;
+        max-width: 100%;
+        height: 250px;
+        min-height: 250px;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .order-dashboard {
+        padding: 20px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .order-dashboard {
+        margin-left: 0;
+        padding: 15px;
+    }
+    
+    .order-page-title {
+        font-size: 20px;
+        margin-bottom: 20px;
+    }
+    
+    .individual-cards-container {
+        gap: 15px;
+    }
+}
