@@ -1,0 +1,61 @@
+/* Marketor Dashboard Styles */
+.marketor-dashboard {
+  padding: 20px;
+  width: 100%;
+}
+
+.marketor-dashboard-title {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Grid for top cards */
+.marketor-dashboard-content {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+/* Make the cards equal width in the top row */
+.marketor-dashboard-content > div {
+  flex: 1;
+  min-width: 250px;
+}
+
+/* TopCategoryCard container */
+.marketor-bottom-content {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 20px;
+}
+
+/* TopCategoryCard styling */
+.top-category-card-wrapper {
+  width: 100%;
+  max-width: 800px; /* You can adjust this based on your design preference */
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+  .marketor-dashboard-content {
+    flex-direction: column;
+  }
+  
+  .marketor-dashboard-content > div {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .marketor-dashboard {
+    padding: 15px;
+  }
+  
+  .marketor-dashboard-title {
+    font-size: 20px;
+  }
+}

@@ -1,0 +1,47 @@
+/* Marketor Order Styles */
+.marketor-order {
+  padding: 20px;
+  width: 100%;
+}
+
+.marketor-order-page-title {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Grid for cards */
+.marketor-order-content {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+/* Make the cards equal width */
+.marketor-order-content > div {
+  flex: 1;
+  min-width: 250px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+  .marketor-order-content {
+    flex-direction: column;
+  }
+  
+  .marketor-order-content > div {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .marketor-order {
+    padding: 15px;
+  }
+  
+  .marketor-order-page-title {
+    font-size: 20px;
+  }
+}

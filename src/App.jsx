@@ -27,6 +27,11 @@ import SellerOrder from './SellerPanel/SellerOrder.jsx';
 import SellerAddaOrder from './SellerPanel/sellerAddaOrder.jsx';
 import SellerOrderApprove from './SellerPanel/sellerOrderAprove.jsx';
 import SellerAnalytics from './SellerPanel/sellerAnalytics.jsx';
+import MarketorDashboard from './MarketorPanel/marketorDashbord.jsx';
+import MarketorProduct from './MarketorPanel/marketorProduct.jsx';
+import MarketorOrder from './MarketorPanel/marketorOrder.jsx';
+import MarketorSupplier from './MarketorPanel/marketorSuplier.jsx';
+import MProductStatus from './MarketorPanel/MProductStatus.jsx';
 
 function App() {
   return (
@@ -64,6 +69,17 @@ function App() {
           <Route path="order/add" element={<SellerAddaOrder />} />
           <Route path="order/approve" element={<SellerOrderApprove />} />
           <Route path="analytics" element={<SellerAnalytics />} />
+        </Route>
+
+
+        {/* Marketor routes with layout */}
+        <Route path="/marketor-panel" element={<Layout userRole="marketor" />}>
+          <Route index element={<MarketorDashboard />} />
+          <Route path="dashboard" element={<MarketorDashboard />} />
+          <Route path="product" element={<MarketorProduct />} />
+          <Route path="order" element={<MarketorOrder />} />
+          <Route path="supplier" element={<MarketorSupplier />} />
+          <Route path="product-status" element={<MProductStatus />} />
         </Route>
       </Routes>
     </Router>
