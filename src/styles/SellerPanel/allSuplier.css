@@ -1,0 +1,395 @@
+/* All Supplier Page Styles */
+.supplier-page {
+  flex: 1;
+  padding: 20px ;
+  overflow-y: auto;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.supplier-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px; /* Fixed consistent bottom margin */
+  flex-wrap: nowrap; /* Prevent wrapping to keep in single row */
+  gap: 16px;
+  min-height: 60px; /* Fixed minimum height to prevent layout shift */
+  position: relative;
+  width: 100%;
+}
+
+.supplier-header-left {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.supplier-page-title {
+  font-size: 22px;
+  font-weight: 700;
+  margin: 0;
+  color: #333;
+}
+
+/* Unique class for supplier page title */
+.supplier-page-title-unique {
+  font-size: 2rem; /* Larger size for desktop */
+  font-weight: 700;
+  margin: 0;
+  color: #333;
+}
+
+.filter-buttonss {
+  display: flex;
+  gap: 10px;
+}
+
+.filter-btnn {
+  border: none;
+  border-radius: 20px;
+  padding: 4px 18px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background-color: transparent;
+  color: #333;
+  font-weight: 500;
+}
+
+/* Unique classes for filter buttons */
+.filter-btn-unique {
+  border: none;
+  border-radius: 20px;
+  padding: 6px 22px; /* Larger buttons for desktop */
+  font-size: 16px; /* Larger font size for desktop */
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background-color: transparent;
+  color: #333;
+  font-weight: 600; /* Slightly bolder for better visibility */
+}
+
+.filter-btnn[data-filter="All"]:not(.active),
+.filter-btn-unique[data-filter="All"]:not(.active) {
+  background-color: #e9f7ff;
+  color: #333;
+  border: 2px solid #10a4df;
+}
+
+.filter-btnn[data-filter="Paid"]:not(.active),
+.filter-btn-unique[data-filter="Paid"]:not(.active) {
+  background-color: #e3ffea;
+  color: #4caf50;
+  border: 2px solid #4caf50;
+}
+
+.filter-btnn[data-filter="Due"]:not(.active),
+.filter-btn-unique[data-filter="Due"]:not(.active) {
+  background-color: #ffe3e3;
+  color: #ff5252;
+  border: 2px solid #3ff527;
+}
+
+.filter-btnn.active[data-filter="All"],
+.filter-btn-unique.active[data-filter="All"] {
+  background-color: #e9f7ff;
+  color: #333;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.filter-btnn.active[data-filter="Paid"],
+.filter-btn-unique.active[data-filter="Paid"] {
+  background-color: #e3ffea;
+  color: #4caf50;
+  box-shadow: 0 1px 4px rgba(76, 175, 80, 0.15);
+}
+
+.filter-btnn.active[data-filter="Due"],
+.filter-btn-unique.active[data-filter="Due"] {
+  background-color: #ffe3e3;
+  color: #ff5252;
+  box-shadow: 0 1px 4px rgba(255, 82, 82, 0.15);
+}
+
+.supplier-header-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  height: 100%; /* Make sure it takes the full height of the header */
+  flex-shrink: 0; /* Prevent shrinking */
+}
+
+/* Suppliers Grid Layout */
+.suppliers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 24px;
+  margin-bottom: 24px;
+  margin-top: 0; /* Remove top margin since header has consistent bottom margin */
+  padding-top: 0; /* No padding needed at the top */
+}
+
+/* Individual Supplier Card */
+.supplier-card {
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  position: relative;
+}
+
+.supplier-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+}
+
+.supplier-card .status-badge,
+.status-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.supplier-card .status-badge.paid,
+.status-badge.paid {
+  background-color: #e3ffea;
+  color: #4caf50;
+}
+
+.supplier-card .status-badge.due,
+.status-badge.due {
+  background-color: #ffe3e3;
+  color: #ff5252;
+}
+
+.supplier-image-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 24px 0;
+}
+
+.supplier-image {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #f0f0f0;
+}
+
+.supplier-details {
+  padding: 16px 24px 24px;
+  text-align: center;
+}
+
+.supplier-info {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 8px;
+  text-align: left;
+  margin-top: 16px;
+}
+
+.supplier-info-label {
+  font-weight: 500;
+  color: #666;
+}
+
+.supplier-info-value {
+  color: #333;
+}
+
+
+.empty-state {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 40px 0;
+  color: #666;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .supplier-page {
+    padding: 16px 16px; /* Consistent padding */
+    margin-top: 0;
+  }
+  
+  .supplier-header {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 0;
+    margin-bottom: 20px; /* Fixed consistent margin */
+    gap: 12px;
+    min-height: 50px; /* Maintain consistent height on tablet */
+    flex-wrap: nowrap; /* Ensure single row */
+  }
+  
+  .supplier-header-right {
+    margin-top: 0;
+    min-height: 50px; /* Match header height */
+    display: flex;
+    align-items: center;
+  }
+  
+  .suppliers-grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 16px;
+    margin-top: 0;
+  }
+}
+
+@media (max-width: 576px) {
+  .supplier-page {
+    padding: 12px 12px; /* Consistent padding */
+    margin-top: 0;
+    width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+  }
+  
+  /* Make title for mobile size */
+  .supplier-page-title-unique {
+    font-size: 16px;
+    white-space: nowrap;
+    margin: 0;
+    max-width: 90px; /* Make title more compact */
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .filter-buttonss {
+    flex-direction: row;
+    gap: 2px; /* Reduce gap between buttons */
+    flex-shrink: 0; /* Prevent shrinking */
+    height: 100%; /* Full height to align buttons */
+    align-items: center;
+  }
+  
+  .supplier-header {
+    flex-direction: row;
+    align-items: center;
+    margin-top: 0;
+    margin-bottom: 16px; /* Consistent margin */
+    padding: 0 6px; /* Reduce padding to fit everything */
+    flex-wrap: nowrap;
+    width: 100%;
+    justify-content: space-between;
+    min-height: 40px; /* Maintain consistent height on mobile */
+    max-height: 40px; /* Set maximum height to prevent expansion */
+  }
+  
+  .supplier-header-left {
+    flex-direction: row;
+    align-items: center;
+    gap: 4px; /* Reduce gap between title and buttons */
+    height: 100%; /* Full height */
+    flex: 0 1 auto; /* Allow shrinking but not growing */
+    min-width: 0; /* Allow flex items to shrink below content size if needed */
+    overflow: hidden;
+    max-width: 70%; /* Limit width to prevent pushing pagination off screen */
+  }
+  
+  .supplier-header-right {
+    align-self: center;
+    margin-top: 0;
+    height: 100%; /* Full height */
+    min-height: 40px; /* Match header height */
+    width: auto;
+    justify-content: flex-end;
+    flex-shrink: 0; /* Prevent pagination from shrinking */
+    margin-left: auto; /* Push to the right */
+    display: flex;
+    align-items: center;
+  }
+  
+  /* Only apply smaller size to unique filter buttons */
+  .filter-btn-unique {
+    padding: 1px 6px;
+    font-size: 10px;
+    font-weight: 400;
+    min-width: 25px; /* Smaller minimum width */
+    max-width: 55px; /* Limit maximum width */
+    border-width: 1px; /* Thinner border */
+  }
+  
+  .suppliers-grid {
+    grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+    gap: 10px;
+    margin-bottom: 10px;
+    padding: 0 10px;
+  }
+}
+
+@media (max-width: 400px) {
+  .supplier-header {
+    flex-direction: row; /* Keep as row even on very small screens */
+    align-items: center;
+    gap: 1px;
+    flex-wrap: nowrap; /* Prevent wrapping to keep single row */
+    width: 100%;
+    padding: 0 2px;
+    box-sizing: border-box;
+    overflow: visible; /* Make sure everything stays visible */
+    min-height: 30px; /* Slightly taller to ensure consistent spacing */
+    margin-top: 2px;
+    margin-bottom: 6px; /* Consistent bottom margin */
+  }
+  
+  .supplier-header-left {
+    flex: 0 1 auto; /* Allow shrinking but not growing */
+    justify-content: flex-start;
+    gap: 2px;
+    overflow: hidden; /* Prevent overflow */
+    display: flex;
+    align-items: center;
+    min-width: 0; /* Allow flex items to shrink below content size if needed */
+    max-width: 65%; /* Limit width to prevent pushing pagination off screen */
+  }
+  
+  .filter-buttonss {
+    gap: 0px; /* No gap between buttons */
+    flex-shrink: 0; /* Prevent filter buttons from shrinking */
+    display: flex;
+    align-items: center;
+  }
+  
+  /* Even smaller size for very small screens but only for unique buttons */
+  .filter-btn-unique {
+    padding: 0px 3px;
+    font-size: 8px;
+    min-width: 20px; /* Smaller minimum width */
+    max-width: 45px; /* Limit maximum width */
+    height: 20px; /* Fixed height */
+    border-width: 1px; /* Thinner border */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Smaller title on very small screens but only for unique title */
+  .supplier-page-title-unique {
+    font-size: 11px;
+    overflow: hidden;
+    text-overflow: ellipsis; /* Add ellipsis if text overflows */
+    white-space: nowrap;
+    max-width: 70px; /* Even smaller to prevent pushing other elements */
+  }
+  
+  .supplier-header-right {
+    width: auto;
+    justify-content: flex-end;
+    margin-top: 0;
+    flex-shrink: 0; /* Prevent pagination from shrinking */
+    margin-left: auto; /* Push to the right */
+  }
+}

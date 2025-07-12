@@ -1,8 +1,18 @@
 import React from 'react';
 import TotalCard from '../components/Card/TotalCard';
 import '../styles/MarketorPanel/marketorOrder.css';
+import { useNavigate } from 'react-router-dom';
 
 function MarketorOrder() {
+  const navigate = useNavigate();
+
+  const handleViewAll = (section) => {
+    console.log(`View All clicked for ${section}`);
+    // Navigation logic for each section
+    if (section === 'Total Orders') {
+      navigate('/marketor-panel/order-status');
+    }
+  };
   // Define icons
   const totalOrdersIcon = (
     <svg xmlns="http://www.w3.org/2000/svg" width="48" height="47" viewBox="0 0 48 47" fill="none">
@@ -30,10 +40,7 @@ function MarketorOrder() {
     </svg>
   );
 
-  const handleViewAll = (section) => {
-    console.log(`View All clicked for ${section}`);
-    // Add navigation logic for each section
-  };
+
 
   return (
     <div className="marketor-order">
@@ -49,6 +56,7 @@ function MarketorOrder() {
           trendIcon={trendIcon}
           trendType="positive"
           onSeeMoreClick={() => handleViewAll('Total Orders')}
+          onClick={() => handleViewAll('Total Orders')}
         />
         
         <TotalCard

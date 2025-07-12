@@ -293,64 +293,13 @@ function LeftBar({ userRole = 'admin', isMobileMenuOpen = false, onMobileMenuClo
                     </svg>
                     <span>Orders</span>
                   </Link>
-                  <div className="dropdown-trigger" onClick={(e) => toggleDropdown('order', e)}>
-                    <svg
-                      className={`dropdown-icon ${dropdownStates.order ? 'rotate' : ''}`}
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="14"
-                      height="8"
-                      viewBox="0 0 14 8"
-                      fill="none"
-                    >
-                      <path d="M0.292786 0.393172C0.480314 0.205701 0.734622 0.100385 0.999786 0.100385C1.26495 0.100385 1.51926 0.205701 1.70679 0.393172L6.65679 5.34317L11.6068 0.393172C11.7954 0.211014 12.048 0.110219 12.3102 0.112498C12.5724 0.114776 12.8232 0.219945 13.0086 0.405353C13.194 0.590761 13.2992 0.841574 13.3015 1.10377C13.3037 1.36597 13.2029 1.61857 13.0208 1.80717L7.36379 7.46417C7.17626 7.65164 6.92195 7.75696 6.65679 7.75696C6.39162 7.75696 6.13731 7.65164 5.94979 7.46417L0.292786 1.80717C0.105315 1.61964 0 1.36534 0 1.10017C0 0.835007 0.105315 0.580699 0.292786 0.393172Z" fill="#919191" />
-                    </svg>
-                  </div>
+
                 </div>
-                <ul className={`dropdown-menu ${dropdownStates.order ? 'show' : ''}`}>
-                  <li><Link to="/order/new" className={isActive('/order/new') ? "active" : ""}>New Orders</Link></li>
-                  <li><Link to="/order" className={isActive('/order') && location.pathname === '/order' ? "active" : ""}>All Orders</Link></li>
-                </ul>
+
               </li>
             )}
 
 
-            {userRole === 'marketor' && (
-              <li className="dropdown-container">
-                <div
-                  className={`menu-item ${isActive('/order') ? "active" : ""}`}
-                >
-                  <Link to="/marketor-panel/supplier" className="menu-link">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
-                      <path d="M13.091 5.9115L16.0415 8.8815L18.0845 20.4565L7.96097 22.25L5.91797 10.675L7.67247 6.8715L13.091 5.9115Z" fill="#FFF0B3" stroke="black" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" />
-                      <path d="M11.3209 7.85798C11.3389 7.94567 11.3392 8.03607 11.3216 8.12385C11.3041 8.21163 11.2691 8.295 11.2188 8.36905C11.1686 8.4431 11.1039 8.50631 11.0288 8.55497C10.9537 8.60363 10.8695 8.63674 10.7814 8.65234C10.6933 8.66794 10.6029 8.66573 10.5156 8.64582C10.4283 8.62591 10.3459 8.58872 10.2733 8.53644C10.2006 8.48416 10.1392 8.41785 10.0926 8.34142C10.046 8.265 10.0152 8.18001 10.0019 8.09148C9.98396 8.00379 9.98373 7.91339 10.0013 7.82561C10.0188 7.73783 10.0537 7.65446 10.104 7.58041C10.1543 7.50637 10.219 7.44315 10.2941 7.39449C10.3692 7.34583 10.4533 7.31273 10.5415 7.29712C10.6296 7.28152 10.72 7.28374 10.8073 7.30364C10.8945 7.32355 10.9769 7.36074 11.0496 7.41302C11.1223 7.4653 11.1837 7.53161 11.2303 7.60804C11.2769 7.68446 11.3077 7.76945 11.3209 7.85798Z" fill="#FFF0B3" stroke="black" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" />
-                      <path d="M9.49219 2.75C9.59869 4.2005 9.89719 6.36 10.5577 7.426L9.49219 2.75Z" fill="#FFF0B3" />
-                      <path d="M9.49219 2.75C9.59869 4.2005 9.89719 6.36 10.5577 7.426" stroke="black" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" />
-                      <path d="M10.2266 3.18005C10.3181 5.15605 10.6491 7.83405 10.3281 7.46355L10.2266 3.18005ZM14.6821 14.0376C15.0411 13.8251 15.6916 13.5116 15.9381 13.7071C16.2051 13.9181 16.0196 14.5121 15.8351 14.9801" fill="#FFF0B3" />
-                      <path d="M10.2266 3.18005C10.3181 5.15605 10.6491 7.83405 10.3281 7.46355M14.6821 14.0376C15.0411 13.8251 15.6916 13.5116 15.9381 13.7071C16.2051 13.9181 16.0196 14.5121 15.8351 14.9801" stroke="black" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" />
-                      <path d="M7.63281 15.459C8.31931 15.799 10.2363 16.167 12.1493 15.828C13.9728 15.505 14.9778 14.695 15.4893 14.218" fill="#FFF0B3" />
-                      <path d="M7.63281 15.459C8.31931 15.799 10.2363 16.167 12.1493 15.828C13.9728 15.505 14.9778 14.695 15.4893 14.218" stroke="black" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" />
-                    </svg>
-                    <span>Suplier</span>
-                  </Link>
-                  <div className="dropdown-trigger" onClick={(e) => toggleDropdown('order', e)}>
-                    <svg
-                      className={`dropdown-icon ${dropdownStates.order ? 'rotate' : ''}`}
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="14"
-                      height="8"
-                      viewBox="0 0 14 8"
-                      fill="none"
-                    >
-                      <path d="M0.292786 0.393172C0.480314 0.205701 0.734622 0.100385 0.999786 0.100385C1.26495 0.100385 1.51926 0.205701 1.70679 0.393172L6.65679 5.34317L11.6068 0.393172C11.7954 0.211014 12.048 0.110219 12.3102 0.112498C12.5724 0.114776 12.8232 0.219945 13.0086 0.405353C13.194 0.590761 13.2992 0.841574 13.3015 1.10377C13.3037 1.36597 13.2029 1.61857 13.0208 1.80717L7.36379 7.46417C7.17626 7.65164 6.92195 7.75696 6.65679 7.75696C6.39162 7.75696 6.13731 7.65164 5.94979 7.46417L0.292786 1.80717C0.105315 1.61964 0 1.36534 0 1.10017C0 0.835007 0.105315 0.580699 0.292786 0.393172Z" fill="#919191" />
-                    </svg>
-                  </div>
-                </div>
-                <ul className={`dropdown-menu ${dropdownStates.order ? 'show' : ''}`}>
-                  <li><Link to="/order/new" className={isActive('/order/new') ? "active" : ""}>New Orders</Link></li>
-                  <li><Link to="/order" className={isActive('/order') && location.pathname === '/order' ? "active" : ""}>All Orders</Link></li>
-                </ul>
-              </li>
-            )}
 
 
             {/* Orders - Seller version (only for sellers) */}

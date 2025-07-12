@@ -132,7 +132,7 @@
 }
 
 .reusable-data-table th {
-  background: #CFF9FF;
+background: #E1F5FE;
   padding: 12px 8px;
   text-align: center;
   font-weight: 600;
@@ -160,6 +160,90 @@
 
 .reusable-data-table tbody tr:hover {
   background: #f8f9fa;
+}
+
+/* Status badges for due/paid statuses */
+.status-badge {
+  border-radius: 50px;
+  padding: 4px 15px;
+  font-size: 12px;
+  font-weight: 500;
+  display: inline-block;
+  min-width: 60px;
+  text-align: center;
+}
+
+.status-badge.due {
+  background-color: #FFE8E8;
+  color: #FF5252;
+}
+
+.status-badge.paid {
+  background-color: #E8F7E9;
+  color: #4CAF50;
+}
+
+/* Boxed status badges */
+.status-badge-box {
+  margin-top: 8px;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 500;
+  min-width: 80px;
+  display: inline-block;
+  text-align: center;
+}
+
+.status-badge-box.approved {
+  background-color: #E8F7E9;
+  color: #4CAF50;
+  border: 1px solid #4CAF50;
+}
+
+.status-badge-box.pending {
+  background-color: #FFF8E8;
+  color: #FFA000;
+  border: 1px solid #FFA000;
+}
+
+.status-badge-box.rejected {
+  background-color: #FFE8E8;
+  color: #D32F2F;
+  border: 1px solid #D32F2F;
+}
+
+.status-badge-box.due {
+  background-color: #FFE8E8;
+  color: #FF5252;
+  border: 1px solid #FF5252;
+}
+
+.status-badge-box.paid {
+  background-color: #E8F7E9;
+  color: #4CAF50;
+  border: 1px solid #4CAF50;
+}
+
+/* Price with status layout */
+.price-with-status {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.price-amount {
+  font-weight: 600;
+  color: #333;
+}
+
+/* Product name column styling */
+.product-name-column {
+  text-align: left;
+  white-space: pre-line;
+  line-height: 1.4;
 }
 
 /* Common Table Cell Content Styles */

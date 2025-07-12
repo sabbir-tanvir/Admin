@@ -30,8 +30,10 @@ import SellerAnalytics from './SellerPanel/sellerAnalytics.jsx';
 import MarketorDashboard from './MarketorPanel/marketorDashbord.jsx';
 import MarketorProduct from './MarketorPanel/marketorProduct.jsx';
 import MarketorOrder from './MarketorPanel/marketorOrder.jsx';
-import MarketorSupplier from './MarketorPanel/marketorSuplier.jsx';
 import MProductStatus from './MarketorPanel/MProductStatus.jsx';
+import MOrdersStatus from './MarketorPanel/mOrdersStatus.jsx';
+import AllSuppliers from './MarketorPanel/allSuplier.jsx';
+import SupplierProfile from './MarketorPanel/supplierProfile.jsx';
 
 function App() {
   return (
@@ -78,8 +80,10 @@ function App() {
           <Route path="dashboard" element={<MarketorDashboard />} />
           <Route path="product" element={<MarketorProduct />} />
           <Route path="order" element={<MarketorOrder />} />
-          <Route path="supplier" element={<MarketorSupplier />} />
           <Route path="product-status" element={<MProductStatus />} />
+          <Route path="order-status" element={<MOrdersStatus />} />
+          <Route path="supplier" element={<AllSuppliers />} />
+          <Route path="supplier/:id" element={<SupplierProfile />} />
         </Route>
       </Routes>
     </Router>

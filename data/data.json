@@ -1,4 +1,76 @@
 {
+  "marketorOrders": [
+    {
+      "id": 1,
+      "orderId": "ORD100054",
+      "date": "25 AUG 2025 17:40",
+      "customer": "John Doe",
+      "item": "Premium Headphones",
+      "quantity": 2,
+      "price": "$149.99",
+      "orderStatus": "Completed"
+    },
+    {
+      "id": 2,
+      "orderId": "ORD100055",
+      "date": "24 AUG 2025 14:20",
+      "customer": "Sarah Smith",
+      "item": "Wireless Keyboard",
+      "quantity": 1,
+      "price": "$59.99",
+      "orderStatus": "Processing"
+    },
+    {
+      "id": 3,
+      "orderId": "ORD100056",
+      "date": "23 AUG 2025 11:15",
+      "customer": "Alex Johnson",
+      "item": "Smart Watch",
+      "quantity": 1,
+      "price": "$199.99",
+      "orderStatus": "Shipped"
+    },
+    {
+      "id": 4,
+      "orderId": "ORD100057",
+      "date": "22 AUG 2025 09:30",
+      "customer": "Emma Wilson",
+      "item": "Bluetooth Speaker",
+      "quantity": 3,
+      "price": "$79.99",
+      "orderStatus": "Completed"
+    },
+    {
+      "id": 5,
+      "orderId": "ORD100058",
+      "date": "21 AUG 2025 15:10",
+      "customer": "Michael Brown",
+      "item": "Gaming Mouse",
+      "quantity": 1,
+      "price": "$49.99",
+      "orderStatus": "Cancelled"
+    },
+    {
+      "id": 6,
+      "orderId": "ORD100059",
+      "date": "20 AUG 2025 12:25",
+      "customer": "Jessica Taylor",
+      "item": "Laptop Stand",
+      "quantity": 2,
+      "price": "$29.99",
+      "orderStatus": "Completed"
+    },
+    {
+      "id": 7,
+      "orderId": "ORD100060",
+      "date": "19 AUG 2025 10:05",
+      "customer": "David Miller",
+      "item": "USB-C Hub",
+      "quantity": 1,
+      "price": "$39.99",
+      "orderStatus": "Processing"
+    }
+  ],
   "sellerOrders": [
     {
       "id": 1,
