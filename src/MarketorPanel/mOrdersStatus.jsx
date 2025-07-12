@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../styles/MarketorPanel/mOrdersStatus.css';
 import Pagination from '../components/pagination/Pagination';
 
 function MOrdersStatus() {
+  const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState('');
   const [sortConfig, setSortConfig] = useState({ key: null, direction: 'ascending' });
@@ -305,7 +307,7 @@ function MOrdersStatus() {
   };
 
   const handleView = (orderId) => {
-    console.log(`View order ${orderId}`);
+    navigate(`/marketor-panel/order/${orderId}`);
   };
 
   const handlePrint = (orderId) => {

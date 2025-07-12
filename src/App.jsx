@@ -34,6 +34,8 @@ import MProductStatus from './MarketorPanel/MProductStatus.jsx';
 import MOrdersStatus from './MarketorPanel/mOrdersStatus.jsx';
 import AllSuppliers from './MarketorPanel/allSuplier.jsx';
 import SupplierProfile from './MarketorPanel/supplierProfile.jsx';
+import OrderIdPage from './MarketorPanel/OrderIdPage.jsx';
+import MarketorProductAdd from './MarketorPanel/mAddProduct.jsx';
 
 function App() {
   return (
@@ -84,6 +86,8 @@ function App() {
           <Route path="order-status" element={<MOrdersStatus />} />
           <Route path="supplier" element={<AllSuppliers />} />
           <Route path="supplier/:id" element={<SupplierProfile />} />
+          <Route path="order/:orderId" element={<OrderIdPage />} />
+          <Route path="product/add" element={<MarketorProductAdd />} />
         </Route>
       </Routes>
     </Router>

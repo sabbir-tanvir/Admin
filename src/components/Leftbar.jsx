@@ -163,9 +163,21 @@ function LeftBar({ userRole = 'admin', isMobileMenuOpen = false, onMobileMenuClo
                     </svg>
                     <span>Product</span>
                   </Link>
-
-                </div>
-
+                  <div className="dropdown-trigger" onClick={(e) => toggleDropdown('product', e)}>
+                    <svg
+                      className={`dropdown-icon ${dropdownStates.product ? 'rotate' : ''}`}
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="14"
+                      height="8"
+                      viewBox="0 0 14 8"
+                      fill="none"
+                    >
+                      <path d="M0.292786 0.535994C0.480314 0.348523 0.734622 0.243207 0.999786 0.243207C1.26495 0.243207 1.51926 0.348523 1.70679 0.535994L6.65679 5.48599L11.6068 0.535994C11.7954 0.353836 12.048 0.253042 12.3102 0.25532C12.5724 0.257598 12.8232 0.362767 13.0086 0.548175C13.194 0.733583 13.2992 0.984396 13.3015 1.24659C13.3037 1.50879 13.2029 1.76139 13.0208 1.94999L7.36379 7.60699C7.17626 7.79446 6.92195 7.89978 6.65679 7.89978C6.39162 7.89978 6.13731 7.79446 5.94979 7.60699L0.292786 1.94999C0.105315 1.76247 0 1.50816 0 1.24299C0 0.977829 0.105315 0.723522 0.292786 0.535994Z" fill="#919191" />
+                    </svg>
+                  </div>
+                </div>                  <ul className={`dropdown-menu ${dropdownStates.product ? 'show' : ''}`}>
+                  <li><Link to="/marketor-panel/product/add" className={isActive('/marketor-panel/product/add') ? "active" : ""}>Add Product</Link></li>
+                </ul>
               </li>
             )}
 
