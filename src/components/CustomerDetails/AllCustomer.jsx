@@ -23,7 +23,7 @@ function AllCustomer() {
             company: "Tech Solutions Inc",
             image: "https://images.unsplash.com/photo-1494790108755-2616b612b47c?w=400&h=400&fit=crop&crop=face",
             type: "customer",
-            status: "Active"
+            status: "Paid"
         },
         {
             id: "12002",
@@ -32,7 +32,7 @@ function AllCustomer() {
             company: "Digital Innovations",
             image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face",
             type: "customer",
-            status: "Inactive"
+            status: "Due"
         },
         {
             id: "12003",
@@ -41,7 +41,7 @@ function AllCustomer() {
             company: "Creative Agency",
             image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop&crop=face",
             type: "customer",
-            status: "Active"
+            status: "Paid"
         },
         {
             id: "12004",
@@ -50,7 +50,7 @@ function AllCustomer() {
             company: "Business Corp",
             image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face",
             type: "customer",
-            status: "Inactive"
+            status: "Due"
         },
         {
             id: "12005",
@@ -59,7 +59,7 @@ function AllCustomer() {
             company: "Marketing Pro",
             image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&h=400&fit=crop&crop=face",
             type: "customer",
-            status: "Active"
+            status: "Paid"
         },
         {
             id: "12006",
@@ -68,7 +68,7 @@ function AllCustomer() {
             company: "Finance Plus",
             image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=400&fit=crop&crop=face",
             type: "customer",
-            status: "Inactive"
+            status: "Due"
         },
         {
             id: "12007",
@@ -77,7 +77,7 @@ function AllCustomer() {
             company: "Design Studio",
             image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&h=400&fit=crop&crop=face",
             type: "customer",
-            status: "Active"
+            status: "Paid"
         },
         {
             id: "12008",
@@ -86,7 +86,7 @@ function AllCustomer() {
             company: "Consulting Group",
             image: "https://images.unsplash.com/photo-1566492031773-4f4e44671d66?w=400&h=400&fit=crop&crop=face",
             type: "customer",
-            status: "Inactive"
+            status: "Due"
         }
     ];
 
@@ -161,16 +161,16 @@ function AllCustomer() {
                                     All
                                 </button>
                                 <button
-                                    className={`customer-filter-btn ${activeFilter === 'Active' ? 'active' : ''}`}
-                                    onClick={() => handleFilterChange('Active')}
+                                    className={`customer-filter-btn ${activeFilter === 'Paid' ? 'active' : ''}`}
+                                    onClick={() => handleFilterChange('Paid')}
                                 >
-                                    Active
+                                    Paid
                                 </button>
                                 <button
-                                    className={`customer-filter-btn ${activeFilter === 'Inactive' ? 'active' : ''}`}
-                                    onClick={() => handleFilterChange('Inactive')}
+                                    className={`customer-filter-btn ${activeFilter === 'Due' ? 'active' : ''}`}
+                                    onClick={() => handleFilterChange('Due')}
                                 >
-                                    Inactive
+                                    Due
                                 </button>
                             </div>
                         </div>

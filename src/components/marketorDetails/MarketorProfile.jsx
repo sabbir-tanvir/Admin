@@ -1,70 +1,70 @@
 import React from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import '../../styles/components/SellerId.css'
+import BluePagination from '../pagination/BluePagination';
 import UserCardVertical from '../Card/UserCardVertical';
-
 import SalesCard from '../Card/SalesCard';
 import PaymentCard from '../Card/PayemntCard';
 import Table from '../Table/Table';
-import BluePagination from '../pagination/BluePagination';
 
-const SellerID = () => {
+
+const MarketorProfile = () => {
     const { id } = useParams();
     const location = useLocation();
     const employeeData = location.state?.employeeData;
 
-    // Default data if no employee data is passed
+    // Default data if no marketor data is passed
     const defaultEmployee = {
         id: id || "N/A",
-        name: "Unknown Employee",
+        name: "Unknown Marketor",
         contact: "N/A",
         company: "N/A",
         image: "https://via.placeholder.com/150x150/cccccc/666666?text=User",
-        type: "employee"
+        type: "marketor"
     };
 
     const displayData = employeeData || defaultEmployee;
 
-    // Sample table data for orders
-    const orderData = [
+    // Sample table data for campaigns
+    const campaignData = [
         {
             sl: 1,
-            orderId: "100054",
+            campaignId: "CMP001",
             date: "25 AUG 2025 17:40",
-            marketers: "David",
-            companyName: "Okla",
-            totalItems: 10,
-            totalPrice: "$60,000"
+            campaignName: "Summer Sale",
+            clientName: "TechCorp",
+            budget: "$15,000",
+            commission: "$1,500",
         },
         {
             sl: 2,
-            orderId: "100055",
+            campaignId: "CMP002",
             date: "24 AUG 2025 14:20",
-            marketers: "Sarah",
-            companyName: "TechCorp",
-            totalItems: 15,
-            totalPrice: "$125,000"
+            campaignName: "Product Launch",
+            clientName: "DesignStudio",
+            budget: "$25,000",
+            commission: "$2,500",
         },
         {
             sl: 3,
-            orderId: "100056",
+            campaignId: "CMP003",
             date: "23 AUG 2025 09:15",
-            marketers: "Mike",
-            companyName: "MakerSpace",
-            totalItems: 5,
-            totalPrice: "$35,000"
+            campaignName: "Brand Awareness",
+            clientName: "MakerSpace",
+            budget: "$10,000",
+            commission: "$2,500"
         }
     ];
 
     // Table columns configuration
     const tableColumns = [
         { key: 'sl', header: 'Sl' },
-        { key: 'orderId', header: 'Order Id' },
+        { key: 'campaignId', header: 'Campaign ID' },
         { key: 'date', header: 'Date' },
-        { key: 'marketers', header: 'Marketers' },
-        { key: 'companyName', header: 'Company Name' },
-        { key: 'totalItems', header: 'Total Items' },
-        { key: 'totalPrice', header: 'Total Price' },
+        { key: 'campaignName', header: 'Campaign Name' },
+        { key: 'clientName', header: 'Client Name' },
+        { key: 'budget', header: 'Budget' },
+        { key: 'commission', header: 'Commission' },
         {
             key: 'actions',
             header: 'Actions',
@@ -72,7 +72,7 @@ const SellerID = () => {
                 <div className="table-action-icons">
                     <button
                         className="table-action-btn table-view-btn"
-                        onClick={() => console.log('View order:', item.orderId)}
+                        onClick={() => console.log('View campaign:', item.campaignId)}
                         title="View"
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
@@ -82,7 +82,7 @@ const SellerID = () => {
                     </button>
                     <button
                         className="table-action-btn table-print-btn"
-                        onClick={() => console.log('Print order:', item.orderId)}
+                        onClick={() => console.log('Print campaign:', item.campaignId)}
                         title="Print"
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
@@ -98,7 +98,7 @@ const SellerID = () => {
     return (
         <div className="seller-id-page">
             <div className="seller-id-header">
-                <h2>Seller Profile {displayData.id}</h2>
+                <h2>Marketor Dashboard {displayData.id}</h2>
                 <BluePagination />
             </div>
 
@@ -115,30 +115,29 @@ const SellerID = () => {
                 </div>
                 <div className="seller-card-sections">
                     <div className="seller-card-section">
-                            <SalesCard
+                        <SalesCard
                                 number="50"
-                                title="Sales  amount"
+                                title="Campaign Revenue"
                                 value="$350,000"
                                 showRedDot={true}
-                                onClick={() => console.log('Sales amount clicked')}
+                                onClick={() => console.log('Campaign revenue clicked')}
                             />
                         </div>
                         <div className="seller-card-section">
                             <SalesCard
-                                number="50"
-                                title="Total Sales"
-                                value="10"
+                                number="25"
+                                title="Active Campaigns"
+                                value="25"
                                 showRedDot={true}
-                                onClick={() => console.log('Total sales clicked')}
+                                onClick={() => console.log('Active campaigns clicked')}
                             />
                         </div>
                     </div>
                     <div className="seller-card-section">
                         <PaymentCard
-                            type="payment"
-                            paidAmount="$274,000"
-                            dueAmount="$"
-                            onClick={() => console.log('Payment status clicked')}
+                            type="commission"
+                            totalAmount="$350,000"
+                            onClick={() => console.log('Commission clicked')}
                         />
                     </div>
 
@@ -177,12 +176,12 @@ const SellerID = () => {
 
                 <Table
                     columns={tableColumns}
-                    data={orderData}
-                    searchPlaceholder="Ex:10001"
-                    searchKeys={['orderId', 'marketers', 'companyName']}
+                    data={campaignData}
+                    searchPlaceholder="Ex:CMP001"
+                    searchKeys={['campaignId', 'campaignName', 'clientName']}
                     itemsPerPage={7}
-                    onExport={(data) => console.log('Export orders:', data)}
-                    onFilter={() => console.log('Filter orders')}
+                    onExport={(data) => console.log('Export campaigns:', data)}
+                    onFilter={() => console.log('Filter campaigns')}
                 />
 
 
@@ -190,4 +189,4 @@ const SellerID = () => {
     );
 };
 
-export default SellerID;
+export default MarketorProfile;

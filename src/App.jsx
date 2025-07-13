@@ -9,8 +9,8 @@ import Order from './pages/Order.jsx';
 import Seller from './pages/Seller.jsx';
 import Marketor from './pages/MarketorPage.jsx';
 import SellerID from './components/sellerDetails/SellerId.jsx';
-import AllMarketors from './pages/AllMarketor.jsx';
-import MarketorProfile from './pages/MarketorProfile.jsx';
+import AllMarketors from './components/marketorDetails/AllMarketor.jsx';
+import MarketorProfile from './components/marketorDetails/MarketorProfile.jsx';
 import Customer from './pages/Customer.jsx';
 import Profile from './pages/Profile.jsx';
 import ProductsList from './pages/TotalProduct.jsx';
@@ -21,6 +21,7 @@ import EmployeeDetails from './components/employDetails/EmployeeDetails.jsx';
 import AddSeller from './components/sellerDetails/AddSeller.jsx';
 import Employ from './components/sellerDetails/AllSeller.jsx';
 import AllCustomer from './components/CustomerDetails/AllCustomer.jsx';
+import CustomerProfile from './components/CustomerDetails/CustomerProfile.jsx';
 import SellerDashboard from './SellerPanel/sellerDashbord.jsx';
 import SellerProduct from './SellerPanel/SellerProduct.jsx';
 import SellerOrder from './SellerPanel/SellerOrder.jsx';
@@ -51,6 +52,7 @@ function App() {
           <Route path="marketor" element={<Marketor />} />
           <Route path="marketor/all" element={<AllMarketors />} />
           <Route path="customer/user" element={<AllCustomer />} />
+          <Route path="customer/user/:id" element={<CustomerProfile />} />
           <Route path="seller/user" element={<Employ />} />
           <Route path="seller/user/:id" element={<SellerID />} />
           <Route path="marketor/user/:id" element={<MarketorProfile />} />

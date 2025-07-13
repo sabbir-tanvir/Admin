@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import Pagination from '../pagination/Pagination';
 import '../../styles/components/Table.css';
 
@@ -32,27 +32,75 @@ const Table = ({
 }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState('');
+  const [sortConfig, setSortConfig] = useState({ key: null, direction: 'ascending' });
 
-  // Filter data based on search term
-  const filteredData = data.filter(item => {
-    if (!searchTerm) return true;
-    
-    return searchKeys.some(key => {
-      const value = item[key];
-      if (typeof value === 'string') {
-        return value.toLowerCase().includes(searchTerm.toLowerCase());
-      }
-      if (typeof value === 'number') {
-        return value.toString().includes(searchTerm);
-      }
-      return false;
+  const requestSort = (key) => {
+    let direction = 'ascending';
+    if (sortConfig.key === key && sortConfig.direction === 'ascending') {
+      direction = 'descending';
+    }
+    setSortConfig({ key, direction });
+  };
+
+  // Filter and sort data
+  const processedData = useMemo(() => {
+    let filteredItems = data.filter(item => {
+      if (!searchTerm) return true;
+      
+      return searchKeys.some(key => {
+        const value = item[key];
+        if (typeof value === 'string') {
+          return value.toLowerCase().includes(searchTerm.toLowerCase());
+        }
+        if (typeof value === 'number') {
+          return value.toString().includes(searchTerm);
+        }
+        return false;
+      });
     });
-  });
+
+    if (sortConfig.key) {
+      filteredItems.sort((a, b) => {
+        const aValue = a[sortConfig.key];
+        const bValue = b[sortConfig.key];
+
+        if (aValue === null || aValue === undefined) return 1;
+        if (bValue === null || bValue === undefined) return -1;
+
+        if (typeof aValue === 'number' && typeof bValue === 'number') {
+          return sortConfig.direction === 'ascending' ? aValue - bValue : bValue - aValue;
+        }
+        
+        const stringA = String(aValue).toLowerCase();
+        const stringB = String(bValue).toLowerCase();
+
+        // Handle currency sorting for 'totalPrice'
+        if (sortConfig.key === 'totalPrice') {
+          const numA = parseFloat(stringA.replace(/[^0-9.-]+/g,""));
+          const numB = parseFloat(stringB.replace(/[^0-9.-]+/g,""));
+          if (!isNaN(numA) && !isNaN(numB)) {
+            return sortConfig.direction === 'ascending' ? numA - numB : numB - numA;
+          }
+        }
+
+        if (stringA < stringB) {
+          return sortConfig.direction === 'ascending' ? -1 : 1;
+        }
+        if (stringA > stringB) {
+          return sortConfig.direction === 'ascending' ? 1 : -1;
+        }
+        return 0;
+      });
+    }
+
+    return filteredItems;
+  }, [data, searchTerm, searchKeys, sortConfig]);
+
 
   // Calculate pagination
-  const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+  const totalPages = Math.ceil(processedData.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
-  const paginatedData = filteredData.slice(startIndex, startIndex + itemsPerPage);
+  const paginatedData = processedData.slice(startIndex, startIndex + itemsPerPage);
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
@@ -60,7 +108,7 @@ const Table = ({
 
   const handleExport = () => {
     if (onExport) {
-      onExport(filteredData);
+      onExport(processedData);
     } else {
       console.log('Export functionality to be implemented');
     }
@@ -127,7 +175,20 @@ const Table = ({
           <thead>
             <tr>
               {columns.map((column, index) => (
-                <th key={index}>{column.header}</th>
+                <th 
+                  key={index} 
+                  onClick={() => column.sortable && requestSort(column.key)}
+                  className={column.sortable ? 'sortable-header' : ''}
+                >
+                  {column.header}
+                  {column.sortable && (
+                    <span className={`sort-icon ${sortConfig.key === column.key && sortConfig.direction === 'descending' ? 'rotate-icon' : ''}`}>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="7" viewBox="0 0 10 7" fill="none">
+                        <path d="M1.24894 6.9996H8.74894C8.82487 6.99936 8.8993 6.97842 8.96422 6.93902C9.02913 6.89963 9.08208 6.84328 9.11735 6.77603C9.15262 6.70879 9.16889 6.6332 9.1644 6.5574C9.1599 6.48159 9.13482 6.40845 9.09185 6.34585L5.34185 0.92918C5.18644 0.704596 4.81227 0.704596 4.65644 0.92918L0.906437 6.34585C0.863031 6.40832 0.837576 6.4815 0.832839 6.55743C0.828102 6.63336 0.844264 6.70913 0.879568 6.77652C0.914872 6.8439 0.967969 6.90033 1.03309 6.93966C1.09821 6.97899 1.17286 6.99972 1.24894 6.9996Z" fill={sortConfig.key === column.key ? '#18B3F9' : '#ccc'} />
+                      </svg>
+                    </span>
+                  )}
+                </th>
               ))}
             </tr>
           </thead>
