@@ -1,16 +1,35 @@
-import React from 'react';
-import ProductCard from '../components/Card/ProductCard.jsx';
-import { CustomerIcon, CartIcon, CompanyIcon } from '../components/Card/Icons.jsx';
+import React, { useEffect, useState } from 'react';
 import '../styles/pages/ProductPage.css';
 import ProductDetails from '../components/productDetails/ProductDetails.jsx';
  import TotalCard from '../components/Card/TotalCard.jsx';
 import TopCategoryCard from '../components/Card/TopCatagoryCard.jsx';
+import axios from 'axios';
+import CardContainer from '../components/Card/CardContainer.jsx';
+import TopCategoriesDonut from '../components/Charts/TopCategoriesDonut.jsx';
 
 function Product() {
   // Sample data for calculations
-  const totalProducts = 156;
-  const approvalPending = 23;
-  const newProducts = 8;
+
+  const [data, setData] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+  useEffect(() => {
+    setLoading(true);
+    setError(null);
+    axios.get('/dashboardData.json')
+      .then(res => {
+        setData(res.data);
+        setLoading(false);
+      })
+      .catch(() => {
+        setError('Failed to load dashboard data');
+        setLoading(false);
+      });
+  }, []);
+
+
+  // Generate sample chart data for summary cards
 
   const handleCardClick = (action) => {
     console.log(`${action} clicked!`);
@@ -52,7 +71,20 @@ function Product() {
               </div>
               
               <div className="right-card">
-                <TopCategoryCard />
+              
+                <div className="section-title">
+                  <h3>Top Categories</h3>
+                </div>
+                {loading ? (
+                  <div style={{textAlign: 'center', padding: '40px 0'}}>
+                    <span className="loader"></span> Loading...
+                  </div>
+                ) : error ? (
+                  <div style={{color: 'red', textAlign: 'center', padding: '40px 0'}}>{error}</div>
+                ) : data && (
+                  <TopCategoriesDonut categories={data.categories} />
+                )}
+            
               </div>
             </div>
           </div>

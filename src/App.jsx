@@ -37,6 +37,7 @@ import AllSuppliers from './MarketorPanel/allSuplier.jsx';
 import SupplierProfile from './MarketorPanel/supplierProfile.jsx';
 import OrderIdPage from './MarketorPanel/OrderIdPage.jsx';
 import MarketorProductAdd from './MarketorPanel/mAddProduct.jsx';
+import AdminAnalytics from './pages/AdminAnalytics.jsx';
 
 function App() {
   return (
@@ -64,6 +65,8 @@ function App() {
           <Route path="add-employee" element={<AddEmployee />} />
           <Route path="employee/:id" element={<EmployeeDetails />} />
           <Route path="seller/add-seller" element={<AddSeller />} />
+          <Route path="/admin-analytics" element={<AdminAnalytics />} />
+
         </Route>
 
         {/* Seller routes with layout */}

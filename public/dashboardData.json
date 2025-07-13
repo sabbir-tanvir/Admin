@@ -1,0 +1,40 @@
+{
+  "summary": {
+    "revenue": {
+      "title": "Revenue",
+      "value": 84500,
+      "trend": 10500,
+      "trendType": "up"
+    },
+    "customers": {
+      "title": "Total Customer",
+      "value": 40000,
+      "trend": 10000,
+      "trendType": "up"
+    },
+    "visitors": {
+      "title": "Total Site Visitors",
+      "value": 140000,
+      "trend": -10000,
+      "trendType": "down"
+    }
+  },
+  "metrics": {
+    "labels": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug"],
+    "revenue": [20000, 25000, 30000, 35000, 40000, 50000, 60000, 84500],
+    "customers": [10000, 15000, 20000, 25000, 30000, 35000, 37000, 40000],
+    "visitors": [80000, 90000, 100000, 110000, 120000, 130000, 135000, 140000]
+  },
+  "categories": [
+    { "name": "Insulators", "value": 25 },
+    { "name": "Insulators", "value": 25 },
+    { "name": "Insulators", "value": 20 },
+    { "name": "Insulators", "value": 30 }
+  ],
+  "orders": [
+    { "id": 1, "customer": "John Doe", "amount": 1200, "status": "Completed", "date": "2023-08-01" },
+    { "id": 2, "customer": "Jane Smith", "amount": 950, "status": "Pending", "date": "2023-08-02" },
+    { "id": 3, "customer": "Alice Brown", "amount": 1500, "status": "Completed", "date": "2023-08-03" },
+    { "id": 4, "customer": "Bob Lee", "amount": 700, "status": "Cancelled", "date": "2023-08-04" }
+  ]
+} 
