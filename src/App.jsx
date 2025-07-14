@@ -38,6 +38,23 @@ import SupplierProfile from './MarketorPanel/supplierProfile.jsx';
 import OrderIdPage from './MarketorPanel/OrderIdPage.jsx';
 import MarketorProductAdd from './MarketorPanel/mAddProduct.jsx';
 import AdminAnalytics from './pages/AdminAnalytics.jsx';
+import OrderDetails from './components/OrderTable/OrderDetails.jsx';
+import PaymentHistory from './components/OrderTable/PaymentHistory.jsx';
+import ErrorBoundary from './components/ErrorBoundary.jsx';
+
+// Business Settings Components
+import BusinessSettings from './pages/BusinessSettings.jsx';
+import OrderSettings from './pages/OrderSettings.jsx';
+import RefundSettings from './pages/RefundSettings.jsx';
+import SellerSettings from './pages/SellerSettings.jsx';
+import DeliverySettings from './pages/DeliverySettings.jsx';
+import CustomerSettingsSection from './components/BusinessSettings/CustomerSettingsSection.jsx';
+import PrioritySetupSection from './components/BusinessSettings/PrioritySetupSection.jsx';
+import LanguageSettingsSection from './components/BusinessSettings/LanguageSettingsSection.jsx';
+import LandingPageSettingsSection from './components/BusinessSettings/LandingPageSettingsSection.jsx';
+import WebsocketSettingsSection from './components/BusinessSettings/WebsocketSettingsSection.jsx';
+import AutomatedMessageSection from './components/BusinessSettings/AutomatedMessageSection.jsx';
+import DistrubStatementSection from './components/BusinessSettings/DistrubStatementSection.jsx';
 
 function App() {
   return (
@@ -49,6 +66,16 @@ function App() {
           <Route path="dashboard" element={<Home />} />
           <Route path="product" element={<Product />} />
           <Route path="order" element={<Order />} />
+          <Route path="order/:orderId" element={
+            <ErrorBoundary>
+              <OrderDetails />
+            </ErrorBoundary>
+          } />
+          <Route path="order/:orderId/payments" element={
+            <ErrorBoundary>
+              <PaymentHistory />
+            </ErrorBoundary>
+          } />
           <Route path="seller" element={<Seller />} />
           <Route path="marketor" element={<Marketor />} />
           <Route path="marketor/all" element={<AllMarketors />} />
@@ -66,6 +93,19 @@ function App() {
           <Route path="employee/:id" element={<EmployeeDetails />} />
           <Route path="seller/add-seller" element={<AddSeller />} />
           <Route path="/admin-analytics" element={<AdminAnalytics />} />
+          <Route path="/business-settings" element={<BusinessSettings />}>
+            <Route path="order-settings" element={<OrderSettings />} />
+            <Route path="refund" element={<RefundSettings />} />
+            <Route path="seller" element={<SellerSettings />} />
+            <Route path="delivery" element={<DeliverySettings />} />
+            <Route path="customers" element={<CustomerSettingsSection />} />
+            <Route path="priority-setup" element={<PrioritySetupSection />} />
+            <Route path="language" element={<LanguageSettingsSection />} />
+            <Route path="landing-page" element={<LandingPageSettingsSection />} />
+            <Route path="websocket" element={<WebsocketSettingsSection />} />
+            <Route path="automated-message" element={<AutomatedMessageSection />} />
+            <Route path="disturb-statement" element={<DistrubStatementSection />} />
+          </Route>
 
         </Route>
 

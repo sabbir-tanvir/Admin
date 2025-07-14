@@ -52,9 +52,6 @@
 
 .order-details-container {
   background: white;
-  border-radius: 12px;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
-  margin-bottom: 20px;
   overflow: hidden;
   /* Ensures border-radius applies to all children */
 }

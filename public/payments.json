@@ -1,0 +1,50 @@
+[
+  {
+    "orderId": "1001",
+    "summary": {
+      "customer": "Jack Jonson",
+      "phone": "+8801874747474",
+      "email": "example@gamail.com",
+      "address": "Dhaka, Bangladesh",
+      "customerImage": "https://randomuser.me/api/portraits/men/32.jpg",
+      "paidAmount": "$270,000",
+      "dueAmount": "$80,000"
+    },
+    "payments": [
+      { "id": 1, "amount": "$70,000", "date": "27-5-2025", "paid": "$70,000", "due": "$300,000" },
+      { "id": 2, "amount": "$100,000", "date": "28-5-2025", "paid": "$100,000", "due": "$200,000" },
+      { "id": 3, "amount": "$100,000", "date": "29-5-2025", "paid": "$100,000", "due": "$100,000" }
+    ]
+  },
+  {
+    "orderId": "1002",
+    "summary": {
+      "customer": "Emily Clark",
+      "phone": "+8801987654321",
+      "email": "emily@example.com",
+      "address": "Chittagong, Bangladesh",
+      "customerImage": "https://randomuser.me/api/portraits/women/44.jpg",
+      "paidAmount": "$50,000",
+      "dueAmount": "$158,000"
+    },
+    "payments": [
+      { "id": 1, "amount": "$30,000", "date": "21-6-2025", "paid": "$30,000", "due": "$178,000" },
+      { "id": 2, "amount": "$20,000", "date": "22-6-2025", "paid": "$20,000", "due": "$158,000" }
+    ]
+  },
+  {
+    "orderId": "1003",
+    "summary": {
+      "customer": "Rahim Uddin",
+      "phone": "+8801678901234",
+      "email": "rahim@example.com",
+      "address": "Sylhet, Bangladesh",
+      "customerImage": "https://randomuser.me/api/portraits/men/45.jpg",
+      "paidAmount": "$57,000",
+      "dueAmount": "$0"
+    },
+    "payments": [
+      { "id": 1, "amount": "$57,000", "date": "22-6-2025", "paid": "$57,000", "due": "$0" }
+    ]
+  }
+]

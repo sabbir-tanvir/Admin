@@ -1,0 +1,85 @@
+[
+  {
+    "orderId": "1001",
+    "date": "20th June 2025 6:00 pm",
+    "marketerName": "Deniel",
+    "sellerName": "Mike",
+    "company": "Gentek",
+    "status": "Delivered",
+    "paymentStatus": "Paid",
+    "paymentMethod": "visa credit card",
+    "customer": "Jack Jonson",
+    "phone": "+8801730237474",
+    "email": "example@gamail.com",
+    "address": "Dhaka, Bangladesh",
+    "customerImage": "https://randomuser.me/api/portraits/men/32.jpg",
+    "products": [
+      {
+        "name": "Tractor",
+        "code": "1232",
+        "quantity": 12,
+        "price": "$60,000",
+        "offerPrice": "$50,000",
+        "finalPrice": "$300,000"
+      }
+    ]
+  },
+  {
+    "orderId": "1002",
+    "date": "21st June 2025 2:00 pm",
+    "marketerName": "Sara",
+    "sellerName": "John",
+    "company": "FarmTech",
+    "status": "Pending",
+    "paymentStatus": "Due",
+    "paymentMethod": "bank transfer",
+    "customer": "Emily Clark",
+    "phone": "+8801987654321",
+    "email": "emily@example.com",
+    "address": "Chittagong, Bangladesh",
+    "customerImage": "https://randomuser.me/api/portraits/women/44.jpg",
+    "products": [
+      {
+        "name": "Harvester",
+        "code": "5678",
+        "quantity": 5,
+        "price": "$40,000",
+        "offerPrice": "$38,000",
+        "finalPrice": "$190,000"
+      },
+      {
+        "name": "Plough",
+        "code": "4321",
+        "quantity": 2,
+        "price": "$10,000",
+        "offerPrice": "$9,000",
+        "finalPrice": "$18,000"
+      }
+    ]
+  },
+  {
+    "orderId": "1003",
+    "date": "22nd June 2025 11:00 am",
+    "marketerName": "Ali",
+    "sellerName": "Nina",
+    "company": "AgroPro",
+    "status": "Delivered",
+    "paymentStatus": "Paid",
+    "paymentMethod": "cash",
+    "customer": "Rahim Uddin",
+    "phone": "+8801678901234",
+    "email": "rahim@example.com",
+    "address": "Sylhet, Bangladesh",
+    "customerImage": "https://randomuser.me/api/portraits/men/45.jpg",
+    "products": [
+      {
+        "name": "Seeder",
+        "code": "7890",
+        "quantity": 3,
+        "price": "$20,000",
+        "offerPrice": "$19,000",
+        "finalPrice": "$57,000"
+      }
+    ]
+  }
+]

@@ -2,9 +2,7 @@ import React, { useEffect, useState } from 'react';
 import '../styles/pages/ProductPage.css';
 import ProductDetails from '../components/productDetails/ProductDetails.jsx';
  import TotalCard from '../components/Card/TotalCard.jsx';
-import TopCategoryCard from '../components/Card/TopCatagoryCard.jsx';
 import axios from 'axios';
-import CardContainer from '../components/Card/CardContainer.jsx';
 import TopCategoriesDonut from '../components/Charts/TopCategoriesDonut.jsx';
 
 function Product() {

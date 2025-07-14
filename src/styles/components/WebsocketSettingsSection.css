@@ -1,0 +1,142 @@
+.websocket-settings-card {
+  background: #fff;
+  border-radius: 10px;
+  border: 1px solid #e3e6ef;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+  padding: 18px 18px 28px 18px;
+  margin-top: 18px;
+  min-height: 180px;
+}
+.websocket-settings-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.websocket-settings-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
+.websocket-label {
+  font-size: 15px;
+  font-weight: 500;
+  min-width: 140px;
+}
+.websocket-url-input-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+}
+.websocket-url-input {
+  width: 340px;
+  max-width: 100%;
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  font-size: 15px;
+  background: #f8fafd;
+  transition: border 0.2s;
+}
+.websocket-url-input:disabled {
+  background: #f3f3f3;
+  color: #aaa;
+}
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 38px;
+  height: 22px;
+}
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: .3s;
+  border-radius: 22px;
+}
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: .3s;
+  border-radius: 50%;
+}
+input:checked + .slider {
+  background-color: #19b800;
+}
+input:checked + .slider:before {
+  transform: translateX(16px);
+}
+.websocket-actions-row {
+  display: flex;
+  justify-content: flex-end;
+  gap: 14px;
+  margin-top: 24px;
+}
+.save-btn {
+  background: #6c63ff;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 32px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.save-btn:hover {
+  background: #554ee2;
+}
+.reset-btn {
+  background: #f5f5f5;
+  color: #222;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 32px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.reset-btn:hover {
+  background: #e0e0e0;
+}
+@media (max-width: 700px) {
+  .websocket-settings-card {
+    padding: 8px 2px 12px 2px;
+  }
+  .websocket-settings-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+  .websocket-url-input {
+    width: 100%;
+    min-width: 0;
+  }
+  .websocket-actions-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+  .save-btn, .reset-btn {
+    width: 100%;
+    padding: 10px 0;
+    font-size: 15px;
+  }
+} 

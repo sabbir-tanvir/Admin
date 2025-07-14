@@ -1,100 +1,45 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Pagination from '../pagination/Pagination';
 import '../../styles/components/OrderDetails.css';
+import axios from 'axios';
 
 function OrderDetails() {
+  const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState('');
   const [sortConfig, setSortConfig] = useState({ key: null, direction: 'ascending' });
+  const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const itemsPerPage = 6;
 
-  // Sample order data matching the Order Overview structure from the image
-  const [orders] = useState([
-    {
-      id: 1,
-      orderId: "100054",
-      date: "25 AUG 2025 17:40",
-      customerName: "Nikola",
-      customerPhone: "+880*********74",
-      marketer: "Okla",
-      itemQuantity: 4,
-      price: "$60,000",
-      paymentStatus: "Paid",
-      orderStatus: "Delivered"
-    },
-    {
-      id: 2,
-      orderId: "100054",
-      date: "25 AUG 2025 17:40",
-      customerName: "Nikola",
-      customerPhone: "+880*********74",
-      marketer: "Okla",
-      itemQuantity: 4,
-      price: "$60,000",
-      paymentStatus: "Paid",
-      orderStatus: "Delivered"
-    },
-    {
-      id: 3,
-      orderId: "100054",
-      date: "25 AUG 2025 17:40",
-      customerName: "Nikola",
-      customerPhone: "+880*********74",
-      marketer: "Okla",
-      itemQuantity: 4,
-      price: "$60,000",
-      paymentStatus: "Paid",
-      orderStatus: "Delivered"
-    },
-    {
-      id: 4,
-      orderId: "100054",
-      date: "25 AUG 2025 17:40",
-      customerName: "Nikola",
-      customerPhone: "+880*********74",
-      marketer: "Okla",
-      itemQuantity: 4,
-      price: "$60,000",
-      paymentStatus: "Paid",
-      orderStatus: "Delivered"
-    },
-    {
-      id: 5,
-      orderId: "100054",
-      date: "25 AUG 2025 17:40",
-      customerName: "Nikola",
-      customerPhone: "+880*********74",
-      marketer: "Okla",
-      itemQuantity: 4,
-      price: "$60,000",
-      paymentStatus: "Paid",
-      orderStatus: "Delivered"
-    },
-    {
-      id: 6,
-      orderId: "100054",
-      date: "25 AUG 2025 17:40",
-      customerName: "Nikola",
-      customerPhone: "+880*********74",
-      marketer: "Okla",
-      itemQuantity: 4,
-      price: "$60,000",
-      paymentStatus: "Paid",
-      orderStatus: "Delivered"
-    },
-    {
-      id: 7,
-      orderId: "100054",
-      date: "25 AUG 2025 17:40",
-      customerName: "Nikola",
-      customerPhone: "+880*********74",
-      marketer: "Okla",
-      itemQuantity: 4,
-      price: "$60,000",
-      paymentStatus: "Paid",
-      orderStatus: "Delivered"
-    }
-  ]);
+  // Fetch orders data from JSON file
+  useEffect(() => {
+    setLoading(true);
+    axios.get('/order.json')
+      .then(res => {
+        // Transform the data to match the table structure
+        const transformedOrders = res.data.map((order, index) => ({
+          id: index + 1,
+          orderId: order.orderId,
+          date: order.date,
+          customerName: order.customer,
+          customerPhone: order.phone,
+          marketer: order.company || 'N/A', // Using company name as marketer since marketer field doesn't exist
+          itemQuantity: order.quantity,
+          price: `$${order.price}`,
+          paymentStatus: order.paymentStatus,
+          orderStatus: order.status
+        }));
+        setOrders(transformedOrders);
+        setLoading(false);
+      })
+      .catch(() => {
+        setError('Failed to load orders data');
+        setLoading(false);
+      });
+  }, []);
 
   const requestSort = (key) => {
     let direction = 'ascending';
@@ -182,7 +127,7 @@ function OrderDetails() {
   };
 
   const handleView = (orderId) => {
-    console.log(`View order ${orderId}`);
+    navigate(`/order/${orderId}`);
   };
 
   const handlePrint = (orderId) => {
@@ -190,13 +135,26 @@ function OrderDetails() {
   };
 
   return (
-    
     <div className="order-details">
-      {/* Title */}
+      {/* Loading State */}
+      {loading && (
+        <div style={{ textAlign: 'center', padding: '40px 0' }}>
+          <span className="loader"></span> Loading orders...
+        </div>
+      )}
 
+      {/* Error State */}
+      {error && (
+        <div style={{ color: 'red', textAlign: 'center', padding: '40px 0' }}>
+          {error}
+        </div>
+      )}
 
-      {/* Header Controls */}
-      <div className="order-details-header">
+      {/* Main Content */}
+      {!loading && !error && (
+        <>
+          {/* Header Controls */}
+          <div className="order-details-header">
         <div className="search-section">
           <div className="search-input-container">
             <svg className="search-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -324,6 +282,8 @@ function OrderDetails() {
         totalPages={totalPages}
         onPageChange={handlePageChange}
       />
+        </>
+      )}
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import OrderDetails from '../components/orderDetails/OrderDetails';
+import OrderDetails from '../components/orderDetails/OrderDetailsTable';
 import '../styles/pages/Order.css';
 import TotalOrderCard from '../components/Card/TotalOrderCard';
 import TotalDelivery from '../components/Card/TotalDelevary';

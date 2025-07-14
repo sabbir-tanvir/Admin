@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import Pagination from '../pagination/Pagination';
 import '../../styles/components/Table.css';
+import { useNavigate } from 'react-router-dom';
 
 /**
  * Reusable Table Component
@@ -18,6 +19,7 @@ import '../../styles/components/Table.css';
  * @param {string} className - Additional CSS classes
  */
 const Table = ({ 
+  
   columns = [],
   data = [],
   searchPlaceholder = "Search...",
@@ -30,6 +32,19 @@ const Table = ({
   onFilter,
   className = ''
 }) => {
+    const navigate = useNavigate();
+
+  const view = (o) => navigate(`/order/${o.orderId}`);
+
+  const print = (o) => {
+    const html = `
+      <html><body><h2>Order ${o.orderId}</h2><p>${o.customer} (${o.phone})</p><p>${o.date}</p><p>${o.company}</p><p>${o.quantity} x $${o.price}</p><p>Status: ${o.status}</p></body></html>`;
+    const win = window.open("", "", "width=600,height=400");
+    win.document.write(html);
+    win.document.close();
+    win.print();
+    win.close();
+  };
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState('');
   const [sortConfig, setSortConfig] = useState({ key: null, direction: 'ascending' });
