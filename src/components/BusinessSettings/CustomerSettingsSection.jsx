@@ -55,16 +55,16 @@ const CustomerSettingsSection = ({ onSave, onReset }) => {
         </div>
         <div style={{display:'flex',gap:18,marginTop:16}}>
           <div style={{flex:1}}>
-            <label style={{fontWeight:500,fontSize:13,marginBottom:4,display:'block'}}>1 USD Equivalent point amount</label>
-            <input type="number" className="input" placeholder="10" value={state.usdPointAmount} onChange={e => handleChange('usdPointAmount', e.target.value)} />
+            <label className="business-settings-label" style={{fontWeight:500,fontSize:13,marginBottom:4,display:'block'}}>1 USD Equivalent point amount</label>
+            <input type="number" className="business-settings-input" placeholder="10" value={state.usdPointAmount} onChange={e => handleChange('usdPointAmount', e.target.value)} />
           </div>
           <div style={{flex:1}}>
-            <label style={{fontWeight:500,fontSize:13,marginBottom:4,display:'block'}}>Loyalty Point Earn Per Order (%)</label>
-            <input type="number" className="input" placeholder="10" value={state.pointPerOrder} onChange={e => handleChange('pointPerOrder', e.target.value)} />
+            <label className="business-settings-label" style={{fontWeight:500,fontSize:13,marginBottom:4,display:'block'}}>Loyalty Point Earn Per Order (%)</label>
+            <input type="number" className="business-settings-input" placeholder="10" value={state.pointPerOrder} onChange={e => handleChange('pointPerOrder', e.target.value)} />
           </div>
           <div style={{flex:1}}>
-            <label style={{fontWeight:500,fontSize:13,marginBottom:4,display:'block'}}>Minimum Point Required To Convert</label>
-            <input type="number" className="input" placeholder="10" value={state.minPointToConvert} onChange={e => handleChange('minPointToConvert', e.target.value)} />
+            <label className="business-settings-label" style={{fontWeight:500,fontSize:13,marginBottom:4,display:'block'}}>Minimum Point Required To Convert</label>
+            <input type="number" className="business-settings-input" placeholder="10" value={state.minPointToConvert} onChange={e => handleChange('minPointToConvert', e.target.value)} />
           </div>
         </div>
       </section>
@@ -96,7 +96,7 @@ const CustomerSettingsSection = ({ onSave, onReset }) => {
             {/* Earning Per Referral USD */}
             <div style={{background:'#e9f2fb',borderRadius:12,padding:'18px 20px',marginBottom:0}}>
               <div style={{fontWeight:600,fontSize:15,marginBottom:8}}>Earning Per Referral USD</div>
-              <input type="number" className="input" placeholder="" value={state.earningPerReferral} onChange={e => handleChange('earningPerReferral', e.target.value)} style={{width:'100%'}} />
+              <input type="number" className="business-settings-input" placeholder="" value={state.earningPerReferral} onChange={e => handleChange('earningPerReferral', e.target.value)} style={{width:'100%'}} />
             </div>
             {/* Shipping Charge */}
             <div style={{background:'#e9f2fb',borderRadius:12,padding:'18px 20px',marginBottom:0}}>
@@ -110,12 +110,12 @@ const CustomerSettingsSection = ({ onSave, onReset }) => {
               <div style={{fontSize:12,marginBottom:12,background:'#fff',borderRadius:8,padding:'8px 12px',color:'#444',fontWeight:500}}>Customer will get Discount on first order</div>
               <div style={{display:'flex',gap:8,marginBottom:10}}>
                 <div style={{flex:1}}>
-                  <label style={{fontWeight:500,fontSize:13,marginBottom:4,display:'block'}}>Discount Amount (%)</label>
-                  <input type="number" className="input" placeholder="" value={state.discountAmount} onChange={e => handleChange('discountAmount', e.target.value)} />
+                  <label className="business-settings-label" style={{fontWeight:500,fontSize:13,marginBottom:4,display:'block'}}>Discount Amount (%)</label>
+                  <input type="number" className="business-settings-input" placeholder="" value={state.discountAmount} onChange={e => handleChange('discountAmount', e.target.value)} />
                 </div>
                 <div style={{flex:1}}>
-                  <label style={{fontWeight:500,fontSize:13,marginBottom:4,display:'block'}}>Percentage (%)</label>
-                  <select className="input" value={state.discountType} onChange={e => handleChange('discountType', e.target.value)}>
+                  <label className="business-settings-label" style={{fontWeight:500,fontSize:13,marginBottom:4,display:'block'}}>Percentage (%)</label>
+                  <select className="business-settings-select" value={state.discountType} onChange={e => handleChange('discountType', e.target.value)}>
                     <option value="percentage">Percentage (%)</option>
                     <option value="usd">USD</option>
                   </select>
@@ -123,12 +123,12 @@ const CustomerSettingsSection = ({ onSave, onReset }) => {
               </div>
               <div style={{display:'flex',gap:8}}>
                 <div style={{flex:1}}>
-                  <label style={{fontWeight:500,fontSize:13,marginBottom:4,display:'block'}}>Validity</label>
-                  <input type="number" className="input" placeholder="" value={state.validity} onChange={e => handleChange('validity', e.target.value)} />
+                  <label className="business-settings-label" style={{fontWeight:500,fontSize:13,marginBottom:4,display:'block'}}>Validity</label>
+                  <input type="number" className="business-settings-input" placeholder="" value={state.validity} onChange={e => handleChange('validity', e.target.value)} />
                 </div>
                 <div style={{flex:1}}>
-                  <label style={{fontWeight:500,fontSize:13,marginBottom:4,display:'block'}}>Day</label>
-                  <select className="input" value={state.validityType} onChange={e => handleChange('validityType', e.target.value)}>
+                  <label className="business-settings-label" style={{fontWeight:500,fontSize:13,marginBottom:4,display:'block'}}>Day</label>
+                  <select className="business-settings-select" value={state.validityType} onChange={e => handleChange('validityType', e.target.value)}>
                     <option value="day">Day</option>
                     <option value="month">Month</option>
                   </select>
