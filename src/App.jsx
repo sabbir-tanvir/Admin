@@ -56,10 +56,24 @@ import WebsocketSettingsSection from './components/BusinessSettings/WebsocketSet
 import AutomatedMessageSection from './components/BusinessSettings/AutomatedMessageSection.jsx';
 import DistrubStatementSection from './components/BusinessSettings/DistrubStatementSection.jsx';
 
+// Authentication Components
+import LoginChoice from './pages/Authentication/LoginChoice.jsx';
+import Login from './pages/Authentication/Login.jsx';
+import Signup from './pages/Authentication/Signup.jsx';
+import SignupChoice from './pages/Authentication/SignupChoice.jsx';
+import ForgotPassword from './pages/Authentication/ForgotPassword.jsx';
+
 function App() {
   return (
     <Router>
       <Routes>
+        {/* Authentication routes - no layout */}
+        <Route path="/home" element={<LoginChoice />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/signup-select" element={<SignupChoice />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+
         {/* Admin routes with layout */}
         <Route path="/" element={<Layout userRole="admin" />}>
           <Route index element={<Home />} />
@@ -92,8 +106,8 @@ function App() {
           <Route path="add-employee" element={<AddEmployee />} />
           <Route path="employee/:id" element={<EmployeeDetails />} />
           <Route path="seller/add-seller" element={<AddSeller />} />
-          <Route path="/admin-analytics" element={<AdminAnalytics />} />
-          <Route path="/business-settings" element={<BusinessSettings />}>
+          <Route path="admin-analytics" element={<AdminAnalytics />} />
+          <Route path="business-settings" element={<BusinessSettings />}>
             <Route path="order-settings" element={<OrderSettings />} />
             <Route path="refund" element={<RefundSettings />} />
             <Route path="seller" element={<SellerSettings />} />
@@ -106,7 +120,6 @@ function App() {
             <Route path="automated-message" element={<AutomatedMessageSection />} />
             <Route path="disturb-statement" element={<DistrubStatementSection />} />
           </Route>
-
         </Route>
 
         {/* Seller routes with layout */}
@@ -119,7 +132,6 @@ function App() {
           <Route path="order/approve" element={<SellerOrderApprove />} />
           <Route path="analytics" element={<SellerAnalytics />} />
         </Route>
-
 
         {/* Marketor routes with layout */}
         <Route path="/marketor-panel" element={<Layout userRole="marketor" />}>

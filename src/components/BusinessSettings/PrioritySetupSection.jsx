@@ -64,14 +64,14 @@ const PrioritySetupSection = () => {
       </div>
       <div className="priority-setup-add-row">
         <input
-          className="priority-setup-input"
+          className="business-settings-input"
           type="text"
           value={newValue.name}
           onChange={e => setNewValue({ ...newValue, name: e.target.value })}
           placeholder="Add new priority name..."
         />
         <input
-          className="priority-setup-input-level"
+          className="business-settings-input"
           type="number"
           min={1}
           value={newValue.level}
@@ -111,6 +111,7 @@ const PrioritySetupSection = () => {
                 <td data-label="Name">
                   {editingId === p.id ? (
                     <input
+                      className="business-settings-input"
                       value={editValue.name}
                       onChange={e => setEditValue({ ...editValue, name: e.target.value })}
                       onBlur={() => handleEditSave(p.id)}
@@ -124,6 +125,7 @@ const PrioritySetupSection = () => {
                 <td data-label="Level">
                   {editingId === p.id ? (
                     <input
+                      className="business-settings-input"
                       type="number"
                       min={1}
                       value={editValue.level}

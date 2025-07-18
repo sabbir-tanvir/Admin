@@ -203,8 +203,9 @@ const LanguageSettingsSection = () => {
             <h3>{editId ? "Edit Language" : "Add New Language"}</h3>
             <form onSubmit={handleSubmit}>
               <div className="form-group">
-                <label>Language Code</label>
+                <label className="business-settings-label">Language Code</label>
                 <input
+                  className="business-settings-input"
                   type="text"
                   name="code"
                   value={form.code}
@@ -214,8 +215,9 @@ const LanguageSettingsSection = () => {
                 />
               </div>
               <div className="form-group">
-                <label>
+                <label className="business-settings-label">
                   <input
+                    className="business-settings-checkbox"
                     type="checkbox"
                     name="status"
                     checked={form.status}
@@ -225,8 +227,9 @@ const LanguageSettingsSection = () => {
                 </label>
               </div>
               <div className="form-group">
-                <label>
+                <label className="business-settings-label">
                   <input
+                    className="business-settings-checkbox"
                     type="checkbox"
                     name="default"
                     checked={form.default}

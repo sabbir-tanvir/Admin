@@ -95,6 +95,7 @@ const LandingPageSettingsSection = () => {
         <div className="toggle-label">Admin default landing page</div>
         <label className="switch">
           <input
+            className="business-settings-checkbox"
             type="checkbox"
             checked={state.useDefault}
             onChange={handleToggleDefault}
@@ -111,6 +112,7 @@ const LandingPageSettingsSection = () => {
           <div className="custom-method-group">
             <label className={`custom-radio ${state.method === "url" ? "active" : ""}`}>
               <input
+                className="business-settings-radio"
                 type="radio"
                 name="method"
                 checked={state.method === "url"}
@@ -120,6 +122,7 @@ const LandingPageSettingsSection = () => {
             </label>
             <label className={`custom-radio ${state.method === "file" ? "active" : ""}`}>
               <input
+                className="business-settings-radio"
                 type="radio"
                 name="method"
                 checked={state.method === "file"}
@@ -129,6 +132,7 @@ const LandingPageSettingsSection = () => {
             </label>
             <label className={`custom-radio ${state.method === "none" ? "active" : ""}`}>
               <input
+                className="business-settings-radio"
                 type="radio"
                 name="method"
                 checked={state.method === "none"}
@@ -141,9 +145,9 @@ const LandingPageSettingsSection = () => {
         {/* URL Input */}
         {state.method === "url" && (
           <div className="custom-url-box">
-            <label className="custom-url-label">Landing page url</label>
+            <label className="business-settings-label">Landing page url</label>
             <input
-              className="custom-url-input"
+              className="business-settings-input"
               type="text"
               placeholder=""
               value={state.url}

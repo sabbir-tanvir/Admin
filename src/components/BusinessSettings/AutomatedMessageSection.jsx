@@ -82,7 +82,7 @@ const AutomatedMessageSection = () => {
           Automated Message/Reason (Default)
         </div>
         <input
-          className="automated-message-input"
+          className="business-settings-input"
           type="text"
           value={defaultMessage}
           onChange={(e) => setDefaultMessage(e.target.value)}
@@ -112,7 +112,7 @@ const AutomatedMessageSection = () => {
           </div>
           <div className="automated-message-table-controls">
             <input
-              className="automated-message-table-search"
+              className="business-settings-input"
               placeholder="Ex.10001"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
@@ -150,6 +150,7 @@ const AutomatedMessageSection = () => {
                     {editingId === r.id ? (
                       <>
                         <input
+                          className="business-settings-input"
                           value={editValue}
                           onChange={(e) => setEditValue(e.target.value)}
                           onBlur={() => handleEditSave(r.id)}
@@ -166,6 +167,7 @@ const AutomatedMessageSection = () => {
                   <td data-label="Status">
                     <label className="switch">
                       <input
+                        className="business-settings-checkbox"
                         type="checkbox"
                         checked={r.status}
                         onChange={() => handleToggleStatus(r.id)}

@@ -53,7 +53,7 @@ const DistrubStatementSection = () => {
       </div>
       <div className="distrub-statement-add-row">
         <input
-          className="distrub-statement-input"
+          className="business-settings-input"
           type="text"
           value={newValue}
           onChange={e => setNewValue(e.target.value)}
@@ -84,6 +84,7 @@ const DistrubStatementSection = () => {
                 <td data-label="Message">
                   {editingId === s.id ? (
                     <input
+                      className="business-settings-input"
                       value={editValue}
                       onChange={e => setEditValue(e.target.value)}
                       onBlur={() => handleEditSave(s.id)}
@@ -97,6 +98,7 @@ const DistrubStatementSection = () => {
                 <td data-label="Status">
                   <label className="switch">
                     <input
+                      className="business-settings-checkbox"
                       type="checkbox"
                       checked={s.status}
                       onChange={() => handleToggleStatus(s.id)}

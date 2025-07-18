@@ -1,0 +1,162 @@
+.auth-container {
+  display: flex;
+  height: 100vh;
+  font-family: sans-serif;
+  flex-direction: column;
+}
+
+@media (min-width: 768px) {
+  .auth-container {
+    flex-direction: row;
+  }
+}
+
+.auth-left {
+  flex: 1;
+  background: url('/src/assets/factory.png') no-repeat center center;
+  background-size: cover;
+  height: 200px;
+}
+
+.auth-box .forgot {
+  text-align: left;
+  font-size: 14px;
+  color: #2196f3;
+  cursor: pointer;
+  margin-top: -4px;
+  margin-bottom: 8px;
+}
+
+@media (min-width: 768px) {
+  .auth-left {
+    height: auto;
+  }
+}
+
+.auth-right {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #eaf8fc;
+}
+
+.auth-box {
+  width: 90%;
+  max-width: 350px;
+  background: #eaf8fc;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 2px 2px 10px #c7c7c7;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.auth-box h2 {
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.auth-box input {
+  width: 100%;
+  padding: 10px;
+  margin: 4px 0;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.auth-box .forgot {
+  text-align: left;
+  font-size: 14px;
+  color: #2196f3;
+  cursor: pointer;
+}
+
+.auth-box button {
+  width: 30%;
+  padding: 10px;
+  margin-top: 10px;
+  margin-left: auto;
+  background-color: #2196f3;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.auth-box .alt {
+  text-align: center;
+  margin: 12px 0;
+  font-size: 14px;
+}
+
+.auth-box .social-btns {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.auth-box .social-btns img {
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+}
+
+.auth-box .link {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.auth-box .link a {
+  color: #2196f3;
+  text-decoration: none;
+}
+
+/* For smaller devices */
+@media (max-width: 767px) {
+  .auth-left {
+    display: none;
+  }
+
+  .auth-right {
+    width: 100%;
+  }
+}
+
+
+.choice-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #eaf8fc;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.choice-box {
+  width: 250px;
+  height: 200px;
+  background-color: #d9edf7;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  text-align: center;
+}
+
+.choice-box:hover {
+  transform: translateY(-5px);
+}
+
+.choice-box .icon {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 16px;
+}

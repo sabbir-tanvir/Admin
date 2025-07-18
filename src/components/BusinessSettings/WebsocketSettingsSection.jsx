@@ -50,9 +50,10 @@ const WebsocketSettingsSection = () => {
     <div className="websocket-settings-card">
       <div className="websocket-settings-grid">
         <div className="websocket-settings-row">
-          <label className="websocket-label">Websocket</label>
+          <label className="business-settings-label">Websocket</label>
           <label className="switch">
             <input
+              className="business-settings-checkbox"
               type="checkbox"
               checked={state.websocketEnabled}
               onChange={() => handleToggle("websocketEnabled")}
@@ -61,10 +62,10 @@ const WebsocketSettingsSection = () => {
           </label>
         </div>
         <div className="websocket-settings-row">
-          <label className="websocket-label">Websocket url</label>
+          <label className="business-settings-label">Websocket url</label>
           <div className="websocket-url-input-wrap">
             <input
-              className="websocket-url-input"
+              className="business-settings-input"
               type="text"
               placeholder=""
               value={state.websocketUrl}
@@ -73,6 +74,7 @@ const WebsocketSettingsSection = () => {
             />
             <label className="switch">
               <input
+                className="business-settings-checkbox"
                 type="checkbox"
                 checked={state.websocketUrlEnabled}
                 onChange={() => handleToggle("websocketUrlEnabled")}
@@ -83,9 +85,10 @@ const WebsocketSettingsSection = () => {
           </div>
         </div>
         <div className="websocket-settings-row">
-          <label className="websocket-label">Websocket Port</label>
+          <label className="business-settings-label">Websocket Port</label>
           <label className="switch">
             <input
+              className="business-settings-checkbox"
               type="checkbox"
               checked={state.websocketPortEnabled}
               onChange={() => handleToggle("websocketPortEnabled")}
