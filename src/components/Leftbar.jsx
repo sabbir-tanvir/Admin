@@ -13,7 +13,7 @@ function LeftBar({ userRole = 'admin', isMobileMenuOpen = false, onMobileMenuClo
     seller: false,
     product: false,
     order: false,
-    marketor: false,
+    marketer: false,
     customer: false
   });
 
@@ -64,8 +64,8 @@ function LeftBar({ userRole = 'admin', isMobileMenuOpen = false, onMobileMenuClo
           <h2>
             {userRole === 'seller'
               ? 'Seller'
-              : userRole === 'marketor'
-                ? 'Marketor'
+              : userRole === 'marketer'
+                ? 'Marketer'
                 : 'Admin'} <br /> Panel
           </h2>
           {/* Mobile close button */}
@@ -108,8 +108,8 @@ function LeftBar({ userRole = 'admin', isMobileMenuOpen = false, onMobileMenuClo
                 </svg>Dash Board</Link></li>
             )}
 
-            {userRole === 'marketor' && (
-              <li><Link to="/marketor-panel" className={isActive('/marketer-panel') ? "active" : ""}>
+            {userRole === 'marketer' && (
+              <li><Link to="/marketor-panel" className={isActive('/marketor-panel') ? "active" : ""}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
                   <path d="M3 12.7858C3 13.051 3.10536 13.3053 3.29289 13.4929C3.48043 13.6804 3.73478 13.7858 4 13.7858H10C10.2652 13.7858 10.5196 13.6804 10.7071 13.4929C10.8946 13.3053 11 13.051 11 12.7858V4.78577C11 4.52055 10.8946 4.2662 10.7071 4.07866C10.5196 3.89112 10.2652 3.78577 10 3.78577H4C3.73478 3.78577 3.48043 3.89112 3.29289 4.07866C3.10536 4.2662 3 4.52055 3 4.78577V12.7858ZM3 20.7858C3 21.051 3.10536 21.3053 3.29289 21.4929C3.48043 21.6804 3.73478 21.7858 4 21.7858H10C10.2652 21.7858 10.5196 21.6804 10.7071 21.4929C10.8946 21.3053 11 21.051 11 20.7858V16.7858C11 16.5205 10.8946 16.2662 10.7071 16.0787C10.5196 15.8911 10.2652 15.7858 10 15.7858H4C3.73478 15.7858 3.48043 15.8911 3.29289 16.0787C3.10536 16.2662 3 16.5205 3 16.7858V20.7858ZM13 20.7858C13 21.051 13.1054 21.3053 13.2929 21.4929C13.4804 21.6804 13.7348 21.7858 14 21.7858H20C20.2652 21.7858 20.5196 21.6804 20.7071 21.4929C20.8946 21.3053 21 21.051 21 20.7858V12.7858C21 12.5205 20.8946 12.2662 20.7071 12.0787C20.5196 11.8911 20.2652 11.7858 20 11.7858H14C13.7348 11.7858 13.4804 11.8911 13.2929 12.0787C13.1054 12.2662 13 12.5205 13 12.7858V20.7858ZM14 3.78577C13.7348 3.78577 13.4804 3.89112 13.2929 4.07866C13.1054 4.2662 13 4.52055 13 4.78577V8.78577C13 9.05098 13.1054 9.30534 13.2929 9.49287C13.4804 9.68041 13.7348 9.78577 14 9.78577H20C20.2652 9.78577 20.5196 9.68041 20.7071 9.49287C20.8946 9.30534 21 9.05098 21 8.78577V4.78577C21 4.52055 20.8946 4.2662 20.7071 4.07866C20.5196 3.89112 20.2652 3.78577 20 3.78577H14Z" fill="url(#paint0_linear_276_1280)" />
                   <defs>
@@ -144,7 +144,7 @@ function LeftBar({ userRole = 'admin', isMobileMenuOpen = false, onMobileMenuClo
 
               </li>
             )}
-            {userRole === 'marketor' && (
+            {userRole === 'marketer' && (
               <li className="dropdown-container">
                 <div
                   className={`menu-item ${isActive('/marketor-panel/product') ? "active" : ""}`}
@@ -294,7 +294,7 @@ function LeftBar({ userRole = 'admin', isMobileMenuOpen = false, onMobileMenuClo
               </li>
             )}
             {/* Orders - Admin version */}
-            {userRole === 'marketor' && (
+            {userRole === 'marketer' && (
               <li className="dropdown-container">
                 <div
                   className={`menu-item ${isActive('/order') ? "active" : ""}`}
@@ -367,7 +367,7 @@ function LeftBar({ userRole = 'admin', isMobileMenuOpen = false, onMobileMenuClo
                       </svg>
                       <span>Marketers</span>
                     </Link>
-                    <div className="dropdown-trigger" onClick={(e) => toggleDropdown('marketor', e)}>
+                    <div className="dropdown-trigger" onClick={(e) => toggleDropdown('marketer', e)}>
                       <svg
                         className={`dropdown-icon ${dropdownStates.marketor ? 'rotate' : ''}`}
                         xmlns="http://www.w3.org/2000/svg"
@@ -380,7 +380,7 @@ function LeftBar({ userRole = 'admin', isMobileMenuOpen = false, onMobileMenuClo
                       </svg>
                     </div>
                   </div>
-                  <ul className={`dropdown-menu ${dropdownStates.marketor ? 'show' : ''}`}>
+                  <ul className={`dropdown-menu ${dropdownStates.marketer ? 'show' : ''}`}>
                     <li><Link to="/add-marketor" className={isActive('/add-marketor') ? "active" : ""}>Add a Marketer</Link></li>
                     <li><Link to="/marketor/all" className={isActive('/marketor/all') ? "active" : ""}>All Marketers</Link></li>
                   </ul>
@@ -420,7 +420,7 @@ function LeftBar({ userRole = 'admin', isMobileMenuOpen = false, onMobileMenuClo
                     <path d="M4 5.5H8V6.5H4V5.5ZM4 3.5H10V4.5H4V3.5ZM4 1.5H10V2.5H4V1.5Z" fill="#FF2626" />
                     <path d="M2.3555 14.5L5.171 9.502L8.888 12.747C9.00036 12.847 9.13383 12.9203 9.27846 12.9616C9.4231 13.0028 9.57518 13.0109 9.72337 12.9853C9.87157 12.9596 10.0121 12.9009 10.1344 12.8134C10.2568 12.7259 10.3578 12.6119 10.43 12.48L13.915 7.2785L13.0845 6.7215L9.5845 11.9455L9.5495 11.997L5.832 8.752C5.71967 8.65259 5.58645 8.57968 5.44217 8.53865C5.29789 8.49762 5.14624 8.48953 4.99841 8.51497C4.85058 8.5404 4.71036 8.59872 4.58809 8.68562C4.46582 8.77251 4.36463 8.88576 4.292 9.017L2 13.0915V1.5H1V14.5C1 14.7652 1.10536 15.0196 1.29289 15.2071C1.48043 15.3946 1.73478 15.5 2 15.5H15V14.5H2.3555Z" fill="#3752FF" />
                   </svg>Admin Analytics</Link></li>
-                  <li><Link to="/business-settings" className={isActive('/business-settings') ? "active" : ""}>Business Settings</Link></li>
+                <li><Link to="/business-settings" className={isActive('/business-settings') ? "active" : ""}>Business Settings</Link></li>
               </>
             )}
 

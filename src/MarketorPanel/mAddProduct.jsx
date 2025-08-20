@@ -1,147 +1,102 @@
 import React, { useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import '../styles/MarketorPanel/mAddProduct.css';
+import { createProductRequest } from '../services/api.js';
+
 const MarketorProductAdd = () => {
-    const { productId } = useParams();
     const navigate = useNavigate();
-
-    // Product state with sample data (would be fetched from API in real app)
-    const [product, setProduct] = useState({
-        id: productId || '1',
-        name: 'Gasket',
-        category: 'Valve',
-        purchasingCost: '60000',
-        shopName: 'Industrial Supplies Ltd',
-        address: '123 Factory Lane, Industrial District',
-        price: '80000',
-        minPrice: '70000',
-        productInfo: 'Industrial grade gasket for high-pressure pipeline connections. Made with durable materials that can withstand extreme conditions.',
-            imageUrl: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face"
+    const [form, setForm] = useState({
+        name: '',
+        description: '',
+        category: '', // numeric ID expected
+        price: '',
     });
+    const [image, setImage] = useState(null);
+    const [preview, setPreview] = useState(null);
+    const [submitting, setSubmitting] = useState(false);
 
-    // Handle input changes
-    const handleInputChange = (e) => {
+    const handleChange = (e) => {
         const { name, value } = e.target;
-        setProduct(prev => ({
-            ...prev,
-            [name]: value
-        }));
+        setForm(prev => ({ ...prev, [name]: value }));
     };
 
-    // Handle form submission
-    const handleSubmit = (e) => {
+    const handleImage = (e) => {
+        const file = e.target.files?.[0];
+        setImage(file || null);
+        if (file) {
+            const url = URL.createObjectURL(file);
+            setPreview(url);
+        } else setPreview(null);
+    };
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log('Updated product data:', product);
-        // Would send update to API here
-        alert('Product updated successfully!');
+        if (submitting) return;
+        // Basic validation
+        if (!form.name || !form.description || !form.category || !form.price || !image) {
+            alert('All fields including image are required');
+            return;
+        }
+        setSubmitting(true);
+        try {
+            await createProductRequest({ ...form, image });
+            alert('Product request submitted');
+            navigate('/marketor-panel/product');
+        } catch (err) {
+            alert(err.response?.data?.message || 'Failed to submit');
+        } finally {
+            setSubmitting(false);
+        }
     };
 
-    // Handle cancel action
-    const handleCancel = () => {
-        // Navigate back to products list
-        navigate('/productlist');
-    };
+    const handleCancel = () => navigate('/marketor-panel/product');
 
     return (
         <div className="product-update-page">
             <div className="product-update-wrapper">
                 <div className="product-update-header">
-                    <h1>Product Update</h1>
+                    <h1>Add Product</h1>
                     <div className="action-buttons">
-                        <button type="button" className="update-btn" onClick={handleSubmit}>Add</button>
-                        <button type="button" className="cancel-btn" onClick={handleCancel}>cancel</button>
+                        <button type="button" className="update-btn" onClick={handleSubmit} disabled={submitting}>{submitting ? 'Submitting...' : 'Add'}</button>
+                        <button type="button" className="cancel-btn" onClick={handleCancel}>Cancel</button>
                     </div>
                 </div>
-
-                <form className="product-update-content">
+                <form className="product-update-content" onSubmit={handleSubmit}>
                     <div className="product-image-column">
-                        <img
-                            src={product.imageUrl}
-                            alt={product.name}
-                            className="product-image"
-                        />
+                        {preview ? (
+                            <img src={preview} alt={form.name || 'preview'} className="product-image" />
+                        ) : (
+                            <div className="product-image placeholder">Image Preview</div>
+                        )}
+                        <input type="file" accept="image/*" onChange={handleImage} />
                     </div>
-
                     <div className="product-form-column">
-                                <div className="form-row">
-                                    <div className="form-field">
-                                        <label className="name-label">Name</label>
-                                        <input
-                                            type="text"
-                                            name="name"
-                                            value={product.name}
-                                            onChange={handleInputChange}
-                                        />
-                                    </div>
-
-                                    <div className="form-field">
-                                        <label className="category-label">Catagory</label>
-                                        <input
-                                            type="text"
-                                            name="category"
-                                            value={product.category}
-                                            onChange={handleInputChange}
-                                        />
-                                    </div>
-                                </div>
-
-                                <div className="form-row">
-                                    <div className="form-field">
-                                        <label className="cost-label">Purchasing cost</label>
-                                        <input
-                                            type="text"
-                                            name="purchasingCost"
-                                            value={product.purchasingCost}
-                                            onChange={handleInputChange}
-                                        />
-                                    </div>
-
-                                    <div className="form-field">
-                                        <label className="shop-label">Shop Name</label>
-                                        <input
-                                            type="text"
-                                            name="shopName"
-                                            value={product.shopName}
-                                            onChange={handleInputChange}
-                                        />
-                                    </div>
-                                </div>
-
-                                
-                                <div className="price-info-container">
-                                    <div className="price-section">
-                                        <div className="form-field">
-                                        <label className="address-label">Address</label>
-                                        <input
-                                            type="text"
-                                            name="address"
-                                            value={product.address}
-                                            onChange={handleInputChange}
-                                            className="form-input"
-                                        />
-                                    </div>
-                                       
-
-                                        
-                                    </div>
-
-                                    <div className="info-section">
-                                        <div className="form-field">
-                                            <label className="info-label">Product info</label>
-                                            <textarea
-                                                name="productInfo"
-                                                value={product.productInfo}
-                                                onChange={handleInputChange}
-                                                rows="2"
-                                            ></textarea>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-
+                        <div className="form-row">
+                            <div className="form-field">
+                                <label className="name-label">Name</label>
+                                <input name="name" value={form.name} onChange={handleChange} />
+                            </div>
+                            <div className="form-field">
+                                <label className="category-label">Category ID</label>
+                                <input name="category" value={form.category} onChange={handleChange} />
+                            </div>
                         </div>
-                    </form>
+                        <div className="form-row">
+                            <div className="form-field">
+                                <label className="cost-label">Price</label>
+                                <input name="price" value={form.price} onChange={handleChange} type="number" step="0.01" />
+                            </div>
+                        </div>
+                        <div className="price-info-container">
+                            <div className="info-section" style={{ width: '100%' }}>
+                                <div className="form-field">
+                                    <label className="info-label">Description</label>
+                                    <textarea name="description" value={form.description} onChange={handleChange} rows="4" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     );

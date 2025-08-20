@@ -1,57 +1,34 @@
 // Example usage of the reusable ProductImgCard component
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/pages/TotalProduct.css';
 import ProductImgCard from '../components/Card/ProductImgCard';
+import { getProductRequests } from '../services/api.js';
 
 function ProductsList() {
     const navigate = useNavigate();
 
-    // Filter state
-    const [activeFilter, setActiveFilter] = useState('Approved');
+    // State
+    const [activeFilter, setActiveFilter] = useState('all');
     const [searchTerm, setSearchTerm] = useState('');
+    const [products, setProducts] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
 
-    // Sample product data with more reliable image URLs
-    const products = [
-        { 
-            id: 1, 
-            title: 'Gasket', 
-            cost: 60000, 
-            sell: 80000, 
-            min: 70000, 
-            imageUrl: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face"
-
-
-        },
-        { 
-            id: 2, 
-            title: 'Blue Valve', 
-            cost: 60000, 
-            sell: 80000, 
-            min: 70000, 
-            imageUrl: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face"
-        },
-        { 
-            id: 3, 
-            title: 'PVC Pressure Valve', 
-            cost: 60000, 
-            sell: 80000, 
-            min: 70000, 
-            imageUrl: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face"
-        },
-        { 
-            id: 4, 
-            title: 'Industrial Valve', 
-            cost: 60000, 
-            sell: 80000, 
-            min: 70000, 
-            imageUrl: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face"
-        },
-        { id: 5, title: 'Gasket', cost: 60000, sell: 80000, min: 70000 },
-        { id: 6, title: 'Blue Valve', cost: 60000, sell: 80000, min: 70000 },
-        { id: 7, title: 'PVC Pressure Valve', cost: 60000, sell: 80000, min: 70000 },
-        { id: 8, title: 'Industrial Valve', cost: 60000, sell: 80000, min: 70000 },
-    ];
+    useEffect(() => {
+        const fetchData = async () => {
+            setLoading(true); setError(null);
+            try {
+                const { data } = await getProductRequests();
+                setProducts(Array.isArray(data) ? data : []);
+            } catch (err) {
+                setError(err.response?.data?.message || 'Failed to load products');
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchData();
+    }, []);
 
     const handleFilterChange = (filter) => {
         setActiveFilter(filter);
@@ -133,19 +110,25 @@ function ProductsList() {
                     </div>
 
                     {/* Products Grid Section */}
-                    <div className="products-grid">
-                        {products.map(product => (
-                            <ProductImgCard
-                                key={product.id}
-                                imageUrl={product.imageUrl}
-                                title={product.title}
-                                cost={product.cost}
-                                sell={product.sell}
-                                min={product.min}
-                                onClick={() => handleProductClick(product.id)}
-                            />
-                        ))}
-                    </div>
+                    {loading && <div style={{ padding: 20 }}>Loading...</div>}
+                    {error && <div style={{ color: 'red', padding: 20 }}>{error}</div>}
+                    {!loading && !error && (
+                        <div className="products-grid">
+                            {products
+                                .filter(p => (searchTerm ? p.name.toLowerCase().includes(searchTerm.toLowerCase()) : true))
+                                .map(p => (
+                                    <ProductImgCard
+                                        key={p.id}
+                                        imageUrl={p.image}
+                                        title={p.name}
+                                        cost={p.price}
+                                        sell={p.price}
+                                        min={p.price}
+                                        onClick={() => handleProductClick(p.id)}
+                                    />
+                                ))}
+                        </div>
+                    )}
         </div>
     );
 }
