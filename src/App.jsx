@@ -7,6 +7,8 @@ import Home from './pages/Home.jsx';
 import Product from './pages/Product.jsx';
 
 import './styles/global.css';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Order from './pages/Order.jsx';
 import Seller from './pages/Seller.jsx';
 import Marketor from './pages/MarketorPage.jsx';
@@ -40,6 +42,7 @@ import SupplierProfile from './MarketorPanel/supplierProfile.jsx';
 import OrderIdPage from './MarketorPanel/OrderIdPage.jsx';
 import MarketorProductAdd from './MarketorPanel/mAddProduct.jsx';
 import AdminAnalytics from './pages/AdminAnalytics.jsx';
+import Unauthorized from './pages/Unauthorized.jsx';
 import OrderDetails from './components/OrderTable/OrderDetails.jsx';
 import PaymentHistory from './components/OrderTable/PaymentHistory.jsx';
 import ErrorBoundary from './components/ErrorBoundary.jsx';
@@ -70,9 +73,9 @@ function App() {
           {/* Public Auth */}
           <Route path="/login" element={<Login />} />
 
-          {/* Admin Protected Routes */}
-          <Route element={<ProtectedRoute roles={["admin"]} />}>
-            <Route path="/" element={<Layout userRole="admin" />}>
+          {/* Owner (formerly Admin) Protected Routes */}
+          <Route element={<ProtectedRoute roles={["owner"]} />}>
+            <Route path="/" element={<Layout userRole="owner" />}>
               <Route index element={<Home />} />
               <Route path="dashboard" element={<Home />} />
               <Route path="product" element={<Product />} />
@@ -141,7 +144,10 @@ function App() {
               <Route path="profile" element={<MarketerProfile />} />
             </Route>
           </Route>
+          {/* Unauthorized */}
+          <Route path="/unauthorized" element={<Unauthorized />} />
         </Routes>
+        <ToastContainer position="top-right" autoClose={3000} newestOnTop pauseOnHover theme="colored" />
       </Router>
     </AuthProvider>
   );

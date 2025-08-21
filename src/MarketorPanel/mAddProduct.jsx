@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/MarketorPanel/mAddProduct.css';
 import { createProductRequest } from '../services/api.js';
+import { toast } from 'react-toastify';
 
 const MarketorProductAdd = () => {
     const navigate = useNavigate();
@@ -22,7 +23,7 @@ const MarketorProductAdd = () => {
 
     const handleImage = (e) => {
         const file = e.target.files?.[0];
-        setImage(file || null);
+        setImage(file );
         if (file) {
             const url = URL.createObjectURL(file);
             setPreview(url);
@@ -34,16 +35,32 @@ const MarketorProductAdd = () => {
         if (submitting) return;
         // Basic validation
         if (!form.name || !form.description || !form.category || !form.price || !image) {
-            alert('All fields including image are required');
+            toast.warning('All fields including image are required');
             return;
         }
         setSubmitting(true);
         try {
-            await createProductRequest({ ...form, image });
-            alert('Product request submitted');
+            // Coerce category to integer-like string and price to number formatting if needed
+            const submission = { ...form, category: form.category, price: form.price, image };
+            await createProductRequest(submission);
+            toast.success('Product request submitted');
             navigate('/marketor-panel/product');
         } catch (err) {
-            alert(err.response?.data?.message || 'Failed to submit');
+            // Log entire error payload to aid debugging 400 structure
+            if (err.response) {
+                console.error('Create product 400 payload:', err.response.data);
+            } else {
+                console.error('Create product error (no response):', err);
+            }
+            const data = err.response?.data;
+            let msg = data?.message || data?.detail;
+            if (!msg && typeof data === 'object' && data) {
+                // Collect first validation messages
+                const firstKey = Object.keys(data)[0];
+                const firstVal = Array.isArray(data[firstKey]) ? data[firstKey][0] : data[firstKey];
+                msg = `${firstKey}: ${firstVal}`;
+            }
+            toast.error(msg || 'Failed to submit');
         } finally {
             setSubmitting(false);
         }

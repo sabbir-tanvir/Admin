@@ -48,7 +48,17 @@ function MarketorProduct() {
 
   return (
     <div className="marketor-product">
-      <h2 className="marketor-product-title">Marketor Products</h2>
+      <div className="marketor-product-header">
+        <h2 className="marketor-product-title">Marketor Products</h2>
+        <button
+          type="button"
+          className="add-product-btn"
+          onClick={() => navigate('/marketor-panel/product/add')}
+        >
+          <span className="add-product-text">Add Product</span>
+          <span className="add-product-icon" aria-hidden>+</span>
+        </button>
+      </div>
 
       <div className="marketor-product-content">
         <TotalCard

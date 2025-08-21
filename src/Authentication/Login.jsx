@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "../styles/components/AuthForm.css";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext.jsx";
+import { toast } from 'react-toastify';
 
 export default function Login() {
     const [form, setForm] = useState({ username: "", password: "" });
@@ -16,12 +17,13 @@ export default function Login() {
         try {
             const role = await login(form);
             // Navigate based on role
-            if (role === 'admin') navigate('/dashboard', { replace: true });
+            if (role === 'owner') navigate('/dashboard', { replace: true });
             else if (role === 'seller') navigate('/seller-panel', { replace: true });
             else if (role === 'marketer') navigate('/marketor-panel', { replace: true });
-            else navigate('/', { replace: true });
+            else if (role === 'customer') navigate('/customer', { replace: true });
+            else navigate('/unauthorized', { replace: true });
         } catch (err) {
-            alert(err.response?.data?.message || err.message || 'Login failed');
+            toast.error(err.response?.data?.message || err.message || 'Login failed');
         } finally {
             setSubmitting(false);
         }

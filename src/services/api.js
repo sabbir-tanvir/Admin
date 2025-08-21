@@ -101,16 +101,65 @@ export const createProductRequest = ({ name, description, category, price, image
   const form = new FormData();
   form.append('name', name);
   form.append('description', description);
-  form.append('category', category); // assuming backend expects numeric ID as string ok
-  form.append('price', price);
+  // Ensure numeric fields are sent as canonical string versions
+  const normalizedCategory = category === undefined || category === null || category === '' ? '' : String(parseInt(category, 10));
+  const normalizedPrice = price === undefined || price === null || price === '' ? '' : String(price);
+  form.append('category', normalizedCategory);
+  form.append('price', normalizedPrice);
   if (image) form.append('image', image);
-  return api.post('api/product-requests/', form, {
-    headers: { 'Content-Type': 'multipart/form-data' }
-  });
+  // Always log outgoing multipart payload (without dumping binary) so you can see it even in prod build.
+  try {
+    console.log('[createProductRequest] Payload start');
+    const summary = {};
+    for (const [k, v] of form.entries()) {
+      if (typeof File !== 'undefined' && v instanceof File) {
+        console.log(`  field ${k} -> File`, { name: v.name, type: v.type, size: v.size });
+        summary[k] = `File(name=${v.name}, size=${v.size})`;
+      } else if (v && typeof v === 'object' && 'name' in v && 'size' in v) {
+        console.log(`  field ${k} -> FileLike`, v);
+        summary[k] = `FileLike(name=${v.name}, size=${v.size})`;
+      } else {
+        console.log(`  field ${k} ->`, v);
+        summary[k] = v;
+      }
+    }
+    console.log('[createProductRequest] Summary object:', summary);
+  } catch (e) {
+    console.log('[createProductRequest] logging failed', e);
+  }
+  // Explicitly include Authorization header in case interceptor order changes
+  const auth = tokenStore.access ? { Authorization: `Bearer ${tokenStore.access}` } : {};
+  // IMPORTANT: Do NOT manually set 'Content-Type' for FormData; letting axios/browser
+  // set it ensures the correct boundary is used. Setting it ourselves can cause 400.
+  return api.post('api/product-requests/', form, { headers: { ...auth } });
 };
 
 // Admin: list product requests
 export const getProductRequests = () => api.get('api/product-requests/');
+
+// Admin/Owner: approve a product request
+// Approve product request: some backends expose this action as POST (common for DRF @action) while
+// earlier spec mentioned PATCH. We'll try POST first; if method not allowed (405) fall back to PATCH.
+export const approveProductRequest = async (id) => {
+  try {
+    return await api.post(`api/product-requests/${id}/approve/`, { is_approved: true });
+  } catch (err) {
+    if (err.response?.status === 405 || err.response?.data?.detail?.includes('Method "POST" not allowed')) {
+      return api.patch(`api/product-requests/${id}/approve/`, { is_approved: true });
+    }
+    throw err;
+  }
+};
+
+// Utility: build payload excluding empty string/null/undefined values
+export const buildNonEmptyPayload = (obj) => {
+  const out = {};
+  Object.entries(obj || {}).forEach(([k, v]) => {
+    if (v === '' || v === null || v === undefined) return; // skip empties
+    out[k] = v;
+  });
+  return out;
+};
 
 export default api;
 

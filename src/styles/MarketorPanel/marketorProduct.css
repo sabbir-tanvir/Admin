@@ -7,8 +7,76 @@
 .marketor-product-title {
   font-size: 24px;
   font-weight: 600;
-  margin-bottom: 20px;
+  margin: 0;
   color: #333;
+}
+
+/* Header with title left & button right */
+.marketor-product-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  gap: 16px;
+}
+
+/* Add Product button */
+.add-product-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid #0082ff;
+  background: #e8f4ff;
+  color: #0a66c2;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 6px 14px 6px 18px;
+  border-radius: 999px;
+  cursor: pointer;
+  line-height: 1;
+  transition: background .18s, box-shadow .18s;
+}
+
+.add-product-btn:hover {
+  background: #d9edff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+}
+
+.add-product-btn:active {
+  background: #cde6ff;
+}
+
+.add-product-btn:focus-visible {
+  outline: 2px solid #0082ff;
+  outline-offset: 2px;
+}
+
+.add-product-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #0082ff;
+  color: #fff;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+}
+
+.add-product-btn:hover .add-product-icon {
+  background: #0074e6;
+}
+
+.add-product-btn:active .add-product-icon {
+  background: #0066cc;
+}
+
+@media (max-width: 480px) {
+  .add-product-text { display: none; }
+  .add-product-btn { padding: 6px 8px; }
 }
 
 /* Grid for cards */
