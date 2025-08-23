@@ -1,0 +1,102 @@
+/* ProductDetails (CSS Module) */
+.productDetails {
+  background: #fff;
+  border-radius: 10px;
+  padding: 0;
+  margin: 20px;
+  overflow: hidden;
+}
+
+/* Optional: add table-specific overrides here when needed */
+
+/* Price and Status inside the Price column */
+.priceStatus {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.price {
+  font-weight: 600;
+  color: #000;
+  font-size: 14px;
+}
+
+.status {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  text-align: center;
+  min-width: 70px;
+}
+
+.statusApproved {
+  background: #d4edda;
+  color: #155724;
+}
+
+.statusPending {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.statusRejected {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+/* Action Icons */
+.actionIcons {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+
+.actionBtn {
+  background: #f8f9fa;
+  border: none;
+  min-width: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 14px;
+}
+
+.actionBtn:hover {
+  background: #e9ecef;
+  transform: translateY(-1px);
+}
+
+.viewBtn:hover {
+  background: #cce5ff;
+  border-color: #007bff;
+}
+
+.printBtn:hover {
+  background: #d4edda;
+  border-color: #28a745;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .productDetails {
+    margin: 10px;
+  }
+
+  .priceStatus {
+    gap: 3px;
+  }
+
+  .actionIcons {
+    gap: 4px;
+  }
+
+  .actionBtn {
+    padding: 4px 6px;
+    font-size: 12px;
+  }
+}
+
+/* Note: The table layout itself is handled by the shared Table.css, which already has responsive
+   rules (including hiding the 3rd column on very small screens). The styles here only scope
+   ProductDetails-specific cell content and wrapper spacing. */

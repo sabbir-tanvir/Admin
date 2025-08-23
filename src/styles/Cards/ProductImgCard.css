@@ -11,6 +11,29 @@
     height: 100%;
 }
 
+/* Status accents */
+.product-img-card.status-approved {
+    border: 1px solid #c3e6cb;
+    box-shadow: 0 2px 8px rgba(21, 87, 36, 0.08);
+}
+.product-img-card.status-approved .product-details-card {
+    background: #f7fff9;
+}
+.product-img-card.status-pending {
+    border: 1px solid #ffe8a1;
+    box-shadow: 0 2px 8px rgba(133, 100, 4, 0.08);
+}
+.product-img-card.status-pending .product-details-card {
+    background: #fffdf3;
+}
+.product-badge.approved {
+    background-color: #28a745;
+}
+.product-badge.pending {
+    background-color: #ffc107;
+    color: #5c4400;
+}
+
 .product-img-card:hover {
     transform: translateY(-4px);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);

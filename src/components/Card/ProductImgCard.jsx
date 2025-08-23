@@ -14,6 +14,7 @@ import '../../styles/Cards/ProductImgCard.css';
  * @param {string} badgeType - Badge type: 'sale', 'new', 'hot', etc.
  * @param {boolean} isOutOfStock - Whether the product is out of stock
  * @param {function} onClick - Click handler for the entire card
+ * @param {('approved'|'pending'|'cancelled')} status - Optional status to style the card
  */
 const ProductImgCard = ({
     imageUrl = "https://via.placeholder.com/150",
@@ -25,7 +26,8 @@ const ProductImgCard = ({
     badge,
     badgeType = "sale",
     isOutOfStock = false,
-    onClick,
+     onClick,
+     status,
 }) => {
     // Add state to track image loading errors
     const [imageError, setImageError] = useState(false);
@@ -57,7 +59,7 @@ const ProductImgCard = ({
 
     return (
         <div
-            className={`product-img-card ${isOutOfStock ? 'out-of-stock' : ''}`}
+            className={`product-img-card ${isOutOfStock ? 'out-of-stock' : ''} ${status ? `status-${status}` : ''}`}
             onClick={handleClick}
         >
             <div className="product-img-container">
@@ -65,15 +67,15 @@ const ProductImgCard = ({
                     src={displayImageUrl}
                     alt={title}
                     className="product-img"
-                    onError={(e) => {
+                    onError={() => {
                         console.log("Image failed to load:", imageUrl);
                         setImageError(true);
                     }}
                 />
 
-                {badge && (
-                    <span className={`product-badge ${badgeType}`}>
-                        {badge}
+                {(badge || status) && (
+                    <span className={`product-badge ${badge ? badgeType : status}`}>
+                        {badge || (status ? status.charAt(0).toUpperCase() + status.slice(1) : '')}
                     </span>
                 )}
 

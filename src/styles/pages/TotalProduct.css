@@ -3,7 +3,6 @@
   background: #ffffff;
   min-height: 100vh;
   width: 100%;
-  padding-top: 30px;
   box-sizing: border-box;
 }
 
@@ -12,7 +11,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 }
 
 .product-header h1 {
@@ -214,6 +213,7 @@
   .product-page {
     margin-left: 0;
     width: 100%;
+  padding-top: 20px; /* slightly reduced on tablet */
   }
   
   .products-grid {
@@ -227,6 +227,31 @@
 }
 
 @media (max-width: 768px) {
+  .product-page {
+    padding-top: 0; /* remove top padding on small screens */
+  }
+
+  .filter-section {
+    margin-bottom: 24px; /* tighter spacing on mobile */
+  }
+
+  .status-filters {
+    justify-content: space-between; /* keep on one row */
+    flex-wrap: nowrap; /* prevent wrapping */
+    gap: 6px; /* tighter gap */
+    width: 100%;
+  }
+
+  .status-btn {
+    padding: 6px 8px; /* smaller button size */
+    font-size: 12px; /* smaller text */
+    border-radius: 16px;
+    flex: 1 1 0; /* distribute evenly to fit 3 on a row */
+    min-width: 0; /* allow shrink */
+    white-space: nowrap; /* keep text on one line */
+    text-align: center;
+  }
+
   .product-header {
     flex-direction: column;
     align-items: flex-start;
@@ -252,16 +277,36 @@
   }
   
   .products-grid {
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    grid-template-columns: 1fr; /* single card per row on small screens */
+  }
+
+  /* Reduce inner card padding on small screens */
+  .product-details {
+    padding: 2px;
   }
 }
 
 @media (max-width: 480px) {
   .status-filters {
-    flex-wrap: wrap;
+    flex-wrap: nowrap; /* keep single row */
+    justify-content: space-between;
+    gap: 6px;
+  }
+  .status-btn {
+    padding: 6px 8px;
+    font-size: 12px;
   }
   
+  .product-page {
+    padding-top: 0; /* no extra top padding on very small screens */
+  }
+
   .products-grid {
-    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    grid-template-columns: 1fr; /* enforce single column on very small screens */
+  }
+
+  /* Ensure tiny screens also use compact padding */
+  .product-details {
+    padding: 2px;
   }
 }

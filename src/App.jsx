@@ -18,6 +18,7 @@ import MarketorProfile from './components/marketorDetails/MarketorProfile.jsx';
 import Customer from './pages/Customer.jsx';
 import Profile from './pages/Profile.jsx';
 import ProductsList from './pages/TotalProduct.jsx';
+import ApprovePending from './AdminPanel/ApprovePending.jsx';
 import ProductUpdate from './components/productDetails/ProductUpdate.jsx';
 import AddMarketor from './components/marketorDetails/AddaMarketor.jsx';
 import AddEmployee from './components/employDetails/AddEmployee.jsx';
@@ -93,6 +94,7 @@ function App() {
               <Route path="customer" element={<Customer />} />
               <Route path="profile" element={<Profile />} />
               <Route path="productlist" element={<ProductsList />} />
+              <Route path="productlist/pending" element={<ApprovePending />} />
               <Route path="product/update/:productId" element={<ProductUpdate />} />
               <Route path="add-marketor" element={<AddMarketor />} />
               <Route path="add-employee" element={<AddEmployee />} />

@@ -61,7 +61,7 @@ function ProductsList() {
         <div className="product-page">
             {/* Header Section */}
             <div className="product-header">
-                <h1>Total Product 50</h1>
+                <h1>Total Product {products.length}</h1>
             </div>
 
             {/* Filter Section */}
@@ -137,6 +137,7 @@ function ProductsList() {
                                 cost={p.price}
                                 sell={p.price}
                                 min={p.price}
+                                status={p.is_approved === true ? 'approved' : 'pending'}
                                 onClick={() => handleProductClick(p)}
                             />
                         ))}

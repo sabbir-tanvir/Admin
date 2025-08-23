@@ -11,7 +11,7 @@
 }
 
 .product-page {
-    padding: 40px;
+    padding: 20px;
     background: var(--bars, rgba(255, 255, 255, 1));
     min-height: 100vh;
     overflow-x: auto;

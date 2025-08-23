@@ -3,14 +3,17 @@ import '../styles/pages/ProductPage.css';
 import ProductDetails from '../components/productDetails/ProductDetails.jsx';
  import TotalCard from '../components/Card/TotalCard.jsx';
 import axios from 'axios';
+import { getProductRequests } from '../services/api.js';
 import TopCategoriesDonut from '../components/Charts/TopCategoriesDonut.jsx';
 
 function Product() {
   // Sample data for calculations
 
   const [data, setData] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  // Dynamic product counts
+  const [productCounts, setProductCounts] = useState({ total: 0, pending: 0 });
 
   useEffect(() => {
     setLoading(true);
@@ -26,16 +29,28 @@ function Product() {
       });
   }, []);
 
+  // Fetch product requests for counts
+  useEffect(() => {
+    let mounted = true;
+    getProductRequests()
+      .then(({ data }) => {
+        if (!mounted) return;
+        const list = Array.isArray(data) ? data : [];
+        const total = list.length;
+        const pending = list.filter(p => p?.is_approved === false).length;
+        setProductCounts({ total, pending });
+      })
+      .catch(() => {
+        if (!mounted) return;
+        setProductCounts({ total: 0, pending: 0 });
+      });
+    return () => { mounted = false; };
+  }, []);
+
 
   // Generate sample chart data for summary cards
 
-  const handleCardClick = (action) => {
-    console.log(`${action} clicked!`);
-  };
-  const handleViewAll = (section) => {
-    console.log(`View All clicked for ${section}`);
-    // Add navigation logic for each section
-  };
+  // ...
 
   const productIcon = (
     <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" viewBox="0 0 70 70" fill="none">
@@ -55,17 +70,17 @@ function Product() {
             <TotalCard
               title="Total Products"
               icon={productIcon}
-              number="5000"
-                  showTrend={false}
-                  onSeeMoreClick={() => window.location.href = "/productlist"}
-                />
-                <TotalCard
-                  title="Approval Pending"
-                  icon={productIcon}
-                  number="5000"
-                  showTrend={false}
-                  onSeeMoreClick={() => window.location.href = "/productlist"}
-                />
+              number={productCounts.total}
+              showTrend={false}
+              onSeeMoreClick={() => window.location.href = "/productlist"}
+            />
+            <TotalCard
+              title="Approval Pending"
+              icon={productIcon}
+              number={productCounts.pending}
+              showTrend={false}
+              onSeeMoreClick={() => window.location.href = "/productlist/pending"}
+            />
               </div>
               
               <div className="right-card">

@@ -1,137 +1,28 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import Table from '../Table/Table';
 import '../../styles/components/ProductDetails.css';
+import { getProductRequests } from '../../services/api.js';
 
 function ProductDetails() {
-  // Sample product data matching the table structure from the image
-  const [products] = useState([
-    {
-      id: 1,
-      productId: "100054",
-      date: "25 AUG 2025 17:40",
-      productName: "Monstor Tractor",
-      companyName: "Okla",
-      price: "$60,000",
-      status: "Approved"
-    },
-    {
-      id: 2,
-      productId: "100054",
-      date: "25 AUG 2025 17:40",
-      productName: "Lithography Machine",
-      companyName: "Mechtek",
-      price: "$1,000,000",
-      status: "Pending"
-    },
-    {
-      id: 3,
-      productId: "100054",
-      date: "25 AUG 2025 17:40",
-      productName: "Lithography Machine",
-      companyName: "Mechtek",
-      price: "$1,000,000",
-      status: "Pending"
-    },
-    {
-      id: 4,
-      productId: "100055",
-      date: "24 AUG 2025 14:20",
-      productName: "Industrial Robot",
-      companyName: "TechCorp",
-      price: "$250,000",
-      status: "Approved"
-    },
-    {
-      id: 5,
-      productId: "100056",
-      date: "23 AUG 2025 09:15",
-      productName: "3D Printer Pro",
-      companyName: "MakerSpace",
-      price: "$15,000",
-      status: "Rejected"
-    },
-    {
-      id: 6,
-      productId: "100057",
-      date: "22 AUG 2025 16:30",
-      productName: "Smart Warehouse System",
-      companyName: "LogiTech",
-      price: "$500,000",
-      status: "Pending"
-    },
-    {
-      id: 7,
-      productId: "100058",
-      date: "21 AUG 2025 11:45",
-      productName: "Automated Assembly Line",
-      companyName: "AutoMation Inc",
-      price: "$2,500,000",
-      status: "Approved"
-    },
-    {
-      id: 8,
-      productId: "100059",
-      date: "20 AUG 2025 13:20",
-      productName: "Quality Control Scanner",
-      companyName: "QualityFirst",
-      price: "$75,000",
-      status: "Pending"
-    },
-    {
-      id: 6,
-      productId: "100057",
-      date: "22 AUG 2025 16:30",
-      productName: "Smart Warehouse System",
-      companyName: "LogiTech",
-      price: "$500,000",
-      status: "Pending"
-    },
-    {
-      id: 7,
-      productId: "100058",
-      date: "21 AUG 2025 11:45",
-      productName: "Automated Assembly Line",
-      companyName: "AutoMation Inc",
-      price: "$2,500,000",
-      status: "Approved"
-    },
-    {
-      id: 8,
-      productId: "100059",
-      date: "20 AUG 2025 13:20",
-      productName: "Quality Control Scanner",
-      companyName: "QualityFirst",
-      price: "$75,000",
-      status: "Pending"
-    },
-    {
-      id: 6,
-      productId: "100057",
-      date: "22 AUG 2025 16:30",
-      productName: "Smart Warehouse System",
-      companyName: "LogiTech",
-      price: "$500,000",
-      status: "Pending"
-    },
-    {
-      id: 7,
-      productId: "100058",
-      date: "21 AUG 2025 11:45",
-      productName: "Automated Assembly Line",
-      companyName: "AutoMation Inc",
-      price: "$2,500,000",
-      status: "Approved"
-    },
-    {
-      id: 8,
-      productId: "100059",
-      date: "20 AUG 2025 13:20",
-      productName: "Quality Control Scanner",
-      companyName: "QualityFirst",
-      price: "$75,000",
-      status: "Pending"
-    }
-  ]);
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        const { data } = await getProductRequests();
+        setProducts(Array.isArray(data) ? data : []);
+      } catch (err) {
+        setError(err?.response?.data?.message || 'Failed to load products');
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
 
   const getStatusClass = (status) => {
     switch (status.toLowerCase()) {
@@ -139,6 +30,45 @@ function ProductDetails() {
       case 'pending': return 'status-pending';
       case 'rejected': return 'status-rejected';
       default: return '';
+    }
+  };
+
+  const toStatusText = (item) => {
+    if (item?.is_approved === true) return 'Approved';
+    if (item?.is_approved === false) return 'Pending';
+    if (item?.is_cancelled === true) return 'Rejected';
+    return '';
+  };
+
+  const safe = (v) => (v === 0 ? '0' : (v ?? ''));
+
+  // Normalize and format ISO timestamps (handles microseconds) to a readable string
+  const formatDateTime = (value) => {
+    if (!value) return '';
+    try {
+      let s = String(value);
+      // Trim microseconds to milliseconds for JS Date compatibility
+      const m = s.match(/^(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2})(\.\d+)?(Z)?$/);
+      if (m) {
+        const base = m[1];
+        const frac = m[2] ? m[2].slice(0, 4) : ''; // keep .sss
+        const z = m[3] ? 'Z' : '';
+        s = base + (frac || '') + z;
+      }
+      const d = new Date(s);
+      if (isNaN(d.getTime())) {
+        // Fallback: show just the date part if parsing fails
+        return s.slice(0, 10);
+      }
+      return d.toLocaleString(undefined, {
+        day: '2-digit',
+        month: 'short',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+      });
+    } catch {
+      return String(value);
     }
   };
 
@@ -151,27 +81,43 @@ function ProductDetails() {
   };
 
   const columns = useMemo(() => [
-    { 
-      key: 'sl', 
+    {
+      key: 'sl',
       header: 'Sl',
-      render: (item, index) => index + 1
+      render: (_item, index) => index + 1,
     },
-    { key: 'productId', header: 'Product Id' },
-    { key: 'date', header: 'Date' },
-    { key: 'productName', header: 'Product Name' },
-    { key: 'companyName', header: 'Company Name' },
-    { 
-      key: 'price', 
+    {
+      key: 'id',
+      header: 'Product Id',
+      render: (item) => safe(item?.id),
+    },
+    {
+      key: 'created_at',
+      header: 'Date',
+  render: (item) => formatDateTime(item?.created_at || item?.date),
+    },
+    {
+      key: 'name',
+      header: 'Product Name',
+      render: (item) => safe(item?.name),
+    },
+    {
+      key: 'marketer_name',
+      header: 'Marketer',
+      render: (item) => safe(item?.marketer_name),
+    },
+    {
+      key: 'price',
       header: 'Price',
       sortable: true,
       render: (item) => (
         <div className="price-status">
-          <span className="price">{item.price}</span>
-          <span className={`status ${getStatusClass(item.status)}`}>
-            {item.status}
+          <span className="price">{safe(item?.price)}</span>
+          <span className={`status ${getStatusClass(toStatusText(item))}`}>
+            {toStatusText(item)}
           </span>
         </div>
-      )
+      ),
     },
     {
       key: 'actions',
@@ -180,7 +126,7 @@ function ProductDetails() {
         <div className="action-icons">
           <button
             className="action-btn view-btn"
-            onClick={() => handleView(item.productId)}
+            onClick={() => handleView(item?.id)}
             title="View"
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
@@ -190,7 +136,7 @@ function ProductDetails() {
           </button>
           <button
             className="action-btn print-btn"
-            onClick={() => handlePrint(item.productId)}
+            onClick={() => handlePrint(item?.id)}
             title="Print"
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
@@ -199,8 +145,8 @@ function ProductDetails() {
             </svg>
           </button>
         </div>
-      )
-    }
+      ),
+    },
   ], []);
 
   return (
@@ -208,13 +154,19 @@ function ProductDetails() {
       <Table
         columns={columns}
         data={products}
-        searchPlaceholder="Search by Product Name, Company, or ID"
-        searchKeys={['productName', 'companyName', 'productId']}
+        searchPlaceholder="Search by Product Name, Marketer, or ID"
+        searchKeys={['name', 'marketer_name', 'id']}
         itemsPerPage={7}
         onExport={() => console.log('Exporting...')}
         onFilter={() => console.log('Filtering...')}
         className="product-details-table"
       />
+      {loading && (
+        <div style={{ padding: 12, textAlign: 'center', color: '#666' }}>Loading...</div>
+      )}
+      {error && (
+        <div style={{ padding: 12, textAlign: 'center', color: 'red' }}>{error}</div>
+      )}
     </div>
   );
 }
