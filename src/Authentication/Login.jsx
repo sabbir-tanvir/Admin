@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../styles/components/AuthForm.css";
+import styles from "../styles/components/AuthForm.module.css";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext.jsx";
 import { toast } from 'react-toastify';
@@ -8,13 +8,17 @@ export default function Login() {
     const [form, setForm] = useState({ username: "", password: "" });
     const [submitting, setSubmitting] = useState(false);
     const navigate = useNavigate();
-    const { login } = useAuth();
+    const auth = useAuth();
+    const login = auth?.login;
 
     const handleLogin = async (e) => {
         e.preventDefault();
         if (submitting) return;
         setSubmitting(true);
         try {
+            if (!login) {
+                throw new Error('Auth is not initialized');
+            }
             const role = await login(form);
             // Navigate based on role
             if (role === 'owner') navigate('/dashboard', { replace: true });
@@ -30,10 +34,10 @@ export default function Login() {
     };
 
     return (
-        <div className="auth-container">
-            <div className="auth-left" />
-            <div className="auth-right">
-                <form className="auth-box" onSubmit={handleLogin}>
+        <div className={styles['auth-container']}>
+            <div className={styles['auth-left']} />
+            <div className={styles['auth-right']}>
+                <form className={styles['auth-box']} onSubmit={handleLogin}>
                     <h2>Login</h2>
                     <input
                         type="text"

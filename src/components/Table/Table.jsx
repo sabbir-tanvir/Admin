@@ -1,7 +1,8 @@
 import React, { useState, useMemo } from 'react';
 import Pagination from '../pagination/Pagination';
 import '../../styles/components/Table.css';
-import { useNavigate } from 'react-router-dom';
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable';
 
 /**
  * Reusable Table Component
@@ -32,19 +33,6 @@ const Table = ({
   onFilter,
   className = ''
 }) => {
-    const navigate = useNavigate();
-
-  const view = (o) => navigate(`/order/${o.orderId}`);
-
-  const print = (o) => {
-    const html = `
-      <html><body><h2>Order ${o.orderId}</h2><p>${o.customer} (${o.phone})</p><p>${o.date}</p><p>${o.company}</p><p>${o.quantity} x $${o.price}</p><p>Status: ${o.status}</p></body></html>`;
-    const win = window.open("", "", "width=600,height=400");
-    win.document.write(html);
-    win.document.close();
-    win.print();
-    win.close();
-  };
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState('');
   const [sortConfig, setSortConfig] = useState({ key: null, direction: 'ascending' });
@@ -82,28 +70,35 @@ const Table = ({
         if (aValue === null || aValue === undefined) return 1;
         if (bValue === null || bValue === undefined) return -1;
 
+        // Numbers
         if (typeof aValue === 'number' && typeof bValue === 'number') {
           return sortConfig.direction === 'ascending' ? aValue - bValue : bValue - aValue;
         }
-        
+
         const stringA = String(aValue).toLowerCase();
         const stringB = String(bValue).toLowerCase();
 
-        // Handle currency sorting for 'totalPrice'
+        // Currency-like (existing behavior)
         if (sortConfig.key === 'totalPrice') {
-          const numA = parseFloat(stringA.replace(/[^0-9.-]+/g,""));
-          const numB = parseFloat(stringB.replace(/[^0-9.-]+/g,""));
+          const numA = parseFloat(stringA.replace(/[^0-9.-]+/g, ''));
+          const numB = parseFloat(stringB.replace(/[^0-9.-]+/g, ''));
           if (!isNaN(numA) && !isNaN(numB)) {
             return sortConfig.direction === 'ascending' ? numA - numB : numB - numA;
           }
         }
 
-        if (stringA < stringB) {
-          return sortConfig.direction === 'ascending' ? -1 : 1;
+        // Numeric-like strings (e.g., Product Id)
+        if (sortConfig.key === 'id') {
+          const numA = Number(String(aValue).replace(/[^0-9.-]+/g, ''));
+          const numB = Number(String(bValue).replace(/[^0-9.-]+/g, ''));
+          if (!isNaN(numA) && !isNaN(numB)) {
+            return sortConfig.direction === 'ascending' ? numA - numB : numB - numA;
+          }
         }
-        if (stringA > stringB) {
-          return sortConfig.direction === 'ascending' ? 1 : -1;
-        }
+
+        // Default string compare
+        if (stringA < stringB) return sortConfig.direction === 'ascending' ? -1 : 1;
+        if (stringA > stringB) return sortConfig.direction === 'ascending' ? 1 : -1;
         return 0;
       });
     }
@@ -121,15 +116,154 @@ const Table = ({
     setCurrentPage(page);
   };
 
-  const handleExport = () => {
+  const handleExport = async () => {
     if (onExport) {
       onExport(processedData);
     } else {
-      console.log('Export functionality to be implemented');
+      // Default PDF export functionality
+      await exportToPDF();
     }
   };
 
-  const handleFilter = () => {
+  const exportToPDF = async () => {
+    const doc = new jsPDF();
+    
+    // Add title
+    doc.setFontSize(16);
+    doc.text('Product Details Export', 14, 15);
+    
+    // Add export date
+    doc.setFontSize(10);
+    doc.text(`Export Date: ${new Date().toLocaleDateString()}`, 14, 25);
+    
+    // Prepare columns for export (exclude only actions)
+    const exportColumns = columns.filter(col => col.key !== 'actions');
+    const headers = exportColumns.map(col => col.header);
+    
+    // Helper to get marketer display text
+    const getMarketerText = (item) => {
+      if (item?.marketer_name) return item.marketer_name;
+      const u = item?.user ?? item?.marketer ?? null;
+      if (!u) return '';
+      if (typeof u === 'object') {
+        return u.name || u.username || u.email || '';
+      }
+      return `User #${u}`;
+    };
+
+    // Helper to get image src
+    const getImageSrc = (item) => {
+      return (
+        item?.image ||
+        item?.main_image ||
+        item?.image_url ||
+        (Array.isArray(item?.images) && item.images[0]?.url) ||
+        null
+      );
+    };
+
+    // Build table body values; image cell left blank (we'll draw it)
+    const tableData = processedData.map((item, index) => {
+      return exportColumns.map(col => {
+        if (col.key === 'sl') return (index + 1).toString();
+        if (col.key === 'price') return item.price || '';
+        if (col.key === 'created_at') {
+          const d = item.added_date || item.created_at || item.date;
+          if (!d) return '';
+          try {
+            const dt = new Date(d);
+            if (!isNaN(dt.getTime())) return dt.toISOString().slice(0, 10);
+          } catch {
+            /* ignore invalid date format */
+          }
+          return String(d).slice(0, 10);
+        }
+        if (col.key === 'marketer_name' || col.key === 'marketer' || col.key === 'user') {
+          return getMarketerText(item);
+        }
+        if (col.key === 'image') {
+          // We'll draw the image; return empty text placeholder
+          return '';
+        }
+        const v = item[col.key];
+        return v === 0 ? '0' : (v ?? '');
+      });
+    });
+
+    // Preload images as data URLs for drawing into the table
+    const imageColIndex = exportColumns.findIndex(c => c.key === 'image');
+    let imageDataUrls = [];
+    if (imageColIndex !== -1) {
+      const toAbsolute = (url) => {
+        try {
+          if (!url) return null;
+          if (url.startsWith('data:')) return url;
+          const u = new URL(url, window.location.origin);
+          return u.href;
+        } catch {
+          return null;
+        }
+      };
+      const fetchToDataURL = async (url) => {
+        try {
+          const abs = toAbsolute(url);
+          if (!abs) return null;
+          const res = await fetch(abs, { mode: 'cors' });
+          if (!res.ok) return null;
+          const blob = await res.blob();
+          return await new Promise((resolve) => {
+            const fr = new FileReader();
+            fr.onload = () => resolve(fr.result);
+            fr.onerror = () => resolve(null);
+            fr.readAsDataURL(blob);
+          });
+        } catch {
+          return null;
+        }
+      };
+      imageDataUrls = await Promise.all(
+        processedData.map(it => fetchToDataURL(getImageSrc(it)))
+      );
+    }
+    
+    // Use autoTable v5 API
+    autoTable(doc, {
+      head: [headers],
+      body: tableData,
+      startY: 35,
+      styles: {
+        fontSize: 9,
+        cellPadding: 3,
+      },
+      headStyles: {
+        fillColor: [41, 128, 185],
+        textColor: 255,
+        fontStyle: 'bold',
+      },
+      alternateRowStyles: {
+        fillColor: [245, 245, 245],
+      },
+      margin: { top: 35 },
+      tableWidth: 'auto',
+      didDrawCell: (data) => {
+        if (imageColIndex !== -1 && data.section === 'body' && data.column.index === imageColIndex) {
+          const img = imageDataUrls[data.row.index];
+          if (img) {
+            const padding = 2;
+            const size = Math.min(14, data.cell.height - 4);
+            try {
+              doc.addImage(img, data.cell.x + padding, data.cell.y + padding, size, size);
+            } catch {
+              // ignore addImage errors
+            }
+          }
+        }
+      }
+    });
+    // Save the PDF
+    const timestamp = new Date().toISOString().slice(0, 19).replace(/[:-]/g, '');
+    doc.save(`product_export_${timestamp}.pdf`);
+  };  const handleFilter = () => {
     if (onFilter) {
       onFilter();
     } else {

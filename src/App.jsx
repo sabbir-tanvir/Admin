@@ -1,6 +1,5 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { AuthProvider } from './context/AuthContext.jsx';
 import ProtectedRoute from './components/ProtectedRoute.jsx';
 import Layout from './components/Layout.jsx';
 import Home from './pages/Home.jsx';
@@ -68,7 +67,6 @@ import Login from './Authentication/Login.jsx';
 
 function App() {
   return (
-    <AuthProvider>
       <Router>
         <Routes>
           {/* Public Auth */}
@@ -151,7 +149,6 @@ function App() {
         </Routes>
         <ToastContainer position="top-right" autoClose={3000} newestOnTop pauseOnHover theme="colored" />
       </Router>
-    </AuthProvider>
   );
 }
 

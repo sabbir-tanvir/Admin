@@ -6,7 +6,7 @@ const rawEnvBase = import.meta.env?.VITE_API_BASE_URL;
 let resolvedBase = rawEnvBase && rawEnvBase.trim();
 if (!resolvedBase) {
   // Hard fallback so login still hits remote API rather than localhost origin.
-  resolvedBase = "http://api.bdsns.com/user/";
+  resolvedBase = "https://safeapi.genzsoft.top/";
   console.warn("[api] VITE_API_BASE_URL missing. Falling back to", resolvedBase);
 }
 // Guarantee trailing slash
@@ -61,7 +61,7 @@ api.interceptors.response.use(
         if (!isRefreshing) {
           isRefreshing = true;
           // Placeholder refresh endpoint (adjust when backend ready)
-      const refreshRes = await axios.post(`${API_BASE_URL}api/token/refresh/`, { refresh: tokenStore.refresh });
+      const refreshRes = await axios.post(`${API_BASE_URL}user/api/token/refresh/`, { refresh: tokenStore.refresh });
       const { access } = refreshRes.data || {};
       if (access) tokenStore.set(access, tokenStore.refresh);
       isRefreshing = false;
@@ -84,72 +84,75 @@ api.interceptors.response.use(
 );
 
 // Existing demo API calls (local JSON fallback)
-export const getOrders = () => api.get("/order.json");
+// IMPORTANT: Use plain axios for local public assets so we hit the app origin, not the remote API base URL.
+export const getOrders = () => axios.get("/order.json");
 
 // Authentication: backend expected to expose api/token/ returning {refresh, access}
 // NOTE: no leading slash so '/user/' segment from base URL is preserved.
-export const loginUser = (credentials) => api.post("api/login/", credentials);
+export const loginUser = (credentials) => api.post("user/api/login/", credentials);
 
-// Placeholder / legacy endpoints kept (adjust when real backend available)
-// export const signupUser = (userData) => api.post("/auth/signup", userData);
-// export const forgotPassword = (emailData) => api.post("/auth/forgot-password", emailData);
-// export const resetPassword = (resetData) => api.post("/auth/reset-password", resetData);
-// export const socialAuth = (type, role) => api.get(`/auth/oauth/${type}?role=${role}`);
 
-// Marketor: create product request (multipart)
-export const createProductRequest = ({ name, description, category, price, image }) => {
+// Marketor: create product request (multipart form-data)
+// Send only the minimal fields currently required by backend: name, sku, description, category, price, main_image
+export const createProductRequest = ({ name, sku, description, category, price, image, stock, imported_from }) => {
   const form = new FormData();
   form.append('name', name);
+  form.append('sku', sku);
   form.append('description', description);
-  // Ensure numeric fields are sent as canonical string versions
-  const normalizedCategory = category === undefined || category === null || category === '' ? '' : String(parseInt(category, 10));
-  const normalizedPrice = price === undefined || price === null || price === '' ? '' : String(price);
-  form.append('category', normalizedCategory);
-  form.append('price', normalizedPrice);
-  if (image) form.append('image', image);
-  // Always log outgoing multipart payload (without dumping binary) so you can see it even in prod build.
-  try {
-    console.log('[createProductRequest] Payload start');
-    const summary = {};
-    for (const [k, v] of form.entries()) {
-      if (typeof File !== 'undefined' && v instanceof File) {
-        console.log(`  field ${k} -> File`, { name: v.name, type: v.type, size: v.size });
-        summary[k] = `File(name=${v.name}, size=${v.size})`;
-      } else if (v && typeof v === 'object' && 'name' in v && 'size' in v) {
-        console.log(`  field ${k} -> FileLike`, v);
-        summary[k] = `FileLike(name=${v.name}, size=${v.size})`;
-      } else {
-        console.log(`  field ${k} ->`, v);
-        summary[k] = v;
-      }
-    }
-    console.log('[createProductRequest] Summary object:', summary);
-  } catch (e) {
-    console.log('[createProductRequest] logging failed', e);
+  form.append('category', String(parseInt(category, 10)));
+  form.append('price', String(price));
+  if (image) form.append('main_image', image);
+  if (stock !== undefined && stock !== null && String(stock) !== '') {
+    const n = parseInt(stock, 10);
+    if (!Number.isNaN(n)) form.append('stock', String(n));
   }
-  // Explicitly include Authorization header in case interceptor order changes
+  if (imported_from !== undefined && imported_from !== null && String(imported_from) !== '') {
+    form.append('imported_from', String(imported_from));
+  }
+
+  try {
+    const summary = {};
+  for (const [k, v] of form.entries()) {
+      summary[k] = (typeof File !== 'undefined' && v instanceof File) ? `File(${v.name}, ${v.size})` : v;
+    }
+    console.log('[createProductRequest] multipart summary', summary);
+  } catch {
+    // ignore logging issues
+  }
+
   const auth = tokenStore.access ? { Authorization: `Bearer ${tokenStore.access}` } : {};
-  // IMPORTANT: Do NOT manually set 'Content-Type' for FormData; letting axios/browser
-  // set it ensures the correct boundary is used. Setting it ourselves can cause 400.
-  return api.post('api/product-requests/', form, { headers: { ...auth } });
+  return api.post('dashboard/api/request-product/', form, { headers: { ...auth } });
 };
 
 // Admin: list product requests
-export const getProductRequests = () => api.get('api/product-requests/');
+export const getProductRequests = () => api.get('dashboard/api/request-product/');
 
 // Admin/Owner: approve a product request
 // Approve product request: some backends expose this action as POST (common for DRF @action) while
 // earlier spec mentioned PATCH. We'll try POST first; if method not allowed (405) fall back to PATCH.
-export const approveProductRequest = async (id) => {
-  try {
-    return await api.post(`api/product-requests/${id}/approve/`, { is_approved: true });
-  } catch (err) {
-    if (err.response?.status === 405 || err.response?.data?.detail?.includes('Method "POST" not allowed')) {
-      return api.patch(`api/product-requests/${id}/approve/`, { is_approved: true });
-    }
-    throw err;
-  }
+// export const approveProductRequest = async (id) => {
+//   try {
+//     return await api.post(`user/api/product-requests/${id}/approve/`, { is_approved: true });
+//   } catch (err) {
+//     if (err.response?.status === 405 || err.response?.data?.detail?.includes('Method "POST" not allowed')) {
+//       return api.patch(`user/api/product-requests/${id}/approve/`, { is_approved: true });
+//     }
+//     throw err;
+//   }
+// };
+
+// Update product request (PATCH) — stable user endpoint
+export const updateProductRequest = (id, updates) => {
+  // Backend consolidates approve + update into one PUT endpoint
+  // PUT /dashboard/api/approve-product/{id}/
+  const payload = buildNonEmptyPayload(updates);
+  const auth = tokenStore.access ? { Authorization: `Bearer ${tokenStore.access}` } : {};
+  return api.put(`dashboard/api/approve-product/${id}/`, payload, { headers: { ...auth } });
 };
+
+// Delete product request (DELETE)
+// Backend endpoint: /dashboard/api/request-product/<id>/ [DELETE]
+export const deleteProductRequest = (id) => api.delete(`dashboard/api/request-product/${id}/`);
 
 // Utility: build payload excluding empty string/null/undefined values
 export const buildNonEmptyPayload = (obj) => {
@@ -163,23 +166,28 @@ export const buildNonEmptyPayload = (obj) => {
 
 export default api;
 
+// Dashboard metrics
+export const getDashboardMetrics = () => api.get('dashboard/api/metrics/');
+
 
 // New: Fetch order details by orderId
 export const getOrderDetails = async (orderId) => {
-  const res = await api.get('/orderId.json');
+  // Fetch from the app's public folder (same origin)
+  const res = await axios.get('/orderId.json');
   const orders = res.data;
   const order = Array.isArray(orders)
-    ? orders.find(o => o.orderId === orderId)
+    ? orders.find(o => String(o.orderId) === String(orderId))
     : orders;
   return { data: order };
 };
 
 // New: Fetch payment history by orderId
 export const getPaymentHistory = async (orderId) => {
-  const res = await api.get('/payments.json');
+  // Fetch from the app's public folder (same origin)
+  const res = await axios.get('/payments.json');
   const all = res.data;
   const payment = Array.isArray(all)
-    ? all.find(p => p.orderId === orderId)
+    ? all.find(p => String(p.orderId) === String(orderId))
     : all;
   return { data: payment };
 };

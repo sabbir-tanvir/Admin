@@ -1,5 +1,8 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Table from '../Table/Table';
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable';
 import '../../styles/components/ProductDetails.css';
 import { getProductRequests } from '../../services/api.js';
 
@@ -7,6 +10,7 @@ function ProductDetails() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -42,8 +46,21 @@ function ProductDetails() {
 
   const safe = (v) => (v === 0 ? '0' : (v ?? ''));
 
+  const getImageSrc = useCallback((item) => {
+    return item?.image || item?.main_image || item?.image_url || (Array.isArray(item?.images) && item.images[0]?.url) || null;
+  }, []);
+
+  const getMarketerText = useCallback((item) => {
+    const u = item?.user ?? item?.marketer ?? null;
+    if (!u) return '';
+    if (typeof u === 'object') {
+      return u.name || u.username || u.email || '';
+    }
+    return `User #${u}`;
+  }, []);
+
   // Normalize and format ISO timestamps (handles microseconds) to a readable string
-  const formatDateTime = (value) => {
+  const formatDateTime = useCallback((value) => {
     if (!value) return '';
     try {
       let s = String(value);
@@ -70,15 +87,97 @@ function ProductDetails() {
     } catch {
       return String(value);
     }
-  };
+  }, []);
 
-  const handleView = (productId) => {
-    console.log(`View product ${productId}`);
-  };
+  const handleView = useCallback((product) => {
+    if (!product?.id) return;
+    navigate(`/product/update/${product.id}`, { state: { product } });
+  }, [navigate]);
 
-  const handlePrint = (productId) => {
-    console.log(`Print product ${productId}`);
-  };
+  const handlePrint = useCallback(async (productId) => {
+    if (!productId) return;
+    const item = products.find(p => String(p?.id) === String(productId));
+    if (!item) return;
+
+  const doc = new jsPDF();
+
+    // Title and meta
+    doc.setFontSize(16);
+    doc.text(`Product Details Export`, 14, 15);
+    doc.setFontSize(10);
+    doc.text(`Product ID: ${String(item.id ?? '')}`, 14, 22);
+    doc.text(`Export Date: ${new Date().toLocaleString()}`, 14, 28);
+
+  // Headers and row for single export (match main table order, include Image)
+    const headers = ['Sl', 'P Id', 'Date', 'Image', 'Product Name', 'Marketer', 'Price'];
+    const row = [
+      '1',
+      safe(item?.id),
+      formatDateTime(item?.added_date || item?.created_at || item?.date),
+      '', // image placeholder
+      safe(item?.name),
+      safe(getMarketerText(item)),
+      safe(item?.price),
+    ];
+
+    // Preload image data URL (if available)
+    let imageDataUrl = null;
+    try {
+      const src = getImageSrc(item);
+      if (src) {
+        const toAbsolute = (url) => {
+          try {
+            if (!url) return null;
+            if (url.startsWith('data:')) return url;
+            const u = new URL(url, window.location.origin);
+            return u.href;
+          } catch {
+            return null;
+          }
+        };
+        const abs = toAbsolute(src);
+        if (abs) {
+          const res = await fetch(abs, { mode: 'cors' });
+          if (res.ok) {
+            const blob = await res.blob();
+            imageDataUrl = await new Promise((resolve) => {
+              const fr = new FileReader();
+              fr.onload = () => resolve(fr.result);
+              fr.onerror = () => resolve(null);
+              fr.readAsDataURL(blob);
+            });
+          }
+        }
+      }
+    } catch {
+      /* ignore preload image errors */
+    }
+
+    // Draw table first
+    autoTable(doc, {
+      head: [headers],
+      body: [row],
+      startY: 36,
+      styles: { fontSize: 9, cellPadding: 3 },
+      headStyles: { fillColor: [41, 128, 185], textColor: 255, fontStyle: 'bold' },
+      alternateRowStyles: { fillColor: [245, 245, 245] },
+      margin: { top: 36 },
+      tableWidth: 'auto',
+      didDrawCell: (data) => {
+        if (data.section === 'body' && data.column.index === 3 && imageDataUrl) {
+          const padding = 2;
+          const size = Math.min(14, data.cell.height - 4);
+          try {
+            doc.addImage(imageDataUrl, data.cell.x + padding, data.cell.y + padding, size, size);
+          } catch {
+            // ignore addImage errors
+          }
+        }
+      }
+    });
+
+    doc.save(`product_${String(item.id ?? 'details')}.pdf`);
+  }, [products, formatDateTime, getImageSrc, getMarketerText]);
 
   const columns = useMemo(() => [
     {
@@ -88,13 +187,26 @@ function ProductDetails() {
     },
     {
       key: 'id',
-      header: 'Product Id',
+      header: 'P Id',
+  sortable: true,
       render: (item) => safe(item?.id),
     },
     {
       key: 'created_at',
       header: 'Date',
-  render: (item) => formatDateTime(item?.created_at || item?.date),
+      render: (item) => formatDateTime(item?.added_date || item?.created_at || item?.date),
+    },
+    {
+      key: 'image',
+      header: 'Image',
+      render: (item) => {
+        const src = getImageSrc(item);
+        return src ? (
+          <img src={src} alt={item?.name || 'product'} style={{ width: 40, height: 40, objectFit: 'cover', borderRadius: 4, border: '1px solid #eee' }} />
+        ) : (
+          <div style={{ width: 40, height: 40, background: '#f4f4f4', border: '1px solid #eee', borderRadius: 4, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#999', fontSize: 10 }}>N/A</div>
+        );
+      },
     },
     {
       key: 'name',
@@ -104,7 +216,7 @@ function ProductDetails() {
     {
       key: 'marketer_name',
       header: 'Marketer',
-      render: (item) => safe(item?.marketer_name),
+  render: (item) => safe(getMarketerText(item)),
     },
     {
       key: 'price',
@@ -126,7 +238,7 @@ function ProductDetails() {
         <div className="action-icons">
           <button
             className="action-btn view-btn"
-            onClick={() => handleView(item?.id)}
+            onClick={() => handleView(item)}
             title="View"
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
@@ -147,7 +259,7 @@ function ProductDetails() {
         </div>
       ),
     },
-  ], []);
+  ], [handleView, handlePrint, formatDateTime, getImageSrc, getMarketerText]);
 
   return (
     <div className="product-details">
@@ -157,8 +269,6 @@ function ProductDetails() {
         searchPlaceholder="Search by Product Name, Marketer, or ID"
         searchKeys={['name', 'marketer_name', 'id']}
         itemsPerPage={7}
-        onExport={() => console.log('Exporting...')}
-        onFilter={() => console.log('Filtering...')}
         className="product-details-table"
       />
       {loading && (

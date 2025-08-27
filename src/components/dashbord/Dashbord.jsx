@@ -1,17 +1,39 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import UserList from '../UserList/UserList';
 import GridDisplay from '../Grid/GridDisplay';
 import '../../styles/components/Dashboard.css';
 import SeeMBtn from '../button/SeemoreBtn';
 import OrderStatCard from '../Card/OrderStatCard';
 import TotalCard from '../Card/TotalCard';
+import { getDashboardMetrics } from '../../services/api';
 
 function Dashboard() {
+    const [metrics, setMetrics] = useState({
+        total_orders: 0,
+        orders_today: 0,
+        total_customers: 0,
+        customers_last_week: 0,
+        total_marketers: 0,
+        total_sellers: 0,
+        total_products: 0,
+    });
+    // loading/error omitted to keep UI unchanged
+
+    useEffect(() => {
+        let mounted = true;
+        (async () => {
+            try {
+                const { data } = await getDashboardMetrics();
+                if (mounted && data) setMetrics(data);
+            } catch (e) {
+                console.warn('Dashboard metrics error:', e?.response?.data || e.message);
+            } finally {
+                // no-op
+            }
+        })();
+        return () => { mounted = false; };
+    }, []);
     // Example click handlers for demonstration
-    const handleCardClick = (cardName) => {
-        console.log(`${cardName} card clicked!`);
-        // You can add navigation logic here
-    };
 
     const handleViewAll = (section) => {
         console.log(`View All clicked for ${section}`);
@@ -177,9 +199,9 @@ function Dashboard() {
                             <TotalCard
                                 title="Total Order"
                                 icon={orderIcon}
-                                number="60"
+                                number={String(metrics.total_orders ?? 0)}
                                 showTrend={true}
-                                trendText="10 new today"
+                                trendText={`${metrics.orders_today ?? 0} new today`}
                                 trendIcon={trendIcon}
                                 trendType="positive"
                                 onSeeMoreClick={() => handleViewAll('Total Order')}
@@ -187,9 +209,9 @@ function Dashboard() {
                             <TotalCard
                                 title="Total Customer"
                                 icon={customerIcon}
-                                number="50"
+                                number={String(metrics.total_customers ?? 0)}
                                 showTrend={true}
-                                trendText="Increased by 15%"
+                                trendText={`Last week: ${metrics.customers_last_week ?? 0}`}
                                 trendIcon={trendIcon}
                                 trendType="positive"
                                 onSeeMoreClick={() => handleViewAll('Total Customer')}
@@ -220,21 +242,21 @@ function Dashboard() {
                         <TotalCard
                             title="Total Marketers"
                             icon={marketersIcon}
-                            number="50"
+                            number={String(metrics.total_marketers ?? 0)}
                             showTrend={false}
                             onSeeMoreClick={() => handleViewAll('Total Marketers')}
                         />
                         <TotalCard
                             title="Total Sellers"
                             icon={salesIcon}
-                            number="50"
+                            number={String(metrics.total_sellers ?? 0)}
                             showTrend={false}
                             onSeeMoreClick={() => handleViewAll('Total Sellers')}
                         />
                         <TotalCard
                             title="Total Products"
                             icon={productIcon}
-                            number="5000"
+                            number={String(metrics.total_products ?? 0)}
                             showTrend={false}
                             onSeeMoreClick={() => window.location.href = "/productlist"}
                         />

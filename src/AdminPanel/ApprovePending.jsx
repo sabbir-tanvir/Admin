@@ -69,7 +69,7 @@ const ApprovePending = () => {
               {products.map(p => (
                 <ProductImgCard
                   key={p.id}
-                  imageUrl={p.image}
+                  imageUrl={p.main_image}
                   title={p.name}
                   cost={p.price}
                   sell={p.price}

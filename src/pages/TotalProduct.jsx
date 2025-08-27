@@ -36,6 +36,25 @@ function ProductsList() {
         setActiveFilter(filter);
     };
 
+    // Resolve absolute URL for images, preferring API base URL when given
+    const resolveUrl = (url) => {
+        try {
+            if (!url) return undefined;
+            if (typeof url !== 'string') return undefined;
+            if (url.startsWith('http') || url.startsWith('data:')) return url;
+            const base = import.meta.env.VITE_API_BASE_URL || window.location.origin;
+            return new URL(url, base).href;
+        } catch {
+            return undefined;
+        }
+    };
+
+    // Get best-effort image source from varying backend shapes
+    const getImageSrc = (p) => {
+        const src = p?.image || p?.main_image || p?.image_url || (Array.isArray(p?.images) && (p.images[0]?.url || p.images[0])) || undefined;
+        return resolveUrl(src);
+    };
+
     // Filter button: toggle between showing all and the currently selected status filter
     const handleFilter = () => {
         setActiveFilter(prev => prev === 'all' ? 'Approved' : 'all');
@@ -132,7 +151,7 @@ function ProductsList() {
                     {filteredProducts.map(p => (
                             <ProductImgCard
                                 key={p.id}
-                                imageUrl={p.image}
+                                imageUrl={getImageSrc(p)}
                                 title={p.name}
                                 cost={p.price}
                                 sell={p.price}
