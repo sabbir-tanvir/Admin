@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head><title>WS Test</title></head>
+<body>
+<script>
+const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzU2NTU3NzAzLCJpYXQiOjE3NTY1NTQxMDMsImp0aSI6IjhkNjhlOGViOWNjYjRhYzZhZGY3ZDg3OTFjMjk3YWRjIiwidXNlcl9pZCI6IjIiLCJyb2xlIjoic2VsbGVyIiwidXNlcm5hbWUiOiJzYWJiaXIifQ.WmW7YJite1kA2n0ms-VEmXzljh6Uwj0B_nZ8Ttza6pw'; // Use fresh token!
+const ws = new WebSocket(`ws://127.0.0.1:8000/ws/notify/?token=${token}`);
+
+ws.onopen = () => {
+  console.log('Connected successfully');
+};
+
+ws.onmessage = (event) => {
+  console.log('Message received:', event.data);
+};
+
+ws.onerror = (error) => {
+  console.error('WebSocket Error:', error);
+  // In some browsers, you can check error.message or error.code, but it's often empty
+};
+
+ws.onclose = (event) => {
+  console.log('Closed:', event.code, event.reason);
+  // Common codes: 1006 (abnormal closure, e.g., no server), 1002 (protocol error), 1015 (TLS failure)
+};
+</script>
+</body>
+</html>

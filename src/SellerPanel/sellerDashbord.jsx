@@ -6,7 +6,7 @@ import TopCategoryCard from '../components/Card/TopCatagoryCard';
 import '../styles/SellerPanel/sellerDashbord.css';
 
 function SellerDashboard() {
-   // This would come from your backend API in a real implementation
+    // This would come from your backend API in a real implementation
     const orderData = {
         total: 60,
         newToday: 10
@@ -31,7 +31,7 @@ function SellerDashboard() {
                         <TotalDelivery deliveryData={deliveryData} />
                     </div>
                 </div>
-                
+
                 <div className="card-wrappers chart-row">
                     <div className="card-wrapper top-category-wrapper">
                         <TopCategoryCard />
@@ -41,13 +41,13 @@ function SellerDashboard() {
                             title="Order stats"
                             number={60}
                             trendText="5 orders since last Week"
-                                trendType="positive"
-                                chartData={[40, 42, 45, 42, 48, 46, 49, 53, 50, 52, 55, 60]}
-                            />
-                        </div>
+                            trendType="positive"
+                            chartData={[40, 42, 45, 42, 48, 46, 49, 53, 50, 52, 55, 60]}
+                        />
                     </div>
                 </div>
             </div>
+        </div>
     );
 }
 

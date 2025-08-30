@@ -3,6 +3,7 @@ import { Outlet } from 'react-router-dom';
 import Navbar from './Navbar.jsx';
 import LeftBar from './Leftbar.jsx';
 import '../styles/components/Layout.css';
+import SellerNotificationLayer from '../SellerPanel/SellerNotificationLayer.jsx';
 
 const Layout = ({ userRole = 'admin' }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -31,6 +32,7 @@ const Layout = ({ userRole = 'admin' }) => {
           <Outlet />
         </main>
       </div>
+  {userRole === 'seller' && <SellerNotificationLayer />}
     </div>
   );
 };

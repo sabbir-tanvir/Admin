@@ -132,7 +132,10 @@ const Navbar = ({ onMobileMenuToggle, isMobileMenuOpen }) => {
             </svg>
           </button>
           <button className="profile-avatar" onClick={() => setUserMenuOpen(o => !o)} aria-haspopup="menu" aria-expanded={userMenuOpen}>
-            <img src="https://via.placeholder.com/40" alt="Profile" />
+            {/* Replace external image with local fallback to avoid console network errors */}
+            <div className="avatar-fallback" aria-hidden="true">
+              {(displayName || 'U').charAt(0).toUpperCase()}
+            </div>
           </button>
           {userMenuOpen && (
             <div className="user-dropdown" role="menu">
