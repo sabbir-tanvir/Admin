@@ -6,7 +6,7 @@ const rawEnvBase = import.meta.env?.VITE_API_BASE_URL;
 let resolvedBase = rawEnvBase && rawEnvBase.trim();
 if (!resolvedBase) {
   // Hard fallback so login still hits remote API rather than localhost origin.
-  resolvedBase = "https://safeapi.genzsoft.top/";
+  resolvedBase = "http://13.50.4.128:8000/";
   console.warn("[api] VITE_API_BASE_URL missing. Falling back to", resolvedBase);
 }
 // Guarantee trailing slash
@@ -168,6 +168,25 @@ export default api;
 
 // Dashboard metrics
 export const getDashboardMetrics = () => api.get('dashboard/api/metrics/');
+
+// Dashboard: Top Customers
+export const getTopCustomers = () => api.get('dashboard/api/top-customers/');
+
+// Dashboard: Top Marketers
+export const getTopMarketers = () => api.get('dashboard/api/top-marketers/');
+
+// Dashboard: Top Products
+export const getTopProducts = () => api.get('dashboard/api/top-products/');
+
+// --- Profile Endpoints ---
+// Get logged-in user profile
+export const getProfile = () => api.get('dashboard/api/profile/');
+
+// Update logged-in user profile (partial update)
+export const updateProfile = (partial) => api.patch('dashboard/api/profile/', partial);
+
+// Change password
+export const changePassword = (payload) => api.patch('dashboard/api/profile/change-password/', payload);
 
 
 // New: Fetch order details by orderId

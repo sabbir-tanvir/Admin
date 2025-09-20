@@ -23,7 +23,7 @@ export const getNotifications = (params = {}) => api.get(`${ROOT}notifications/`
 // Utilities
 export const getWsBaseUrl = () => {
   try {
-    let base = API_BASE_URL; // e.g., https://safeapi.genzsoft.top/
+    let base = API_BASE_URL; // 
     if (!base) return null;
     // strip trailing slash
     if (base.endsWith('/')) base = base.slice(0, -1);

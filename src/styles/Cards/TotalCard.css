@@ -15,6 +15,8 @@
     cursor: pointer;
     margin: 0;
     position: relative;
+    box-sizing: border-box;
+    max-width: 100%;
     
 }
 
@@ -145,6 +147,7 @@
         grid-template-columns: 1fr;
         text-align: center;
         gap: 8px;
+        padding: 12px 10px;
     }
 
     .total-card-content {
@@ -154,4 +157,14 @@
     .total-card-footer {
         justify-content: center;
     }
+}
+
+@media (max-width: 360px) {
+    .total-card {
+        padding: 10px 8px;
+        gap: 6px;
+    }
+    .total-card-icon svg { width: 30px; height: 30px; }
+    .total-card-number { font-size: 22px; }
+    .total-card-title h3 { font-size: 13px; }
 }

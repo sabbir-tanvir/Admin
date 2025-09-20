@@ -1,0 +1,257 @@
+/* Root wrapper */
+.profilePage {
+  padding: 20px;
+  background: #ffffff;
+  min-height: 100vh;
+  width: 100%;
+  padding-top: 80px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+}
+
+.profileContainer {
+  max-width: 800px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Top Section - Avatar */
+.profileTopSection {
+  background: linear-gradient(135deg, #9BB5FF 0%, #6FA8DC 100%);
+  border-radius: 20px;
+  padding: 40px;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.profileAvatarSection {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.profileAvatarContainer {
+  position: relative;
+  display: inline-block;
+}
+
+.profileAvatarImage {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  border: 10px solid white;
+  object-fit: cover;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.editAvatarBtn {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #333;
+  border: 2px solid white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.editAvatarBtn:hover {
+  background: #555;
+  transform: scale(1.1);
+}
+
+/* Middle Section - Basic Information */
+.profileMiddleSection {
+  background: white;
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* Bottom Section - Password */
+.profileBottomSection {
+  background: white;
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.sectionTitle {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 25px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.formRow {
+  margin-bottom: 25px;
+}
+
+.formGroup {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  gap: 20px;
+  align-items: start; /* Changed from center to start for multi-row content */
+}
+
+/* Special handling for full name row */
+.formGroup .formRowInputs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  align-items: center; /* Keep center alignment for the inputs themselves */
+}
+
+.formGroup label {
+  font-weight: 500;
+  color: #555;
+  font-size: 14px;
+  text-align: left;
+  margin: 0;
+}
+
+.formInput {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  background: #fafafa;
+  box-sizing: border-box;
+}
+
+.formInput:focus {
+  outline: none;
+  border-color: #9BB5FF;
+  background: white;
+  box-shadow: 0 0 0 3px rgba(155, 181, 255, 0.1);
+}
+
+.formInput::placeholder {
+  color: #999;
+}
+
+.formRowInputs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.formActions {
+  margin-top: 30px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.saveBtn {
+  background: #9BB5FF;
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 14px;
+}
+
+.saveBtn:hover {
+  background: #7DA3FF;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(155, 181, 255, 0.3);
+}
+
+.saveBtn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Inline loading spinner for buttons */
+.spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Status / message utility classes */
+.statusMsg {
+  margin-top: 10px;
+  font-size: 13px;
+  line-height: 1.4;
+  padding: 8px 12px;
+  border-radius: 6px;
+  background: #f5f7fa;
+  border: 1px solid #dfe3e8;
+}
+.statusSuccess {
+  color: #0f9d58;
+  background: #e6f7ee;
+  border-color: #b7e4cc;
+}
+.statusError {
+  color: #d93025;
+  background: #fdecea;
+  border-color: #f5c6c2;
+}
+.statusInfo {
+  color: #555;
+  background: #eef2f7;
+  border-color: #d3dae4;
+}
+
+/* Animation (deduplicated) */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.profileSection { animation: fadeInUp 0.6s ease-out; }
+
+/* Scrollbar styling */
+.profileMainContent::-webkit-scrollbar { width: 8px; }
+.profileMainContent::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 4px; }
+.profileMainContent::-webkit-scrollbar-thumb { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 4px; }
+.profileMainContent::-webkit-scrollbar-thumb:hover { background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%); }
+
+/* Unified responsive adjustments */
+@media (max-width: 1024px) {
+  .profilePage { padding: 60px 16px 20px; }
+  .profileTopSection, .profileMiddleSection, .profileBottomSection { padding: 32px 28px; }
+}
+@media (max-width: 768px) {
+  .profilePage { padding: 60px 12px 16px; }
+  .profileTopSection, .profileMiddleSection, .profileBottomSection { padding: 26px 22px; }
+  .profileAvatarImage { width: 120px; height: 120px; border: 6px solid #fff; }
+  .formGroup { grid-template-columns: 1fr; gap: 10px; }
+  .formRowInputs { grid-template-columns: 1fr; gap: 12px; }
+  .formActions { justify-content: stretch; }
+  .saveBtn { width: 100%; }
+}
+@media (max-width: 480px) {
+  .profilePage { padding: 60px 8px 12px; }
+  .profileTopSection, .profileMiddleSection, .profileBottomSection { padding: 20px 16px; }
+  .profileAvatarImage { width: 100px; height: 100px; }
+  .saveBtn { width: 100%; padding: 14px; }
+  .statusMsg { font-size: 12px; }
+}

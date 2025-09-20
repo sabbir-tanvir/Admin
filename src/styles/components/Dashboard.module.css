@@ -1,23 +1,28 @@
 /* Dashboard Component Styles */
 .dashboard {    background: #FFF;
     min-height: 100vh;
-    overflow-x: auto;
+    /* Allow natural vertical scrolling while preventing horizontal overflow */
+    overflow-x: hidden;
     overflow-y: auto;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
     gap: 40px; /* This replaces individual margin-bottom */
+    width: 100%;
+    max-width: 100%;
 }
 
 .dashboard-cards {
     display: flex;
     flex-direction: column;
-    gap: 20px; /* Auto-spacing between card rows */
+    gap: 30px; /* Auto-spacing between card rows */
     width: 100%;
     height: 100%;
     background: var(--bars, #FFF);
-    /* Remove margin-bottom - gap handles spacing */
     padding: 20px;
+    box-sizing: border-box;
+    max-width: 100%;
+    overflow-x: hidden;
 }
 
 .dashboard-title {
@@ -35,7 +40,9 @@
     gap: 20px; /* Grid gap handles spacing */
     width: 100%;
     min-height: 320px;
-    /* Remove margin-bottom */
+    box-sizing: border-box;
+    max-width: 100%;
+    overflow: hidden;
 }
 
 .dashboard-left {
@@ -74,22 +81,29 @@
 /* Clean Item Box Layout */
 .item-boxs {
     width: 100%;
-    padding: 10px;
+    padding: 20px;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(2, 1fr);
     gap: 30px;
     margin-top: 20px;
+    box-sizing: border-box;
+    max-width: 100%;
+    overflow-x: hidden;
 }
 
 .item-box {
     background: white;
     border-radius: 10px;
     border: 1px solid #ddd;
-    height: 550px;
+    /* Replace rigid fixed height with fluid layout */
+    height: auto;
+    min-height: 420px; /* gives some vertical presence on large screens */
     display: flex;
+    width: 100%;
     flex-direction: column;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    overflow: hidden;
 }
 
 .item-box-header {
@@ -97,7 +111,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 80px;
+    min-height: 70px;
+    padding: 10px 12px;
     border-radius: 10px 10px 0 0;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
@@ -111,8 +126,16 @@
 
 .item-box-content {
     flex: 1;
-    padding: 20px;
-    overflow: hidden;
+    padding: 16px 16px 12px;
+    overflow: auto; /* allow internal scroll if content exceeds */
+    scrollbar-width: thin;
+}
+
+/* Slightly shorter cards for medium screens */
+@media (max-width: 1100px) {
+    .item-box {
+        min-height: 380px;
+    }
 }
 
 /* Responsive Design */
@@ -139,7 +162,7 @@
 @media (max-width: 768px) {
     .dashboard {
         margin-left: 0;
-        width: 100vw;
+        width: 100%;
         padding: 10px;
         padding-top: 70px;
     }
@@ -170,14 +193,17 @@
     }
     
     .item-box {
-        height: 450px;
+        min-height: 360px;
+        height: auto;
     }
 }
 
 @media (max-width: 480px) {
     .dashboard {
-        padding: 5px;
+        padding: 1px;
         gap: 15px;
+        width: 100%;
+        max-width: 100%;
     }
     
     .dashboard-cards {
@@ -201,7 +227,31 @@
     }
     
     .item-boxs {
-        gap: 10px;
+        gap: 12px;
         margin-top: 15px;
+        padding: 12px 8px;
+    }
+    .item-box {
+        min-height: 320px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    }
+    .item-box-header h2 {
+        font-size: 1.05rem;
+    }
+    .item-box-content {
+        padding:  8px;
+    }
+}
+
+/* Ultra small devices */
+@media (max-width: 380px) {
+    .item-boxs {
+        padding: 4px;
+    }
+    .item-box-header h2 {
+        font-size: 0.95rem;
+    }
+    .dashboard-title {
+        font-size: 22px;
     }
 }
