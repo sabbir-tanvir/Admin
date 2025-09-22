@@ -204,7 +204,8 @@ label.info-label {
 }
 
 .form-field input, 
-.form-field textarea {
+.form-field textarea,
+.form-field select {
   padding: 12px 14px;
   border: 1px solid #ddd;
   border-radius: 8px;
@@ -221,11 +222,32 @@ label.info-label {
 }
 
 .form-field input:focus,
-.form-field textarea:focus {
+.form-field textarea:focus,
+.form-field select:focus {
   border-color: #7ADAE8;
   background-color: white;
   box-shadow: 0 0 0 3px rgba(122, 218, 232, 0.2);
   outline: none;
+}
+
+/* Remove native select arrow styling (keep accessible) and add custom feel */
+.form-field select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, #1976D2 50%),
+    linear-gradient(135deg, #1976D2 50%, transparent 50%),
+    linear-gradient(to right, #ccc, #ccc);
+  background-position: calc(100% - 18px) calc(50% - 4px), calc(100% - 13px) calc(50% - 4px), calc(100% - 42px) 50%;
+  background-size: 6px 6px, 6px 6px, 1px 60%;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+
+.form-field select:focus {
+  background-image: linear-gradient(45deg, transparent 50%, #0d5c99 50%),
+    linear-gradient(135deg, #0d5c99 50%, transparent 50%),
+    linear-gradient(to right, #7ADAE8, #7ADAE8);
 }
 
 /* Red and green highlights for price fields */

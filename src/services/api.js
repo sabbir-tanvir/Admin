@@ -91,28 +91,121 @@ export const getOrders = () => axios.get("/order.json");
 // NOTE: no leading slash so '/user/' segment from base URL is preserved.
 export const loginUser = (credentials) => api.post("user/api/login/", credentials);
 
+// Register user (Owner can create marketer): expects
+// { username, email, password, role, phone_number, latitude, longitude }
+export const registerUser = (payload) => api.post('user/api/register/', payload);
+
+
+// ---- Brand / Category / Tag helper endpoints (assumed conventional REST paths) ----
+// Adjust base paths if backend differs. These functions intentionally avoid hard crashing
+// on 404 so the UI can decide whether to show creation forms.
+export const listBrands = () => api.get('user/api/brands/');
+export const createBrand = ({ name, slug, image, is_active = true }) => {
+  const fd = new FormData();
+  if (name) fd.append('name', name);
+  if (slug) fd.append('slug', slug);
+  if (image) fd.append('image', image);
+  // Backend expects a boolean; send as string for multipart compatibility
+  if (typeof is_active === 'boolean') fd.append('is_active', is_active ? 'true' : 'false');
+  return api.post('user/api/brands/', fd);
+};
+
+export const listCategories = () => api.get('user/api/categories/'); // top-level categories
+export const createCategory = ({ name, slug, image, is_popular }) => {
+  const fd = new FormData();
+  if (name) fd.append('name', name);
+  if (slug) fd.append('slug', slug);
+  if (typeof is_popular === 'boolean') fd.append('is_popular', is_popular ? 'true' : 'false');
+  if (image) fd.append('image', image);
+  return api.post('user/api/categories/', fd);
+};
+
+// ---- Hero Slides ----
+// GET active (and all createable) hero slides
+export const listHeroSlides = () => api.get('user/api/slides/');
+// Create hero slide (POST) expects multipart for background_image
+export const createHeroSlide = ({ title, subtitle, description, button_text, button_url, background_image, is_active=true }) => {
+  const fd = new FormData();
+  if (title) fd.append('title', title);
+  if (subtitle) fd.append('subtitle', subtitle);
+  if (description) fd.append('description', description);
+  if (button_text) fd.append('button_text', button_text);
+  if (button_url) fd.append('button_url', button_url);
+  if (background_image) fd.append('background_image', background_image);
+  if (typeof is_active === 'boolean') fd.append('is_active', is_active ? 'true' : 'false');
+  return api.post('user/api/slides/', fd);
+};
+// Update existing slide (PATCH) by id; auto-skip empty values
+export const updateHeroSlide = (id, partial) => {
+  const fd = new FormData();
+  Object.entries(partial || {}).forEach(([k,v]) => {
+    if (v === undefined || v === null || v === '') return;
+    if (k === 'is_active' && typeof v === 'boolean') fd.append('is_active', v ? 'true':'false');
+    else fd.append(k, v);
+  });
+  return api.patch(`user/api/slides/${id}/`, fd);
+};
+
 
 // Marketor: create product request (multipart form-data)
-// Send only the minimal fields currently required by backend: name, sku, description, category, price, main_image
-export const createProductRequest = ({ name, sku, description, category, price, image, stock, imported_from }) => {
+// Extended to support: brand (id), tags (array of ids), gallery images (list of File), rating, is_imported flag.
+// Accepts both existing IDs and optional arrays; undefined / empty values omitted.
+export const createProductRequest = ({
+  name,
+  sku,
+  description,
+  category,
+  price,
+  image, // main image File
+  stock,
+  imported_from,
+  brand, // numeric ID
+  tags, // array of numeric IDs
+  galleryImages, // array<File>
+  rating,
+  is_imported
+}) => {
   const form = new FormData();
   form.append('name', name);
   form.append('sku', sku);
   form.append('description', description);
-  form.append('category', String(parseInt(category, 10)));
+  if (category !== undefined && category !== null && category !== '') {
+    form.append('category', String(parseInt(category, 10)));
+  }
   form.append('price', String(price));
   if (image) form.append('main_image', image);
+  if (Array.isArray(galleryImages)) {
+    galleryImages.forEach((file) => { if (file) form.append('gallery_images', file); });
+  }
+  // NOTE: If backend later supports alt text per gallery image, we can append a
+  // parallel repeated field here, e.g. form.append('gallery_alt_texts', altText)
+  // for each image, preserving ordering. Currently not sent because UI does not
+  // collect it yet and spec not confirmed.
   if (stock !== undefined && stock !== null && String(stock) !== '') {
     const n = parseInt(stock, 10);
     if (!Number.isNaN(n)) form.append('stock', String(n));
   }
-  if (imported_from !== undefined && imported_from !== null && String(imported_from) !== '') {
-    form.append('imported_from', String(imported_from));
+  if (imported_from) form.append('imported_from', String(imported_from));
+  if (brand) form.append('brand', String(brand));
+  if (Array.isArray(tags) && tags.length) {
+    // Backend now expected to auto-handle creation / association by tag name.
+    // We send each tag as a separate 'tags' field (multipart repeated key pattern).
+    tags.forEach(tagVal => {
+      if (tagVal && typeof tagVal === 'string') {
+        form.append('tags', tagVal);
+      }
+    });
+  }
+  if (rating !== undefined && rating !== null && String(rating) !== '') {
+    form.append('rating', String(rating));
+  }
+  if (typeof is_imported === 'boolean') {
+    form.append('is_imported', is_imported ? 'true' : 'false');
   }
 
   try {
     const summary = {};
-  for (const [k, v] of form.entries()) {
+    for (const [k, v] of form.entries()) {
       summary[k] = (typeof File !== 'undefined' && v instanceof File) ? `File(${v.name}, ${v.size})` : v;
     }
     console.log('[createProductRequest] multipart summary', summary);

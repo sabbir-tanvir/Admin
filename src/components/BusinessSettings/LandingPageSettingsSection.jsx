@@ -1,209 +1,192 @@
-import React, { useState, useRef } from "react";
-import { FaCloudUploadAlt } from "react-icons/fa";
-import { MdOutlineInfo } from "react-icons/md";
-import "../../styles/components/LandingPageSettingsSection.css";
-import placeholderImg from "../../assets/image.png";
+import React, { useEffect, useRef, useState } from 'react';
+import styles from '../../styles/components/LandingPageSettingsSection.module.css';
+import { listHeroSlides, createHeroSlide, updateHeroSlide } from '../../services/api';
+import { toast } from 'react-toastify';
 
-const defaultState = {
-  useDefault: false,
-  method: "url", // "url" | "file" | "none"
-  url: "",
-  file: null,
+const emptySlide = {
+  id: null,
+  title: '',
+  subtitle: '',
+  description: '',
+  button_text: '',
+  button_url: '',
+  is_active: true,
+  background_image: null,
 };
 
 const LandingPageSettingsSection = () => {
-  const [state, setState] = useState(defaultState);
-  const [fileError, setFileError] = useState("");
-  const [urlError, setUrlError] = useState("");
-  const fileInputRef = useRef();
+  const [slides, setSlides] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [form, setForm] = useState(emptySlide);
+  const [preview, setPreview] = useState(null);
+  const [submitting, setSubmitting] = useState(false);
+  const fileRef = useRef(null);
+  const [editingId, setEditingId] = useState(null);
 
-  const handleToggleDefault = () => {
-    setState((prev) => ({ ...prev, useDefault: !prev.useDefault }));
+  const loadSlides = async () => {
+    setLoading(true);
+    try {
+      const res = await listHeroSlides();
+      setSlides(Array.isArray(res.data) ? res.data : []);
+    } catch {
+      toast.error('Failed to load slides');
+    } finally { setLoading(false); }
   };
 
-  const handleMethodChange = (method) => {
-    setState((prev) => ({ ...prev, method }));
-    setFileError("");
-    setUrlError("");
+  useEffect(() => { loadSlides(); }, []);
+
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setForm(prev => ({ ...prev, [name]: type === 'checkbox' ? checked : value }));
   };
 
-  const handleUrlChange = (e) => {
-    setState((prev) => ({ ...prev, url: e.target.value }));
-    setUrlError("");
-  };
-
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    if (file && file.type === "application/zip") {
-      setState((prev) => ({ ...prev, file }));
-      setFileError("");
-    } else {
-      setFileError("Please upload a valid ZIP file.");
-      setState((prev) => ({ ...prev, file: null }));
+  const handleFile = (e) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setForm(prev => ({ ...prev, background_image: file }));
+      setPreview(URL.createObjectURL(file));
     }
   };
 
-  const handleDrop = (e) => {
+  const resetForm = () => {
+    setForm(emptySlide);
+    setPreview(null);
+    setEditingId(null);
+    if (fileRef.current) fileRef.current.value='';
+  };
+
+  const handleEdit = (slide) => {
+    setEditingId(slide.id);
+    setForm({
+      id: slide.id,
+      title: slide.title || '',
+      subtitle: slide.subtitle || '',
+      description: slide.description || '',
+      button_text: slide.button_text || '',
+      button_url: slide.button_url || '',
+      is_active: slide.is_active,
+      background_image: null, // new upload optional
+    });
+    setPreview(slide.background_image || null);
+    if (fileRef.current) fileRef.current.value='';
+  };
+
+  const onSubmit = async (e) => {
     e.preventDefault();
-    const file = e.dataTransfer.files[0];
-    if (file && file.type === "application/zip") {
-      setState((prev) => ({ ...prev, file }));
-      setFileError("");
-    } else {
-      setFileError("Please upload a valid ZIP file.");
-      setState((prev) => ({ ...prev, file: null }));
-    }
-  };
-
-  const handleDragOver = (e) => {
-    e.preventDefault();
-  };
-
-  const handleReset = () => {
-    setState(defaultState);
-    setFileError("");
-    setUrlError("");
-    if (fileInputRef.current) fileInputRef.current.value = "";
-  };
-
-  const handleSave = () => {
-    // Validation
-    if (state.method === "url") {
-      if (!state.url.trim()) {
-        setUrlError("Landing page URL is required.");
-        return;
+    if (submitting) return;
+    if (!form.title.trim()) { toast.warning('Title required'); return; }
+    setSubmitting(true);
+    try {
+      if (editingId) {
+        const payload = { ...form };
+        if (!payload.background_image) delete payload.background_image; // don't send empty
+        await updateHeroSlide(editingId, payload);
+        toast.success('Slide updated');
+      } else {
+        await createHeroSlide(form);
+        toast.success('Slide created');
       }
-      // Simple URL validation
-      try {
-        new URL(state.url);
-      } catch {
-        setUrlError("Please enter a valid URL.");
-        return;
-      }
-    }
-    if (state.method === "file" && !state.file) {
-      setFileError("Please upload a ZIP file.");
-      return;
-    }
-    // Simulate save (API call)
-    alert("Landing page settings saved!");
+      await loadSlides();
+      resetForm();
+    } catch (err) {
+      console.error(err);
+      const msg = err.response?.data?.detail || 'Save failed';
+      toast.error(msg);
+    } finally { setSubmitting(false); }
   };
 
   return (
-    <div className="landing-settings-root">
-      <div className="landing-toggle-card">
-        <div className="toggle-label">Admin default landing page</div>
-        <label className="switch">
-          <input
-            className="business-settings-checkbox"
-            type="checkbox"
-            checked={state.useDefault}
-            onChange={handleToggleDefault}
-          />
-          <span className="slider round"></span>
-        </label>
-      </div>
-      <div className="landing-custom-card">
-        <div className="custom-title">
-          Want to Integrate Your Own Customised Landing Page ?
-        </div>
-        <div className="custom-method-row">
-          <span className="custom-method-label">Integrate Your Landing Page Via</span>
-          <div className="custom-method-group">
-            <label className={`custom-radio ${state.method === "url" ? "active" : ""}`}>
-              <input
-                className="business-settings-radio"
-                type="radio"
-                name="method"
-                checked={state.method === "url"}
-                onChange={() => handleMethodChange("url")}
-              />
-              <span className="custom-radio-text">Url</span>
-            </label>
-            <label className={`custom-radio ${state.method === "file" ? "active" : ""}`}>
-              <input
-                className="business-settings-radio"
-                type="radio"
-                name="method"
-                checked={state.method === "file"}
-                onChange={() => handleMethodChange("file")}
-              />
-              <span className="custom-radio-text">File upload</span>
-            </label>
-            <label className={`custom-radio ${state.method === "none" ? "active" : ""}`}>
-              <input
-                className="business-settings-radio"
-                type="radio"
-                name="method"
-                checked={state.method === "none"}
-                onChange={() => handleMethodChange("none")}
-              />
-              <span className="custom-radio-text">None</span>
-            </label>
-          </div>
-        </div>
-        {/* URL Input */}
-        {state.method === "url" && (
-          <div className="custom-url-box">
-            <label className="business-settings-label">Landing page url</label>
-            <input
-              className="business-settings-input"
-              type="text"
-              placeholder=""
-              value={state.url}
-              onChange={handleUrlChange}
-            />
-            {urlError && <div className="form-error">{urlError}</div>}
-          </div>
-        )}
-        {/* File Upload */}
-        {state.method === "file" && (
-          <div className="custom-file-row">
-            <div
-              className="custom-file-drop"
-              onDrop={handleDrop}
-              onDragOver={handleDragOver}
-              onClick={() => fileInputRef.current && fileInputRef.current.click()}
-            >
-              <FaCloudUploadAlt size={32} style={{ marginBottom: 8, color: '#19b800' }} />
-              <div className="custom-file-drop-text">Drag & drop or Browse file</div>
-              <input
-                type="file"
-                accept=".zip"
-                style={{ display: "none" }}
-                ref={fileInputRef}
-                onChange={handleFileChange}
-              />
-              {state.file && <div className="file-name">{state.file.name}</div>}
-            </div>
-            <div className="custom-file-instructions">
-              <div className="custom-file-instructions-title">Instructions</div>
-              <ul>
-                <li>Upload content as a single ZIP file and the file name must be <b>index.blade.php</b></li>
-              </ul>
-            </div>
-            {fileError && <div className="form-error">{fileError}</div>}
-          </div>
-        )}
-        {/* None Info */}
-        {state.method === "none" && (
-          <div className="custom-none-box">
-            <div className="custom-none-img-wrap">
-              <img src={placeholderImg} alt="Landing page" className="custom-none-img" />
-            </div>
-            <div className="custom-none-text">
-              Currently you are using Safe Default Admin Landing Page Theme.{' '}
-              <a href="/landing" target="_blank" rel="noopener noreferrer" className="custom-none-link">Visit Landing Page</a>
-            </div>
-          </div>
+    <div className={styles['hero-root']}>
+      <div className={styles['hero-header']}>
+        <h2 className={styles['hero-title']}>Hero Slider Manager</h2>
+        {editingId && (
+          <button type="button" className={styles['btn-secondary']} onClick={resetForm}>Add New</button>
         )}
       </div>
-      <div className="landing-actions-row">
-        <button className="reset-btn" onClick={handleReset}>Reset</button>
-        <button className="save-btn" onClick={handleSave}>Save</button>
+      <form onSubmit={onSubmit} className={styles['hero-form']}>
+        <div className={styles['form-grid']}>
+          <div className={styles['form-field']}>
+            <label>Title *</label>
+            <input name="title" value={form.title} onChange={handleChange} placeholder="Slide title" />
+          </div>
+          <div className={styles['form-field']}>
+            <label>Subtitle</label>
+            <input name="subtitle" value={form.subtitle} onChange={handleChange} placeholder="Subtitle" />
+          </div>
+          <div className={styles['form-field']}>
+            <label>Button Text</label>
+            <input name="button_text" value={form.button_text} onChange={handleChange} placeholder="Shop Now" />
+          </div>
+          <div className={styles['form-field']}>
+            <label>Button URL</label>
+            <input name="button_url" value={form.button_url} onChange={handleChange} placeholder="https://..." />
+          </div>
+          <div className={styles['form-field']} style={{ gridColumn: 'span 2' }}>
+            <label>Description</label>
+            <textarea name="description" value={form.description} onChange={handleChange} rows={3} placeholder="Short description" />
+          </div>
+          <div className={styles['form-field']}>
+            <label style={{ fontSize:14, fontWeight:600, color:'#222', marginBottom:4 }}>Active</label>
+            <div className={styles['active-inline']}>
+              <label className={styles['mini-switch']}>
+                <input type="checkbox" name="is_active" checked={form.is_active} onChange={handleChange} />
+                <span className={styles['mini-slider']}></span>
+              </label>
+              <span style={{ fontSize:12, color:'#555' }}>{form.is_active ? 'Visible in slider' : 'Hidden'}</span>
+            </div>
+          </div>
+          <div className={styles['form-field']}>
+            <label>Background Image {editingId ? '(leave empty to keep existing)' : ''}</label>
+            <input type="file" ref={fileRef} accept="image/*" onChange={handleFile} />
+            {preview && (
+              <div className={styles['image-preview-wrap']}>
+                <img src={preview} alt="preview" className={styles['image-preview']} />
+              </div>
+            )}
+          </div>
+        </div>
+        <div className={styles['form-actions']}>
+          <button type="button" className={styles['btn-secondary']} onClick={resetForm}>Reset</button>
+          <button type="submit" className={styles['btn-primary']} disabled={submitting}>{submitting ? 'Saving...' : (editingId ? 'Update Slide' : 'Create Slide')}</button>
+        </div>
+      </form>
+
+      <div className={styles['list-section']}>
+        <div className={styles['list-header']}>
+          <h3>Existing Slides</h3>
+          <span className={styles['count-badge']}>{slides.length}</span>
+        </div>
+        {loading ? <div className={styles['loading']}>Loading...</div> : (
+          slides.length ? (
+            <div className={styles['cards-grid']}>
+              {slides.map(slide => (
+                <div key={slide.id} className={styles['slide-card']}>
+                  <div className={styles['card-image-wrap']}>
+                    {slide.background_image ? <img src={slide.background_image} alt={slide.title} /> : <div className={styles['placeholder']}>No Image</div>}
+                    <span className={`${styles['status-pill']} ${slide.is_active ? styles['active'] : styles['inactive']}`}>{slide.is_active ? 'Active':'Inactive'}</span>
+                  </div>
+                  <div className={styles['card-body']}>
+                    <h4 className={styles['card-title']}>{slide.title}</h4>
+                    {slide.subtitle && <div className={styles['card-sub']}>{slide.subtitle}</div>}
+                    {slide.description && <p className={styles['card-desc']}>{slide.description}</p>}
+                    {(slide.button_text || slide.button_url) && (
+                      <div className={styles['card-btn-info']}>
+                        <span className={styles['btn-label']}>{slide.button_text || 'Button'}</span>
+                        {slide.button_url && <a href={slide.button_url} target="_blank" rel="noopener noreferrer" className={styles['btn-url']}>Visit</a>}
+                      </div>
+                    )}
+                  </div>
+                  <div className={styles['card-footer']}>
+                    <button type="button" className={styles['btn-small']} onClick={() => handleEdit(slide)}>Edit</button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : <div className={styles['empty']}>No slides available.</div>
+        )}
       </div>
     </div>
   );
 };
 
-export default LandingPageSettingsSection; 
+export default LandingPageSettingsSection;

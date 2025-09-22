@@ -8,7 +8,9 @@ const Profile = () => {
     first_name: '',
     last_name: '',
     phone_number: '',
-    email: ''
+    email: '',
+    latitude: '',
+    longitude: ''
   });
   const [original, setOriginal] = useState(null);
   const [loadingProfile, setLoadingProfile] = useState(false);
@@ -19,6 +21,7 @@ const Profile = () => {
     new_password: '',
     confirm_password: ''
   });
+  const [showPw, setShowPw] = useState({ old: false, neo: false, confirm: false });
   const [changingPassword, setChangingPassword] = useState(false);
   const [passwordMessage, setPasswordMessage] = useState(null);
 
@@ -36,7 +39,9 @@ const Profile = () => {
             first_name: data.first_name || '',
             last_name: data.last_name || '',
             phone_number: data.phone_number || '',
-            email: data.email || ''
+            email: data.email || '',
+            latitude: (data.latitude === 0 || data.latitude) ? String(data.latitude) : '',
+            longitude: (data.longitude === 0 || data.longitude) ? String(data.longitude) : ''
           };
             setFormData(mapped);
             setOriginal(mapped);
@@ -83,6 +88,15 @@ const Profile = () => {
       setProfileMessage({ type: 'info', text: 'No changes to save.' });
       return;
     }
+    // Convert latitude/longitude BEFORE sending to API
+    if (payload.latitude !== undefined) {
+      const n = parseFloat(payload.latitude);
+      if (!isNaN(n)) payload.latitude = n; else delete payload.latitude;
+    }
+    if (payload.longitude !== undefined) {
+      const n = parseFloat(payload.longitude);
+      if (!isNaN(n)) payload.longitude = n; else delete payload.longitude;
+    }
     setSavingProfile(true);
     setProfileMessage(null);
     try {
@@ -91,7 +105,9 @@ const Profile = () => {
         first_name: data.first_name || '',
         last_name: data.last_name || '',
         phone_number: data.phone_number || '',
-        email: data.email || ''
+          email: data.email || '',
+          latitude: (data.latitude === 0 || data.latitude) ? String(data.latitude) : '',
+          longitude: (data.longitude === 0 || data.longitude) ? String(data.longitude) : ''
       };
       setFormData(updated);
       setOriginal(updated);
@@ -221,6 +237,33 @@ const Profile = () => {
                   />
                 </div>
               </div>
+              <div className={styles.formRow}>
+                <div className={styles.formGroup}>
+                  <label>Location (Lat / Long)</label>
+                  <div className={styles.formRowInputs}>
+                    <input
+                      type="number"
+                      step="0.000001"
+                      name="latitude"
+                      placeholder="Latitude"
+                      value={formData.latitude}
+                      onChange={handleInputChange}
+                      className={styles.formInput}
+                      disabled={loadingProfile || savingProfile}
+                    />
+                    <input
+                      type="number"
+                      step="0.000001"
+                      name="longitude"
+                      placeholder="Longitude"
+                      value={formData.longitude}
+                      onChange={handleInputChange}
+                      className={styles.formInput}
+                      disabled={loadingProfile || savingProfile}
+                    />
+                  </div>
+                </div>
+              </div>
 
               <div className={styles.formActions}>
                 <button className={styles.saveBtn} onClick={handleSaveBasicInfo} disabled={savingProfile || loadingProfile}>
@@ -244,45 +287,72 @@ const Profile = () => {
               <div className={styles.formRow}>
                 <div className={styles.formGroup}>
                   <label>Current Password</label>
-                  <input
-                    type="password"
-                    name="old_password"
-                    placeholder="Current password"
-                    value={passwordData.old_password}
-                    onChange={handlePasswordChange}
-                    className={styles.formInput}
-                    disabled={changingPassword}
-                  />
+                  <div className={styles.pwWrapper}>
+                    <input
+                      type={showPw.old ? 'text' : 'password'}
+                      name="old_password"
+                      placeholder="Current password"
+                      value={passwordData.old_password}
+                      onChange={handlePasswordChange}
+                      className={styles.formInput}
+                      disabled={changingPassword}
+                    />
+                    <button type="button" aria-label={showPw.old ? 'Hide password' : 'Show password'} className={styles.pwIconBtn} onClick={() => setShowPw(s => ({ ...s, old: !s.old }))} disabled={changingPassword}>
+                      {showPw.old ? (
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a21.77 21.77 0 0 1 5.06-6.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a21.83 21.83 0 0 1-2.16 3.19M14.12 14.12a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+                      ) : (
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8Z"/><circle cx="12" cy="12" r="3"/></svg>
+                      )}
+                    </button>
+                  </div>
                 </div>
               </div>
 
               <div className={styles.formRow}>
                 <div className={styles.formGroup}>
                   <label>New Password</label>
-                  <input
-                    type="password"
-                    name="new_password"
-                    placeholder="8+ character needed"
-                    value={passwordData.new_password}
-                    onChange={handlePasswordChange}
-                    className={styles.formInput}
-                    disabled={changingPassword}
-                  />
+                  <div className={styles.pwWrapper}>
+                    <input
+                      type={showPw.neo ? 'text' : 'password'}
+                      name="new_password"
+                      placeholder="New password"
+                      value={passwordData.new_password}
+                      onChange={handlePasswordChange}
+                      className={styles.formInput}
+                      disabled={changingPassword}
+                    />
+                    <button type="button" aria-label={showPw.neo ? 'Hide password' : 'Show password'} className={styles.pwIconBtn} onClick={() => setShowPw(s => ({ ...s, neo: !s.neo }))} disabled={changingPassword}>
+                      {showPw.neo ? (
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a21.77 21.77 0 0 1 5.06-6.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a21.83 21.83 0 0 1-2.16 3.19M14.12 14.12a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+                      ) : (
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8Z"/><circle cx="12" cy="12" r="3"/></svg>
+                      )}
+                    </button>
+                  </div>
                 </div>
               </div>
 
               <div className={styles.formRow}>
                 <div className={styles.formGroup}>
                   <label>Confirm Password</label>
-                  <input
-                    type="password"
-                    name="confirm_password"
-                    placeholder="Re-enter new password"
-                    value={passwordData.confirm_password}
-                    onChange={handlePasswordChange}
-                    className={styles.formInput}
-                    disabled={changingPassword}
-                  />
+                  <div className={styles.pwWrapper}>
+                    <input
+                      type={showPw.confirm ? 'text' : 'password'}
+                      name="confirm_password"
+                      placeholder="Confirm password"
+                      value={passwordData.confirm_password}
+                      onChange={handlePasswordChange}
+                      className={styles.formInput}
+                      disabled={changingPassword}
+                    />
+                    <button type="button" aria-label={showPw.confirm ? 'Hide password' : 'Show password'} className={styles.pwIconBtn} onClick={() => setShowPw(s => ({ ...s, confirm: !s.confirm }))} disabled={changingPassword}>
+                      {showPw.confirm ? (
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a21.77 21.77 0 0 1 5.06-6.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a21.83 21.83 0 0 1-2.16 3.19M14.12 14.12a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+                      ) : (
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8Z"/><circle cx="12" cy="12" r="3"/></svg>
+                      )}
+                    </button>
+                  </div>
                 </div>
               </div>
 

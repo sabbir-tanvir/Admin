@@ -105,6 +105,36 @@
   align-items: start; /* Changed from center to start for multi-row content */
 }
 
+/* Password field wrapper to allow toggle button inline */
+.formGroup > .formInput[type=password], .pwFieldWrapper {
+  position: relative;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+/* Password eye icon wrapper */
+.pwWrapper { position: relative; }
+.pwWrapper .formInput { padding-right: 42px; }
+.pwIconBtn {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+  color: #666;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: background .2s ease, color .2s ease;
+}
+.pwIconBtn:hover:not(:disabled) { background: rgba(0,0,0,0.05); color:#333; }
+.pwIconBtn:disabled { opacity: .5; cursor: not-allowed; }
+
 /* Special handling for full name row */
 .formGroup .formRowInputs {
   display: grid;
