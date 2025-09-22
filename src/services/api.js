@@ -146,6 +146,31 @@ export const updateHeroSlide = (id, partial) => {
   return api.patch(`user/api/slides/${id}/`, fd);
 };
 
+// ---- Social Links ----
+// List social links
+export const listSocialLinks = () => api.get('user/api/social-links/');
+// Create social link (multipart: optional icon file)
+export const createSocialLink = ({ name, url, icon, is_active=true }) => {
+  const fd = new FormData();
+  if (name) fd.append('name', name);
+  if (url) fd.append('url', url);
+  if (icon) fd.append('icon', icon);
+  if (typeof is_active === 'boolean') fd.append('is_active', is_active ? 'true':'false');
+  return api.post('user/api/social-links/', fd);
+};
+// Update social link (PATCH multipart, skip empty)
+export const updateSocialLink = (id, partial) => {
+  const fd = new FormData();
+  Object.entries(partial || {}).forEach(([k,v]) => {
+    if (v === undefined || v === null || v === '') return;
+    if (k === 'is_active' && typeof v === 'boolean') fd.append('is_active', v ? 'true':'false');
+    else fd.append(k, v);
+  });
+  return api.patch(`user/api/social-links/${id}/`, fd);
+};
+// Delete social link
+export const deleteSocialLink = (id) => api.delete(`user/api/social-links/${id}/`);
+
 
 // Marketor: create product request (multipart form-data)
 // Extended to support: brand (id), tags (array of ids), gallery images (list of File), rating, is_imported flag.

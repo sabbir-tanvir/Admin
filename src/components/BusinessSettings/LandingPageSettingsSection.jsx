@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import styles from '../../styles/components/LandingPageSettingsSection.module.css';
 import { listHeroSlides, createHeroSlide, updateHeroSlide } from '../../services/api';
 import { toast } from 'react-toastify';
+import SocialLinksSection from './SocialLinksSection';
 
 const emptySlide = {
   id: null,
@@ -185,6 +186,7 @@ const LandingPageSettingsSection = () => {
           ) : <div className={styles['empty']}>No slides available.</div>
         )}
       </div>
+      <SocialLinksSection />
     </div>
   );
 };
