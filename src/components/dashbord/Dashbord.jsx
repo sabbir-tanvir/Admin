@@ -5,7 +5,7 @@ import styles from '../../styles/components/Dashboard.module.css';
 import SeeMBtn from '../button/SeemoreBtn';
 import OrderStatCard from '../Card/OrderStatCard';
 import TotalCard from '../Card/TotalCard';
-import { getDashboardMetrics, getTopCustomers } from '../../services/api';
+import { getDashboardMetrics, getTopCustomers, getTopProducts, getTopMarketers, API_BASE_URL } from '../../services/api';
 
 function Dashboard() {
     const [metrics, setMetrics] = useState({
@@ -18,6 +18,8 @@ function Dashboard() {
         total_products: 0,
     });
     const [topCustomers, setTopCustomers] = useState([]);
+    const [topProducts, setTopProducts] = useState([]); // For Top Selling Products grid
+    const [topMarketers, setTopMarketers] = useState([]); // For Top Marketers list
     
     useEffect(() => {
         let mounted = true;
@@ -42,7 +44,30 @@ function Dashboard() {
         })();
         return () => { mounted = false; };
     }, []);
-    console.log({ topCustomers });
+    console.log({ topCustomers, topProducts, topMarketers });
+
+    // Fetch Top Products (Top Selling Products) — limit to 8 for 4x2 grid
+    useEffect(() => {
+        let mounted = true;
+        (async () => {
+            try {
+                const { data } = await getTopProducts();
+                if (mounted && Array.isArray(data)) {
+                    const base = API_BASE_URL?.replace(/\/$/, '');
+                    const mapped = data.slice(0, 8).map(p => ({
+                        id: p.id,
+                        name: p.name,
+                        image: p.main_image ? `${base}${p.main_image.startsWith('/') ? '' : '/'}${p.main_image}` : null,
+                        total_sold: p.total_sold
+                    }));
+                    setTopProducts(mapped);
+                }
+            } catch (e) {
+                console.warn('Top Products fetch error:', e?.response?.data || e.message);
+            }
+        })();
+        return () => { mounted = false; };
+    }, []);
     
 
     useEffect(() => {
@@ -94,45 +119,29 @@ function Dashboard() {
     //     }
     // ];
 
-    // Sample data for Top Marketers (exactly 4 people)
-    const topMarketers = [
-        {
-            name: "Sarah Wilson",
-            contact: "+880***********45",
-            sales: 85,
-            avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b5bc?w=150&h=150&fit=crop&crop=face"
-        },
-        {
-            name: "Mike Chen",
-            contact: "+880***********67",
-            sales: 72,
-            avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face"
-        },
-        {
-            name: "Emily Davis",
-            contact: "+880***********89",
-            sales: 68,
-            avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop&crop=face"
-        },
-        {
-            name: "Alex Rodriguez",
-            contact: "+880***********12",
-            sales: 55,
-            avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&h=150&fit=crop&crop=face"
-        }
-    ];
+    // Fetch Top Marketers (limit 4 for list) — maps backend fields to UserList structure
+    useEffect(() => {
+        let mounted = true;
+        (async () => {
+            try {
+                const { data } = await getTopMarketers();
+                if (mounted && Array.isArray(data)) {
+                    const mapped = data.slice(0,4).map((m) => ({
+                        name: (m.first_name && m.first_name.trim()) ? m.first_name : `Marketer${m.id ? ' #' + m.id : ''}`,
+                        contact: m.phone_number || 'N/A',
+                        sales: m.total_sales ?? 0,
+                        avatar: null
+                    }));
+                    setTopMarketers(mapped);
+                }
+            } catch (e) {
+                console.warn('Top Marketers fetch error:', e?.response?.data || e.message);
+            }
+        })();
+        return () => { mounted = false; };
+    }, []);
 
-    // Sample data for Top Selling Products (8 items for 4x2 grid)
-    const topProducts = [
-        { name: "Smartphone", image: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=150&h=150&fit=crop" },
-        { name: "Laptop", image: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=150&h=150&fit=crop" },
-        { name: "Headphones", image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=150&h=150&fit=crop" },
-        { name: "Watch", image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=150&h=150&fit=crop" },
-        { name: "Camera", image: "https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=150&h=150&fit=crop" },
-        { name: "Tablet", image: "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=150&h=150&fit=crop" },
-        { name: "Speaker", image: "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=150&h=150&fit=crop" },
-        { name: "Gaming Console", image: "https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?w=150&h=150&fit=crop" }
-    ];
+    // topProducts now loaded from API (see useEffect). Fallback left intentionally empty.
 
     // Sample data for Most Popular Companies (8 items for 4x2 grid)
     const topCompanies = [
@@ -341,9 +350,7 @@ function Dashboard() {
                     <div className={styles['item-box-content']}>
                         <UserList
                             users={topMarketers}
-                            title="Top Marketers"
-                            showContact={true}
-                            showOrders={false}
+                            type="marketers"
                         />
 
                     </div>

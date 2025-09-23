@@ -28,6 +28,7 @@ import AllCustomer from './components/CustomerDetails/AllCustomer.jsx';
 import CustomerProfile from './components/CustomerDetails/CustomerProfile.jsx';
 import SellerDashboard from './SellerPanel/sellerDashbord.jsx';
 import SellerProduct from './SellerPanel/SellerProduct.jsx';
+import SellerProductDetails from './SellerPanel/SellerProductDetails.jsx';
 import SellerOrder from './SellerPanel/SellerOrder.jsx';
 import SellerAddaOrder from './SellerPanel/sellerAddaOrder.jsx';
 import SellerOrderApprove from './SellerPanel/sellerOrderAprove.jsx';
@@ -121,6 +122,7 @@ function App() {
               <Route index element={<SellerDashboard />} />
               <Route path="dashboard" element={<SellerDashboard />} />
               <Route path="product" element={<SellerProduct />} />
+              <Route path="product/:productId" element={<SellerProductDetails />} />
               <Route path="order" element={<SellerOrder />} />
               <Route path="order/add" element={<SellerAddaOrder />} />
               <Route path="order/approve" element={<SellerOrderApprove />} />

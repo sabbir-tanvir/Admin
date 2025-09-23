@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import SellerProductCard from './sellerProductCard';
+import { getProductRequests } from '../services/api';
 
 function SellerProduct() {
     const navigate = useNavigate();
@@ -14,43 +15,23 @@ function SellerProduct() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    // Fetch product data from JSON file
+    // Fetch product requests from backend
     useEffect(() => {
-        const fetchProducts = async () => {
+        let mounted = true;
+        const load = async () => {
+            setLoading(true);
             try {
-                setLoading(true);
-                // Using relative path for development environment
-                const response = await fetch('/data/data.json');
-                
-                if (!response.ok) {
-                    throw new Error(`Error: ${response.status} ${response.statusText}`);
-                }
-                
-                const data = await response.json();
-                setProducts(data.sellerProducts || []);
-                setLoading(false);
-            } catch (error) {
-                console.error("Error fetching products:", error);
-                // Try fallback path if first attempt fails
-                try {
-                    const fallbackResponse = await fetch('../data/data.json');
-                    
-                    if (!fallbackResponse.ok) {
-                        throw new Error(`Error: ${fallbackResponse.status} ${fallbackResponse.statusText}`);
-                    }
-                    
-                    const data = await fallbackResponse.json();
-                    setProducts(data.sellerProducts || []);
-                    setLoading(false);
-                } catch (fallbackError) {
-                    console.error("Fallback fetch also failed:", fallbackError);
-                    setError(error.message);
-                    setLoading(false);
-                }
-            }
+                const res = await getProductRequests();
+                if (!mounted) return;
+                // Expect backend returns list of product request objects directly or under .results
+                const list = Array.isArray(res.data) ? res.data : (res.data?.results || []);
+                setProducts(list);
+            } catch (e) {
+                if (mounted) setError(e.message || 'Failed to load');
+            } finally { if (mounted) setLoading(false); }
         };
-
-        fetchProducts();
+        load();
+        return () => { mounted = false; };
     }, []);
 
     const handleFilterChange = (filter) => {
@@ -62,8 +43,34 @@ function SellerProduct() {
     };
 
     const handleProductClick = (productId) => {
-        navigate(`/product/update/${productId}`);
+        navigate(`/seller-panel/product/${productId}`);
     };
+
+    const normalized = products.map(p => ({
+        id: p.id,
+        name: p.name,
+        sku: p.sku,
+        price: p.price,
+        stock: p.stock,
+        categoryName: p.category?.name || '—',
+        tags: p.tags || [],
+        main_image: p.main_image,
+        is_approved: p.is_approved,
+        status: p.is_approved ? 'Approved' : 'Pending'
+    }));
+
+    const filtered = normalized
+        .filter(p => activeFilter === 'All' || p.status === activeFilter)
+        .filter(p => {
+            const term = searchTerm.trim().toLowerCase();
+            if (!term) return true;
+            return (
+                p.name?.toLowerCase().includes(term) ||
+                p.sku?.toLowerCase().includes(term) ||
+                p.categoryName?.toLowerCase().includes(term) ||
+                (p.tags || []).some(t => t.name?.toLowerCase().includes(term))
+            );
+        });
 
     return (
         <div className="product-page">
@@ -153,32 +160,22 @@ function SellerProduct() {
                         </div>
                     ) : (
                         <div className="products-grid">
-                            {products
-                                .filter(product => activeFilter === 'All' || product.status === activeFilter)
-                                .filter(product => 
-                                    product.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
-                                    (product.id && product.id.toString().includes(searchTerm))
-                                )
-                                .map(product => (
-                                    <SellerProductCard
-                                        key={product.id}
-                                        imageUrl={product.imageUrl}
-                                        title={product.title}
-                                        productId={product.id || 'PRD-ID'}
-                                        onClick={() => handleProductClick(product.id)}
-                                    />
-                                ))
-                            }
-                            {products
-                                .filter(product => activeFilter === 'All' || product.status === activeFilter)
-                                .filter(product => 
-                                    product.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
-                                    (product.id && product.id.toString().includes(searchTerm))
-                                )
-                                .length === 0 && (
-                                <div className="no-products-message">
-                                    <p>No products found matching your criteria</p>
-                                </div>
+                            {filtered.map(p => (
+                                <SellerProductCard
+                                  key={p.id}
+                                  imageUrl={p.main_image}
+                                  title={p.name}
+                                  sku={p.sku}
+                                  price={p.price}
+                                  stock={p.stock}
+                                  categoryName={p.categoryName}
+                                  tags={p.tags}
+                                  status={p.status}
+                                  onClick={() => handleProductClick(p.id)}
+                                />
+                            ))}
+                            {filtered.length === 0 && (
+                              <div className="no-products-message"><p>No products found matching your criteria</p></div>
                             )}
                         </div>
                     )}

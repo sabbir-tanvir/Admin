@@ -28,6 +28,7 @@
   justify-content: center;
   width: 100%;
   height: 140px; /* Fixed square height */
+  position: relative;
 }
 
 .grid-item:hover {
@@ -39,13 +40,73 @@
 .grid-image {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain; /* show whole image without cropping */
   border-radius: 6px;
   transition: all 0.3s ease;
+  background: #fff; /* contrast background so transparent images look okay */
+  padding: 6px; /* small breathing space since we use contain */
+  box-sizing: border-box;
 }
 
 .grid-item:hover .grid-image {
   transform: scale(1.1);
+}
+
+/* Overlay info (product name / meta) */
+.grid-info {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  max-width: calc(100% - 8px);
+  background: rgba(0,0,0,0.55);
+  color: #fff;
+  font-size: 11px;
+  line-height: 1.2;
+  font-weight: 500;
+  padding: 2px 6px;
+  border-radius: 4px;
+  backdrop-filter: blur(2px);
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.grid-info .sold-badge {
+  display: none; /* moved to bottom-right badge */
+}
+
+/* Bottom-right total sold badge */
+.grid-sold-bottom {
+  position: absolute;
+  right: 4px;
+  bottom: 4px;
+  background: rgba(2,167,26,0.9);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 14px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.25);
+  backdrop-filter: blur(2px);
+}
+
+.grid-sold-bottom::before {
+  content: 'Sold';
+  font-size: 10px;
+  font-weight: 500;
+  opacity: 0.85;
+}
+
+.grid-item:focus-visible {
+  outline: 2px solid #007bff;
+  outline-offset: 2px;
 }
 
 /* Responsive adjustments */
@@ -62,5 +123,6 @@
   
   .grid-image {
     border-radius: 4px;
+    padding: 4px;
   }
 }

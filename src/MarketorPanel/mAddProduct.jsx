@@ -350,7 +350,7 @@ const MarketorProductAdd = () => {
                                 <label className={styles['address-label']}>Imported From</label>
                                 <input name="imported_from" value={form.imported_from} onChange={handleChange} placeholder="Country of origin" />
                             </div>
-                            <div className={styles['form-field']} style={{ gridColumn: 'span 3' }}>
+                            <div className={styles['form-field']} >
                                 <label className={styles['info-label']}>Tags</label>
                                 <div style={{ display:'flex', flexDirection:'column', gap:8 }}>
                                     {tagInputs.map((val, idx) => (
