@@ -12,16 +12,17 @@ import ShippingChargeSection from '../components/BusinessSettings/ShippingCharge
 import SaveResetButtons from '../components/BusinessSettings/SaveResetButtons';
 
 const tabList = [
+  { label: 'Business information', path: '/business-settings' },
   { label: 'Landing Page', path: '/business-settings/landing-page' },
   { label: 'Footer', path: '/business-settings/footer' },
-  { label: 'Business information', path: '/business-settings' },
+  { label: 'Navbar', path: '/business-settings/nav-section' },
+  { label: 'Language', path: '/business-settings/language' },
   { label: 'Order Settings', path: '/business-settings/order-settings' },
   { label: 'Refund', path: '/business-settings/refund' },
   { label: 'Seller', path: '/business-settings/seller' },
   { label: 'Delivery', path: '/business-settings/delivery' },
   { label: 'Customers', path: '/business-settings/customers' },
   { label: 'Priority Setup', path: '/business-settings/priority-setup' },
-  { label: 'Language', path: '/business-settings/language' },
   { label: 'Websocket', path: '/business-settings/websocket' },
   { label: 'DisturbStatement', path: '/business-settings/disturb-statement' },
   { label: 'Automated Message', path: '/business-settings/automated-message' },

@@ -1,3 +1,12 @@
+// --- Top Nav (Left/Right) ---
+// Endpoint (provided): user/api/top-left-nav/
+// Backend accepts: { title, icon_class, image_url, link, position: 'left'|'right', is_active }
+// Although the path name mentions "top-left", spec indicates position can be either left or right.
+export const listTopNavItems = () => api.get('user/api/top-left-nav/');
+export const createTopNavItem = ({ title, icon_class, image_url, link, position='left', is_active=true }) =>
+  api.post('user/api/top-left-nav/', { title, icon_class, image_url, link, position, is_active });
+export const updateTopNavItem = (id, partial) => api.patch(`user/api/top-left-nav/${id}/`, partial);
+export const deleteTopNavItem = (id) => api.delete(`user/api/top-left-nav/${id}/`);
 import axios from "axios";
 
 // Resolve API base URL from Vite env; fall back to public production host if absent.
@@ -376,3 +385,11 @@ export const updateWhyChooseUs = (id, partial) => {
   });
   return api.patch(`user/api/why-choose-us/${id}/`, fd);
 };
+
+// --- Newsletter Section ---
+// Endpoint: user/api/newsletter/
+// Shape: { id, left_title, left_description, right_title, right_subtext, button_text, is_active }
+export const listNewsletter = () => api.get('user/api/newsletter/');
+export const createNewsletter = ({ left_title, left_description, right_title, right_subtext, button_text, is_active=true }) =>
+  api.post('user/api/newsletter/', { left_title, left_description, right_title, right_subtext, button_text, is_active });
+export const updateNewsletter = (id, partial) => api.patch(`user/api/newsletter/${id}/`, partial);

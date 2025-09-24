@@ -64,6 +64,7 @@ import WebsocketSettingsSection from './components/BusinessSettings/WebsocketSet
 import AutomatedMessageSection from './components/BusinessSettings/AutomatedMessageSection.jsx';
 import DistrubStatementSection from './components/BusinessSettings/DistrubStatementSection.jsx';
 import Login from './Authentication/Login.jsx';
+import NavsectionSetting from './components/BusinessSettings/NavsectionSetting.jsx';
 
 // Authentication Components
 
@@ -114,6 +115,7 @@ function App() {
                 <Route path="websocket" element={<WebsocketSettingsSection />} />
                 <Route path="automated-message" element={<AutomatedMessageSection />} />
                 <Route path="disturb-statement" element={<DistrubStatementSection />} />
+                <Route path="nav-section" element={<NavsectionSetting />} />
               </Route>
             </Route>
           </Route>

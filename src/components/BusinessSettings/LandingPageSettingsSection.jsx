@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styles from '../../styles/components/LandingPageSettingsSection.module.css';
-import { listHeroSlides, createHeroSlide, updateHeroSlide, listWhyChooseUs, createWhyChooseUs, updateWhyChooseUs } from '../../services/api';
+import { listHeroSlides, createHeroSlide, updateHeroSlide, listWhyChooseUs, createWhyChooseUs, updateWhyChooseUs, listNewsletter, createNewsletter, updateNewsletter } from '../../services/api';
 import { toast } from 'react-toastify';
 
 const emptySlide = {
@@ -29,6 +29,13 @@ const LandingPageSettingsSection = () => {
   const [whyForm, setWhyForm] = useState({ id:null, title:'', Big_image:null, preview:null, is_active:true });
   const whyFileRef = useRef(null);
   const [whyEditingId, setWhyEditingId] = useState(null);
+  // Newsletter state
+  const [newsletterItems, setNewsletterItems] = useState([]);
+  const [newsletterLoading, setNewsletterLoading] = useState(false);
+  const [newsletterSubmitting, setNewsletterSubmitting] = useState(false);
+  const [newsletterForm, setNewsletterForm] = useState({ id:null, left_title:'', left_description:'', right_title:'', right_subtext:'', button_text:'Subscribe', is_active:true });
+  const [newsletterEditingId, setNewsletterEditingId] = useState(null);
+  const newsletterFormRef = useRef(null);
 
   const loadSlides = async () => {
     setLoading(true);
@@ -50,6 +57,10 @@ const LandingPageSettingsSection = () => {
   };
 
   useEffect(() => { loadSlides(); loadWhy(); }, []);
+  // load newsletter separately (not blocking others)
+  useEffect(() => { (async () => {
+    setNewsletterLoading(true);
+    try { const res = await listNewsletter(); setNewsletterItems(Array.isArray(res.data)?res.data:[]); } catch { /* ignore */ } finally { setNewsletterLoading(false);} })(); }, []);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -126,6 +137,58 @@ const LandingPageSettingsSection = () => {
     } catch { toast.error('Activate failed'); loadWhy(); }
   };
 
+  // Newsletter handlers
+  const resetNewsletterForm = () => {
+    setNewsletterForm({ id:null, left_title:'', left_description:'', right_title:'', right_subtext:'', button_text:'Subscribe', is_active:true });
+    setNewsletterEditingId(null);
+  };
+  const handleNewsletterChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setNewsletterForm(p => ({ ...p, [name]: type==='checkbox'?checked:value }));
+  };
+  const editNewsletter = (item) => {
+    setNewsletterEditingId(item.id);
+    setNewsletterForm({ id:item.id, left_title:item.left_title||'', left_description:item.left_description||'', right_title:item.right_title||'', right_subtext:item.right_subtext||'', button_text:item.button_text||'Subscribe', is_active:!!item.is_active });
+    // Smoothly scroll to the newsletter form instead of jumping to page top
+    if (newsletterFormRef.current) {
+      const rect = newsletterFormRef.current.getBoundingClientRect();
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      // Offset to account for any fixed header (adjust 80 if needed)
+      const target = rect.top + scrollTop - 80;
+      window.scrollTo({ top: target < 0 ? 0 : target, behavior: 'smooth' });
+    }
+  };
+  const submitNewsletter = async (e) => {
+    e.preventDefault();
+    if (!newsletterForm.left_title.trim()) { toast.warning('Left title required'); return; }
+    if (!newsletterForm.right_title.trim()) { toast.warning('Right title required'); return; }
+    setNewsletterSubmitting(true);
+    try {
+      if (newsletterEditingId) {
+        await updateNewsletter(newsletterEditingId, { left_title:newsletterForm.left_title, left_description:newsletterForm.left_description, right_title:newsletterForm.right_title, right_subtext:newsletterForm.right_subtext, button_text:newsletterForm.button_text, is_active:newsletterForm.is_active });
+        toast.success('Newsletter updated');
+      } else {
+        await createNewsletter({ left_title:newsletterForm.left_title, left_description:newsletterForm.left_description, right_title:newsletterForm.right_title, right_subtext:newsletterForm.right_subtext, button_text:newsletterForm.button_text, is_active:newsletterForm.is_active });
+        toast.success('Newsletter created');
+      }
+      // reload
+  try { const res = await listNewsletter(); setNewsletterItems(Array.isArray(res.data)?res.data:[]); } catch { /* ignore refresh fail */ }
+      resetNewsletterForm();
+    } catch (err) { toast.error(err?.response?.data?.detail || 'Save failed'); }
+    finally { setNewsletterSubmitting(false); }
+  };
+  const activateNewsletter = async (id) => {
+    const current = newsletterItems.find(i => i.is_active);
+    if (current?.id === id) return;
+    // optimistic
+    setNewsletterItems(prev => prev.map(i => ({ ...i, is_active: i.id === id })));
+    try {
+      await updateNewsletter(id, { is_active:true });
+      const others = newsletterItems.filter(i => i.id !== id && i.is_active);
+      for (const o of others) { try { await updateNewsletter(o.id, { is_active:false }); } catch {/* ignore */} }
+    } catch { toast.error('Activate failed'); try { const res = await listNewsletter(); setNewsletterItems(Array.isArray(res.data)?res.data:[]);} catch { /* ignore */ } }
+  };
+
   const handleEdit = (slide) => {
     setEditingId(slide.id);
     setForm({
@@ -174,6 +237,7 @@ const LandingPageSettingsSection = () => {
           <button type="button" className={styles['btn-secondary']} onClick={resetForm}>Add New</button>
         )}
       </div>
+
       <form onSubmit={onSubmit} className={styles['hero-form']}>
         <div className={styles['form-grid']}>
           <div className={styles['form-field']}>
@@ -256,6 +320,80 @@ const LandingPageSettingsSection = () => {
           ) : <div className={styles['empty']}>No slides available.</div>
         )}
       </div>
+            {/* Newsletter Manager */}
+      <div className={styles['list-section']}> 
+        <div className={styles['list-header']} style={{ marginBottom:20 }}>
+          <h3 style={{ margin:0 }}>Newsletter Section</h3>
+          <span className={styles['count-badge']}>{newsletterItems.length}</span>
+        </div>
+  <form ref={newsletterFormRef} onSubmit={submitNewsletter} className={styles['hero-form']} style={{ marginBottom:24, padding:16 }}>
+          <div className={styles['newsletter-columns']}>
+            <div className={styles['newsletter-col']}> 
+              <div className={styles['form-field']}> 
+                <label>Left Title *</label>
+                <input name="left_title" value={newsletterForm.left_title} onChange={handleNewsletterChange} placeholder="Join Our Newsletter" />
+              </div>
+              <div className={styles['form-field']}> 
+                <label>Left Description</label>
+                <textarea name="left_description" value={newsletterForm.left_description} onChange={handleNewsletterChange} rows={4} placeholder="Short left side message" />
+              </div>
+            </div>
+            <div className={styles['newsletter-col']}> 
+              <div className={styles['form-field']}> 
+                <label>Right Title *</label>
+                <input name="right_title" value={newsletterForm.right_title} onChange={handleNewsletterChange} placeholder="Subscribe Now" />
+              </div>
+              <div className={styles['form-field']}> 
+                <label>Right Subtext</label>
+                <textarea name="right_subtext" value={newsletterForm.right_subtext} onChange={handleNewsletterChange} rows={4} placeholder="Convincing call-to-action copy" />
+              </div>
+            </div>
+          </div>
+          <div className={styles['newsletter-bottom-row']}>
+            <div className={styles['form-field']} style={{ margin:0 }}> 
+              <label>Button Text</label>
+              <input name="button_text" value={newsletterForm.button_text} onChange={handleNewsletterChange} />
+            </div>
+            <div className={styles['newsletter-active-wrap']}> 
+              <label className={styles['mini-switch']}>
+                <input type="checkbox" name="is_active" checked={newsletterForm.is_active} onChange={handleNewsletterChange} />
+                <span className={styles['mini-slider']}></span>
+              </label>
+              <span className={styles['active-label']}>{newsletterForm.is_active ? 'Active' : 'Inactive'}</span>
+            </div>
+            <div className={styles['newsletter-actions']}>
+              {newsletterEditingId && <button type="button" className={styles['btn-secondary']} onClick={resetNewsletterForm}>Add New</button>}
+              <button type="submit" className={styles['btn-primary']} disabled={newsletterSubmitting}>{newsletterSubmitting ? 'Saving...' : (newsletterEditingId ? 'Update' : 'Create')}</button>
+            </div>
+          </div>
+        </form>
+        {newsletterLoading ? <div className={styles['loading']}>Loading...</div> : (
+          newsletterItems.length ? (
+            <div className={styles['cards-grid']}>
+              {newsletterItems.map(item => (
+                <div key={item.id} className={styles['slide-card']}> 
+                  <div className={styles['card-body']} style={{ padding:'14px 16px 8px' }}> 
+                    <h4 className={styles['card-title']} style={{ marginBottom:4 }}>{item.left_title}</h4>
+                    {item.left_description && <p className={styles['card-desc']} style={{ maxHeight:'none' }}>{item.left_description}</p>}
+                    <div style={{ marginTop:10, borderTop:'1px solid #eee', paddingTop:10 }}>
+                      <strong style={{ fontSize:12, color:'#555' }}>Right Title:</strong> <span style={{ fontSize:12 }}>{item.right_title}</span><br />
+                      {item.right_subtext && <span style={{ fontSize:12, color:'#666' }}>{item.right_subtext}</span>}
+                    </div>
+                    <div style={{ marginTop:8, display:'flex', gap:6, flexWrap:'wrap' }}>
+                      <span className={styles['status-pill'] + ' ' + (item.is_active ? styles['active'] : styles['inactive'])} style={{ position:'static' }}>{item.is_active ? 'Active':'Inactive'}</span>
+                      <span style={{ background:'#6c63ff', color:'#fff', fontSize:11, padding:'4px 10px', borderRadius:20 }}>{item.button_text}</span>
+                    </div>
+                  </div>
+                  <div className={styles['card-footer']} style={{ display:'flex', gap:8 }}> 
+                    <button type="button" className={styles['btn-small']} onClick={() => editNewsletter(item)}>Edit</button>
+                    <button type="button" className={styles['btn-small']} style={{ background:item.is_active ? '#9ca3af' : '#6c63ff' }} onClick={() => activateNewsletter(item.id)}>{item.is_active ? 'Active' : 'Activate'}</button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : <div className={styles['empty']}>No newsletter entries yet.</div>
+        )}
+      </div>
       {/* Why Choose Us Manager */}
       <div className={styles['list-section']}> 
         <div className={styles['list-header']} style={{ marginBottom:20 }}>
@@ -263,7 +401,7 @@ const LandingPageSettingsSection = () => {
           <span className={styles['count-badge']}>{whyItems.length}</span>
         </div>
         <form onSubmit={submitWhy} className={styles['hero-form']} style={{ marginBottom:24, padding:16 }}>
-          <div style={{ display:'grid', gap:18, gridTemplateColumns:'repeat(auto-fit,minmax(220px,1fr))' }}>
+          <div className={styles['why-grid']}>
             <div className={styles['form-field']}> 
               <label>Title *</label>
               <input name="title" value={whyForm.title} onChange={handleWhyChange} placeholder="Fast Delivery" />
@@ -280,7 +418,7 @@ const LandingPageSettingsSection = () => {
             <div className={styles['form-field']}> 
               <label>Image {whyEditingId ? '(optional)' : '(required)'} </label>
               <input type="file" ref={whyFileRef} accept="image/*" onChange={handleWhyFile} />
-              {whyForm.preview && <div className={styles['image-preview-wrap']}><img src={whyForm.preview} alt="why" className={styles['image-preview']} /></div>}
+              {whyForm.preview && <div className={styles['image-preview-wrap']}><img src={whyForm.preview} alt="why" className={styles['image-preview']} loading="lazy" /></div>}
             </div>
           </div>
           <div className={styles['form-actions']} style={{ marginTop:12 }}> 
@@ -294,7 +432,7 @@ const LandingPageSettingsSection = () => {
               {whyItems.map(item => (
                 <div key={item.id} className={styles['slide-card']}> 
                   <div className={styles['card-image-wrap']} style={{ height:140 }}>
-                    {item.Big_image ? <img src={item.Big_image} alt={item.title} /> : <div className={styles['placeholder']}>No Image</div>}
+                    {item.Big_image ? <img src={item.Big_image} alt={item.title} loading="lazy" /> : <div className={styles['placeholder']}>No Image</div>}
                     <span className={`${styles['status-pill']} ${item.is_active ? styles['active'] : styles['inactive']}`}>{item.is_active ? 'Active' : 'Inactive'}</span>
                   </div>
                   <div className={styles['card-body']}> 
