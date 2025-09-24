@@ -296,6 +296,9 @@ export const getTopMarketers = () => api.get('dashboard/api/top-marketers/');
 // Dashboard: Top Products
 export const getTopProducts = () => api.get('dashboard/api/top-products/');
 
+// Seller Analytics: aggregated seller info (total revenue, sales, orders)
+export const getSellerInfo = () => api.get('dashboard/api/seller_info/');
+
 // --- Profile Endpoints ---
 // Get logged-in user profile
 export const getProfile = () => api.get('dashboard/api/profile/');
@@ -327,4 +330,49 @@ export const getPaymentHistory = async (orderId) => {
     ? all.find(p => String(p.orderId) === String(orderId))
     : all;
   return { data: payment };
+};
+
+// --- Footer Settings (Single Active Record Enforcement) ---
+// Assumed backend contract (adjust if field names differ):
+// GET  user/api/footer/                -> list of { id, text, is_active, created_at, updated_at }
+// POST user/api/footer/                -> create new (multipart or JSON). We send JSON here.
+// PATCH user/api/footer/{id}/          -> partial update (e.g. { text, is_active })
+// DELETE user/api/footer/{id}/         -> delete one (optional in UI)
+// If backend differs (e.g. fields: left_text/right_text/links) adjust mapping in component.
+export const listFooterItems = () => api.get('user/api/footer/');
+// Create footer item with left_text, right_text, links, optional is_active
+export const createFooterItem = ({ left_text, right_text, links, is_active=false }) => {
+  return api.post('user/api/footer/', { left_text, right_text, links, is_active });
+};
+// Partial update (any subset of left_text/right_text/links/is_active)
+export const updateFooterItem = (id, partial) => api.patch(`user/api/footer/${id}/`, partial);
+
+// --- Footer Widgets (Widget 4) ---
+// Endpoint: user/api/footer-widget-4/
+// Shape: { id, headline, title, links, is_active }
+export const listFooterWidgets = () => api.get('user/api/footer-widget-4/');
+export const createFooterWidget = ({ headline, title, links, is_active=true }) => api.post('user/api/footer-widget-4/', { headline, title, links, is_active });
+export const updateFooterWidget = (id, partial) => api.patch(`user/api/footer-widget-4/${id}/`, partial);
+
+// --- Why Choose Us Section ---
+// Endpoint: user/api/why-choose-us/
+// Shape: { id, title, Big_image, is_active }
+export const listWhyChooseUs = () => api.get('user/api/why-choose-us/');
+export const createWhyChooseUs = ({ title, Big_image, is_active=true }) => {
+  // multipart form for image upload; backend field name is capitalized Big_image per sample
+  const fd = new FormData();
+  if (title) fd.append('title', title);
+  if (Big_image) fd.append('Big_image', Big_image);
+  if (typeof is_active === 'boolean') fd.append('is_active', is_active ? 'true' : 'false');
+  return api.post('user/api/why-choose-us/', fd);
+};
+export const updateWhyChooseUs = (id, partial) => {
+  const fd = new FormData();
+  Object.entries(partial || {}).forEach(([k,v]) => {
+    if (v === undefined || v === null || v === '') return;
+    if (k === 'is_active' && typeof v === 'boolean') fd.append('is_active', v ? 'true':'false');
+    else if (k === 'Big_image') fd.append('Big_image', v);
+    else fd.append(k, v);
+  });
+  return api.patch(`user/api/why-choose-us/${id}/`, fd);
 };

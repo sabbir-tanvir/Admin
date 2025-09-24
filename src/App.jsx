@@ -59,6 +59,7 @@ import CustomerSettingsSection from './components/BusinessSettings/CustomerSetti
 import PrioritySetupSection from './components/BusinessSettings/PrioritySetupSection.jsx';
 import LanguageSettingsSection from './components/BusinessSettings/LanguageSettingsSection.jsx';
 import LandingPageSettingsSection from './components/BusinessSettings/LandingPageSettingsSection.jsx';
+import FooterSetting from './components/BusinessSettings/FooterSetting.jsx';
 import WebsocketSettingsSection from './components/BusinessSettings/WebsocketSettingsSection.jsx';
 import AutomatedMessageSection from './components/BusinessSettings/AutomatedMessageSection.jsx';
 import DistrubStatementSection from './components/BusinessSettings/DistrubStatementSection.jsx';
@@ -109,6 +110,7 @@ function App() {
                 <Route path="priority-setup" element={<PrioritySetupSection />} />
                 <Route path="language" element={<LanguageSettingsSection />} />
                 <Route path="landing-page" element={<LandingPageSettingsSection />} />
+                <Route path="footer" element={<FooterSetting />} />
                 <Route path="websocket" element={<WebsocketSettingsSection />} />
                 <Route path="automated-message" element={<AutomatedMessageSection />} />
                 <Route path="disturb-statement" element={<DistrubStatementSection />} />

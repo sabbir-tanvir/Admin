@@ -1,8 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styles from '../../styles/components/LandingPageSettingsSection.module.css';
-import { listHeroSlides, createHeroSlide, updateHeroSlide } from '../../services/api';
+import { listHeroSlides, createHeroSlide, updateHeroSlide, listWhyChooseUs, createWhyChooseUs, updateWhyChooseUs } from '../../services/api';
 import { toast } from 'react-toastify';
-import SocialLinksSection from './SocialLinksSection';
 
 const emptySlide = {
   id: null,
@@ -23,6 +22,13 @@ const LandingPageSettingsSection = () => {
   const [submitting, setSubmitting] = useState(false);
   const fileRef = useRef(null);
   const [editingId, setEditingId] = useState(null);
+  // Why Choose Us state
+  const [whyItems, setWhyItems] = useState([]);
+  const [whyLoading, setWhyLoading] = useState(false);
+  const [whySubmitting, setWhySubmitting] = useState(false);
+  const [whyForm, setWhyForm] = useState({ id:null, title:'', Big_image:null, preview:null, is_active:true });
+  const whyFileRef = useRef(null);
+  const [whyEditingId, setWhyEditingId] = useState(null);
 
   const loadSlides = async () => {
     setLoading(true);
@@ -34,7 +40,16 @@ const LandingPageSettingsSection = () => {
     } finally { setLoading(false); }
   };
 
-  useEffect(() => { loadSlides(); }, []);
+  const loadWhy = async () => {
+    setWhyLoading(true);
+    try {
+      const res = await listWhyChooseUs();
+      setWhyItems(Array.isArray(res.data) ? res.data : []);
+    } catch { /* silent */ }
+    finally { setWhyLoading(false); }
+  };
+
+  useEffect(() => { loadSlides(); loadWhy(); }, []);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -54,6 +69,61 @@ const LandingPageSettingsSection = () => {
     setPreview(null);
     setEditingId(null);
     if (fileRef.current) fileRef.current.value='';
+  };
+
+  // Why Choose Us handlers
+  const resetWhyForm = () => {
+    setWhyForm({ id:null, title:'', Big_image:null, preview:null, is_active:true });
+    setWhyEditingId(null);
+    if (whyFileRef.current) whyFileRef.current.value='';
+  };
+
+  const handleWhyFile = (e) => {
+    const f = e.target.files?.[0];
+    if (f) setWhyForm(p => ({ ...p, Big_image:f, preview:URL.createObjectURL(f) }));
+  };
+
+  const handleWhyChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setWhyForm(p => ({ ...p, [name]: type === 'checkbox' ? checked : value }));
+  };
+
+  const editWhy = (item) => {
+    setWhyEditingId(item.id);
+    setWhyForm({ id:item.id, title:item.title||'', Big_image:null, preview:item.Big_image||null, is_active:item.is_active });
+    if (whyFileRef.current) whyFileRef.current.value='';
+  };
+
+  const submitWhy = async (e) => {
+    e.preventDefault();
+    if (!whyForm.title.trim()) { toast.warning('Title required'); return; }
+    setWhySubmitting(true);
+    try {
+      if (whyEditingId) {
+        const payload = { title:whyForm.title, is_active:whyForm.is_active };
+        if (whyForm.Big_image) payload.Big_image = whyForm.Big_image;
+        await updateWhyChooseUs(whyEditingId, payload);
+        toast.success('Why item updated');
+      } else {
+        await createWhyChooseUs({ title:whyForm.title, Big_image:whyForm.Big_image, is_active:whyForm.is_active });
+        toast.success('Why item created');
+      }
+      await loadWhy();
+      resetWhyForm();
+    } catch (err) { toast.error(err?.response?.data?.detail || 'Save failed'); }
+    finally { setWhySubmitting(false); }
+  };
+
+  const activateWhy = async (id) => {
+    const current = whyItems.find(w => w.is_active);
+    if (current?.id === id) return;
+    try {
+      setWhyItems(prev => prev.map(w => ({ ...w, is_active: w.id === id })));
+      await updateWhyChooseUs(id, { is_active:true });
+      const others = whyItems.filter(w => w.id !== id && w.is_active);
+      for (const o of others) { try { await updateWhyChooseUs(o.id, { is_active:false }); } catch {/* ignore */} }
+      toast.info('Activated');
+    } catch { toast.error('Activate failed'); loadWhy(); }
   };
 
   const handleEdit = (slide) => {
@@ -186,7 +256,60 @@ const LandingPageSettingsSection = () => {
           ) : <div className={styles['empty']}>No slides available.</div>
         )}
       </div>
-      <SocialLinksSection />
+      {/* Why Choose Us Manager */}
+      <div className={styles['list-section']}> 
+        <div className={styles['list-header']} style={{ marginBottom:20 }}>
+          <h3 style={{ margin:0 }}>Why Choose Us</h3>
+          <span className={styles['count-badge']}>{whyItems.length}</span>
+        </div>
+        <form onSubmit={submitWhy} className={styles['hero-form']} style={{ marginBottom:24, padding:16 }}>
+          <div style={{ display:'grid', gap:18, gridTemplateColumns:'repeat(auto-fit,minmax(220px,1fr))' }}>
+            <div className={styles['form-field']}> 
+              <label>Title *</label>
+              <input name="title" value={whyForm.title} onChange={handleWhyChange} placeholder="Fast Delivery" />
+            </div>
+            <div className={styles['form-field']}> 
+              <label style={{ fontSize:14, fontWeight:600, color:'#222', marginBottom:6 }}>Active</label>
+              <div className={styles['active-inline']}> 
+                <label className={styles['mini-switch']}>
+                  <input type="checkbox" name="is_active" checked={whyForm.is_active} onChange={handleWhyChange} />
+                  <span className={styles['mini-slider']}></span>
+                </label>
+              </div>
+            </div>
+            <div className={styles['form-field']}> 
+              <label>Image {whyEditingId ? '(optional)' : '(required)'} </label>
+              <input type="file" ref={whyFileRef} accept="image/*" onChange={handleWhyFile} />
+              {whyForm.preview && <div className={styles['image-preview-wrap']}><img src={whyForm.preview} alt="why" className={styles['image-preview']} /></div>}
+            </div>
+          </div>
+          <div className={styles['form-actions']} style={{ marginTop:12 }}> 
+            {whyEditingId && <button type="button" className={styles['btn-secondary']} onClick={resetWhyForm}>Add New</button>}
+            <button type="submit" className={styles['btn-primary']} disabled={whySubmitting}>{whySubmitting ? 'Saving...' : (whyEditingId ? 'Update' : 'Create')}</button>
+          </div>
+        </form>
+        {whyLoading ? <div className={styles['loading']}>Loading...</div> : (
+          whyItems.length ? (
+            <div className={styles['cards-grid']}>
+              {whyItems.map(item => (
+                <div key={item.id} className={styles['slide-card']}> 
+                  <div className={styles['card-image-wrap']} style={{ height:140 }}>
+                    {item.Big_image ? <img src={item.Big_image} alt={item.title} /> : <div className={styles['placeholder']}>No Image</div>}
+                    <span className={`${styles['status-pill']} ${item.is_active ? styles['active'] : styles['inactive']}`}>{item.is_active ? 'Active' : 'Inactive'}</span>
+                  </div>
+                  <div className={styles['card-body']}> 
+                    <h4 className={styles['card-title']}>{item.title}</h4>
+                  </div>
+                  <div className={styles['card-footer']} style={{ display:'flex', gap:8 }}> 
+                    <button type="button" className={styles['btn-small']} onClick={() => editWhy(item)}>Edit</button>
+                    <button type="button" className={styles['btn-small']} style={{ background:item.is_active ? '#9ca3af' : '#6c63ff' }} onClick={() => activateWhy(item.id)}>{item.is_active ? 'Active' : 'Activate'}</button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : <div className={styles['empty']}>No entries yet.</div>
+        )}
+      </div>
     </div>
   );
 };

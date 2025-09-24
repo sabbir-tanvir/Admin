@@ -12,6 +12,8 @@ import ShippingChargeSection from '../components/BusinessSettings/ShippingCharge
 import SaveResetButtons from '../components/BusinessSettings/SaveResetButtons';
 
 const tabList = [
+  { label: 'Landing Page', path: '/business-settings/landing-page' },
+  { label: 'Footer', path: '/business-settings/footer' },
   { label: 'Business information', path: '/business-settings' },
   { label: 'Order Settings', path: '/business-settings/order-settings' },
   { label: 'Refund', path: '/business-settings/refund' },
@@ -20,7 +22,6 @@ const tabList = [
   { label: 'Customers', path: '/business-settings/customers' },
   { label: 'Priority Setup', path: '/business-settings/priority-setup' },
   { label: 'Language', path: '/business-settings/language' },
-  { label: 'Landing Page', path: '/business-settings/landing-page' },
   { label: 'Websocket', path: '/business-settings/websocket' },
   { label: 'DisturbStatement', path: '/business-settings/disturb-statement' },
   { label: 'Automated Message', path: '/business-settings/automated-message' },
@@ -89,9 +90,9 @@ const BusinessSettings = () => {
     <div className="business-settings-container">
       <main className="business-settings-main">
         <div className="settings-header">
-          <h2><MdSettings size={24} style={{marginRight: 8, verticalAlign: 'middle'}} /> Site settings</h2>
+          <h2><MdSettings size={24} style={{ marginRight: 8, verticalAlign: 'middle' }} /> Site settings</h2>
         </div>
-        
+
         {/* Navigation Tabs */}
         <div className="settings-tabs">
           {tabList.map(tab => (
@@ -105,7 +106,7 @@ const BusinessSettings = () => {
             </NavLink>
           ))}
         </div>
-        
+
         {/* Render subpages or default */}
         {location.pathname === '/business-settings' && (
           <>
@@ -131,7 +132,7 @@ const BusinessSettings = () => {
             <SaveResetButtons onSave={handleSave} onReset={handleReset} />
           </>
         )}
-        
+
         {/* For subpages, render <Outlet /> for nested routes */}
         {location.pathname !== '/business-settings' && <Outlet />}
       </main>
